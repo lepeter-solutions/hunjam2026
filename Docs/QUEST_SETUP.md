@@ -31,6 +31,9 @@ Parancssori ellenőrzés az adott Unity.exe-vel: `-batchmode -projectPath <máso
 
 Android build: `-batchmode -quit -projectPath <másolat> -buildTarget Android -executeMethod HunJam.Editor.DemoProjectTools.BuildQuest -logFile <napló>`. Grafikus batch környezetben `Builds/DemoWorld-preview.png` előnézetet is készít; ezt nem menti bele a scene-be.
 
+## Jelenlegi validációs figyelmeztetések
+Az OpenXR opcionális PoseControl/StickControl és input polling ajánlásokat jelez. Ezek csomagszintű beállítások; változtatásuk után újra kell ellenőrizni a kontrollerbemeneteket. Az SSAO-ajánlás az összes konfigurált render pipeline-t, így a sablon PC-profilt is vizsgálja. A Questhez rendelt `Mobile_Renderer` feature-listája üres, azon nincs SSAO. A figyelmeztetések nem helyettesítik a tényleges Quest-profilozást.
+
 ## Források
 - [Unity: Meta Quest fejlesztési folyamat](https://docs.unity.com/en-us/engine/6000.0/manual/xr/configuring-project-for/meta-quest-develop)
 - [Meta: XR Plugin Management](https://developers.meta.com/vr/documentation/unity/unity-xr-plugin/)
