@@ -1,0 +1,5 @@
+{
+  "name": "HunJam.PlayModeTests",
+  "references": ["HunJam.Runtime"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

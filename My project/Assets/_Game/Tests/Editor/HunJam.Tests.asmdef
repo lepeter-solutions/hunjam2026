@@ -1,0 +1,6 @@
+{
+  "name": "HunJam.Tests",
+  "references": ["HunJam.Runtime"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

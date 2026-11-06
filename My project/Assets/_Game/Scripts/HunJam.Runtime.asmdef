@@ -1,0 +1,6 @@
+{
+  "name": "HunJam.Runtime",
+  "rootNamespace": "HunJam",
+  "references": ["Unity.InputSystem"],
+  "autoReferenced": true
+}
