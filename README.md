@@ -2,6 +2,8 @@
 
 Unity **6000.3.28f1**, URP, Meta Quest standalone / OpenXR / Touch kontrollerek.
 
+![A DemoWorld gyakorlópálya](Docs/Images/DemoWorld.png)
+
 ## Indítás
 1. Unity Hubban a `My project` mappát add hozzá; ugyanazt az Editor-verziót használd.
 2. Várd meg a csomagok importját és a fordítást.

@@ -12,3 +12,5 @@ A scene-nek egyszerre egy szerkesztője legyen; új pályához külön scene ké
 
 ## Ellenőrzés és korlátok
 Scene megnyitása hiba és hiányzó script nélkül; a játékos a padlón indul; robot és táblák olvashatók; mindhárom gömb és a cél körbejárható. A validátor ellenőrzi a scriptreferenciákat, a játékost és a három gömböt. A render és Quest teljesítmény külön ellenőrzendő. Eredmények: CHANGELOG.
+
+2026-11-06: Unity batch render alapján a geometria, a feliratok és a különböző színű anyagok megjelenése ellenőrizve. [Előnézet](../Images/DemoWorld.png). A képi ellenőrzés Editor-render; nem headsetes teljesítménymérés.
