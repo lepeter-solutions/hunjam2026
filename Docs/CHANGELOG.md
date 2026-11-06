@@ -31,3 +31,9 @@
 - Korlát: primitív alapkéz, előre meghatározott kétfelé vágás a penge kontaktpontján; nincs általános mesh-vágás, haptika vagy fizikai kéz. Kinematic eszköz statikus falba tolható.
 - Valós Quest/Link-kontrolleres teszt és teljesítménymérés még szükséges. Ehhez a változathoz új APK nem készült; a korábbi helyi APK a régi demót tartalmazza. Unity Play + Quest Linkkel az új scene közvetlenül próbálható.
 - A felhasználó kérésére az ellenőrzött módosítás a GitHub main ágára kerül, a korábbi demóalap commitjaival együtt.
+
+## 2026-11-06 — Hivatalos Unity kézmodellek
+- A primitív kezeket a Unity XR Hands 1.5.0 HandVisualizer LeftHand/RightHand csontozott modellje váltja, eredeti meta és licenc mellékelve az Art/UnityHands mappában.
+- Touch kontrolleres követés; gripre ujjhajlítás, triggerre mutatóujj-hajlítás. A közeli fogás, használat, ütés és vágás ugyanazokhoz a kezekhez kapcsolódik. Nincs joystickos mozgás.
+- A QuestPlayer prefab és a demógenerátor is az új modelleket használja. A teljes XR Hands runtime nem szükséges.
+- Unity fordítás és scene-validáció sikeres; 5/5 PlayMode regressziós teszt sikeres. Kontrolleres póz és csuklóillesztés valódi headseten még ellenőrizendő; új APK nem készült.

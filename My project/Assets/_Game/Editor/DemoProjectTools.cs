@@ -210,13 +210,7 @@ namespace HunJam.Editor
             DemoHand Hand(bool left)
             {
                 var obj = new GameObject(left ? "Left Hand" : "Right Hand"); obj.transform.SetParent(space, false);
-                var visual = new GameObject("Basic Hand"); visual.transform.SetParent(obj.transform, false);
-                Shape("Palm", PrimitiveType.Cube, visual.transform, Vector3.zero, new Vector3(0.075f, 0.035f, 0.09f), white, false);
-                for (int finger = 0; finger < 4; finger++)
-                    Shape("Finger", PrimitiveType.Capsule, visual.transform, new Vector3(-0.027f + finger * 0.018f, -0.018f, 0.055f),
-                        new Vector3(0.016f, 0.026f, 0.018f), white, false);
-                Shape("Thumb", PrimitiveType.Capsule, visual.transform, new Vector3(left ? 0.045f : -0.045f, 0, 0.015f),
-                    new Vector3(0.023f, 0.025f, 0.023f), white, false);
+                var visual = UnityHandModels.Create(obj.transform, left);
                 var anchor = new GameObject("Hold Anchor").transform; anchor.SetParent(obj.transform, false);
                 var hand = obj.AddComponent<DemoHand>(); hand.Configure(left, player, anchor, visual);
                 return hand;

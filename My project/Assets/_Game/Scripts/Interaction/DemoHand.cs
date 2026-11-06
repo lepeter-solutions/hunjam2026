@@ -12,17 +12,19 @@ namespace HunJam
         [SerializeField] private float reach = 0.12f;
         private InputAction position, rotation, tracked, grip, trigger;
         private Grabbable held;
+        private ControllerHandPose handPose;
         private bool wasGripping, focused = true;
         public void Configure(bool isLeft, DemoPlayer rig, Transform holdAnchor, GameObject visual)
         { left = isLeft; player = rig; anchor = holdAnchor; handVisual = visual; }
         private void Awake()
         {
+            handPose = handVisual.GetComponent<ControllerHandPose>();
             string device = left ? "<XRController>{LeftHand}/" : "<XRController>{RightHand}/";
             position = new InputAction("Hand position", InputActionType.Value, device + "devicePosition");
             rotation = new InputAction("Hand rotation", InputActionType.Value, device + "deviceRotation");
             tracked = new InputAction("Hand tracked", InputActionType.Button, device + "isTracked");
-            grip = new InputAction("Grab", InputActionType.Button, device + "gripPressed");
-            trigger = new InputAction("Use / interact", InputActionType.Button, device + "triggerPressed");
+            grip = new InputAction("Grab", InputActionType.Button, device + "grip");
+            trigger = new InputAction("Use / interact", InputActionType.Button, device + "trigger");
         }
         private void OnEnable()
         { position?.Enable(); rotation?.Enable(); tracked?.Enable(); grip?.Enable(); trigger?.Enable(); }
@@ -55,6 +57,7 @@ namespace HunJam
             if (!usable) { Drop(false); return; }
             transform.localPosition = position.ReadValue<Vector3>();
             transform.localRotation = rotation.ReadValue<Quaternion>();
+            handPose?.SetPose(grip.ReadValue<float>(), trigger.ReadValue<float>());
             bool grabbing = grip.IsPressed();
             if (held != null && (!held.IsHeld || !held.isActiveAndEnabled)) held = null;
             if (grabbing && !wasGripping && held == null)
