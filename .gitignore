@@ -1,0 +1,28 @@
+# Unity generated files and local settings (also for nested projects).
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Mm]emoryCaptures/
+**/[Rr]ecordings/
+
+# IDE-generated files.
+**/.vs/
+**/.idea/
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# OS metadata and Unity crash dumps.
+.DS_Store
+Thumbs.db
+sysinfo.txt
+crashlytics-build.properties
