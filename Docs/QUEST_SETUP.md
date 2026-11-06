@@ -6,7 +6,7 @@
 - Android: OpenXR loader, Meta Quest Support és Oculus Touch Controller Profile; Initialize XR on Startup.
 - ARM64, IL2CPP, Vulkan, Linear, minimum Android API 29; target SDK az installált SDK szerint automatikus. Ez fejlesztői APK-konfiguráció, nem Store-leadás.
 - Single Pass Instanced; mobil URP profil, HDR kikapcsolva, 4× MSAA.
-- Standalone OpenXR profil is beállítva Quest Linkhez; desktop fallback headset nélkül.
+- Standalone OpenXR profil is beállítva Quest Linkhez; headset nélkül álló előnézet.
 
 ## Build
 1. A Hubban ellenőrizd az Android modulokat az adott Editor mellett.
@@ -17,8 +17,9 @@
 
 ## Kézi elfogadási lista
 - Hidegindításkor valódi sztereó kép és megfelelő padlómagasság.
-- Bal/jobb kontroller követése, grip, trigger, A gomb és thumbstick működik.
-- Bal stickkel körbejárás, 30° fordulás, zöld padlócélra teleportálás; akadályba nem teleportál.
+- Bal/jobb kontroller követése, alapkéz, grip és trigger működik.
+- Fizikai lépés és fordulás követése; a stickek és A gomb nem mozgatnak és nem fordítanak.
+- Kalapács lendítése számolja az ütést; penge lendítése kettévágja a blokkot; lámpa triggerre kapcsol; RESET visszaállítja az eszközöket.
 - Robot indítja a kört; három gömb megfogható, elengedhető, kézbesíthető; pontszám és újrakezdés helyes.
 - Követésvesztés/fókuszvesztés után nincs kézhez ragadt tárgy; alkalmazás-visszatérés működik.
 - Headsetenként mérd a képkockaidőt. 72 Hz esetén 13,9 ms a teljes képkockakeret; a stabil teljesítmény igazolása profileres mérés.
@@ -39,3 +40,8 @@ Az OpenXR opcionális PoseControl/StickControl és input polling ajánlásokat j
 - [Meta: XR Plugin Management](https://developers.meta.com/vr/documentation/unity/unity-xr-plugin/)
 
 Az aktuális gépi ellenőrzések eredménye és a még szükséges hardvertesztek a [változásnaplóban](CHANGELOG.md) szerepelnek.
+
+## Unity Editor + Quest Link
+Windows alatt indítsd el a Meta Quest Link alkalmazást, állítsd aktív OpenXR runtime-ra, csatlakozz USB Linkkel vagy Air Linkkel, és a headsetben lépj be a Link környezetbe. Nyisd meg a DemoWorld scene-t, majd Unity Play. A Standalone OpenXR beállítás használatos; nem kell APK-t építeni minden próbához.
+Az Editor-próba PC-n fut; a standalone Quest teljesítményt külön Android builddel kell ellenőrizni.
+A korábban készült helyi APK még a régi demó: az új műhelyhez újra kell építeni a Build Quest APK menüvel.

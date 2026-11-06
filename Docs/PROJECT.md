@@ -1,7 +1,7 @@
 # Projekt
 
 ## Cél és hatókör
-Egyjátékos, rövid VR gyakorlópálya Quest Touch kontrollerekhez. A játékos körbejár, beszél egy robotkarakterrel, megfog három energiagömböt, és egy gyűjtőállomásba helyezi őket. Ez technikai demó és közös fejlesztési alap, nem a végleges jam-játék.
+Egyjátékos, rövid VR gyakorlópálya Quest Touch kontrollerekhez. A játékos kizárólag fizikailag mozog, eszközöket használ, üt és kijelölt blokkot vág, beszél egy robotkarakterrel, megfog három energiagömböt, és egy gyűjtőállomásba helyezi őket. Ez technikai demó és közös fejlesztési alap, nem a végleges jam-játék.
 
 Kezdeti célhardver: Quest 2/3/3S család; valódi eszközön külön validálandó. Nincs multiplayer, kézkövetés, mentés vagy végleges művészeti asset.
 
@@ -20,7 +20,7 @@ Assets/_Game/
     World/           gyűjtő és járható felület
   Editor/            scene-generálás, Quest konfiguráció, ellenőrzés
   Tests/Editor/      játékkör regressziós tesztjei
-  Tests/PlayMode/    scene, fizikai gyűjtés, újrakezdés és teleport
+  Tests/PlayMode/    scene, fizikai gyűjtés, közeli fogás, eszközök és reset
 Docs/Mechanics/      mechanikánkénti leírások
 ```
 

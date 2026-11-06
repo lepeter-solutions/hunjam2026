@@ -115,7 +115,7 @@ namespace HunJam.Editor
             green = MaterialAsset("Green", new Color(0.2f, 0.85f, 0.5f));
             var world = new GameObject("World").transform;
             var ground = Shape("Courtyard", PrimitiveType.Cube, world, new Vector3(0, -0.2f, 0), new Vector3(22, 0.4f, 22), floor);
-            ground.AddComponent<WalkableSurface>();
+
             Shape("North wall", PrimitiveType.Cube, world, new Vector3(0, 0.65f, 11), new Vector3(22, 1.3f, 0.3f), dark);
             Shape("South wall", PrimitiveType.Cube, world, new Vector3(0, 0.65f, -11), new Vector3(22, 1.3f, 0.3f), dark);
             Shape("East wall", PrimitiveType.Cube, world, new Vector3(11, 0.65f, 0), new Vector3(0.3f, 1.3f, 22), dark);
@@ -135,7 +135,7 @@ namespace HunJam.Editor
             Shape("Walk-around obstacle A", PrimitiveType.Cube, world, new Vector3(-3, 0.6f, 2), new Vector3(2, 1.2f, 2), dark);
             Shape("Walk-around obstacle B", PrimitiveType.Cube, world, new Vector3(3, 0.4f, -2), new Vector3(2, 0.8f, 2), dark);
             Text("Welcome", world, new Vector3(0, 2.7f, 9.8f), "HUNJAM / QUEST PLAYGROUND", 0.13f);
-            Text("Controls", world, new Vector3(-3.1f, 2.1f, -4), "EXPLORE / GRAB / POWER UP\nLeft stick: move | Right stick: snap turn\nGrip: hold orb | Trigger: talk\nRight A + aim at floor: teleport", 0.055f);
+            Text("Controls", world, new Vector3(0, 2.4f, 1.4f), "ROOM SCALE WORKSHOP\nWalk and turn physically\nGrip: hold nearby object | Trigger: use / talk\nSwing hammer / blade | Touch RESET + trigger", 0.055f);
 
             var sun = new GameObject("Sun").AddComponent<Light>();
             sun.type = LightType.Directional; sun.intensity = 1.3f; sun.shadows = LightShadows.Soft;
@@ -145,26 +145,24 @@ namespace HunJam.Editor
             RenderSettings.skybox = null;
 
             var game = new GameObject("Demo Game").AddComponent<DemoGame>();
-            var board = Text("Scoreboard", world, new Vector3(0, 2.4f, 3.5f), "ENERGY STATION\nTalk to the robot to begin", 0.08f);
-            Shape("Receiver base", PrimitiveType.Cylinder, world, new Vector3(0, 0.2f, 3), new Vector3(2, 0.2f, 2), green);
+            var board = Text("Scoreboard", world, new Vector3(-0.9f, 1.9f, 0.9f), "ENERGY STATION\nTalk to the robot to begin", 0.08f);
+            Shape("Receiver base", PrimitiveType.Cylinder, world, new Vector3(-0.9f, 0.4f, 0.65f), new Vector3(0.55f, 0.4f, 0.55f), green);
             var receiver = new GameObject("Energy Receiver");
             receiver.transform.SetParent(world);
-            receiver.transform.position = new Vector3(0, 0.9f, 3);
-            var zone = receiver.AddComponent<BoxCollider>(); zone.isTrigger = true; zone.size = new Vector3(1.8f, 1.2f, 1.8f);
+            receiver.transform.position = new Vector3(-0.9f, 1.1f, 0.65f);
+            var zone = receiver.AddComponent<BoxCollider>(); zone.isTrigger = true; zone.size = new Vector3(0.55f, 0.6f, 0.55f);
             receiver.AddComponent<EnergyReceiver>().Configure(game);
-            for (int i = 0; i < 4; i++)
-                Shape("Receiver corner", PrimitiveType.Cylinder, world, new Vector3(i % 2 == 0 ? -0.85f : 0.85f, 0.7f, i < 2 ? 2.15f : 3.85f), new Vector3(0.08f, 0.5f, 0.08f), green, false);
 
             var orbObject = Shape("Energy Orb", PrimitiveType.Sphere, null, Vector3.zero, Vector3.one * 0.28f, orange);
             var rb = orbObject.AddComponent<Rigidbody>(); rb.mass = 0.3f; rb.interpolation = RigidbodyInterpolation.Interpolate; rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             orbObject.AddComponent<EnergyCell>();
             var orbPrefab = PrefabUtility.SaveAsPrefabAsset(orbObject, Root + "Prefabs/EnergyOrb.prefab");
             UnityEngine.Object.DestroyImmediate(orbObject);
-            Vector3[] spots = { new Vector3(-7, 1.1f, -1), new Vector3(7, 1.1f, 5), new Vector3(-4, 1.1f, 8) };
+            Vector3[] spots = { new Vector3(-0.85f, 1.1f, -0.1f), new Vector3(-0.85f, 1.1f, -0.5f), new Vector3(-0.85f, 1.1f, -0.9f) };
             var cells = new EnergyCell[spots.Length];
             for (int i = 0; i < spots.Length; i++)
             {
-                Shape("Orb pedestal " + (i + 1), PrimitiveType.Cylinder, world, spots[i] - Vector3.up * 0.65f, new Vector3(0.9f, 0.45f, 0.9f), dark);
+                Shape("Orb pedestal " + (i + 1), PrimitiveType.Cylinder, world, spots[i] - Vector3.up * 0.65f, new Vector3(0.35f, 0.45f, 0.35f), dark);
                 var instance = (GameObject)PrefabUtility.InstantiatePrefab(orbPrefab);
                 instance.name = "Energy Orb " + (i + 1); instance.transform.position = spots[i];
                 cells[i] = instance.GetComponent<EnergyCell>();
@@ -172,6 +170,7 @@ namespace HunJam.Editor
             game.Configure(cells, board);
             CreateRobot(game);
             CreatePlayer();
+            CreateWorkshop(world);
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
             AssetDatabase.SaveAssets();
@@ -186,12 +185,12 @@ namespace HunJam.Editor
             Shape("Eye L", PrimitiveType.Sphere, head.transform, new Vector3(-0.2f, 0.05f, 0.45f), Vector3.one * 0.18f, dark, false);
             Shape("Eye R", PrimitiveType.Sphere, head.transform, new Vector3(0.2f, 0.05f, 0.45f), Vector3.one * 0.18f, dark, false);
             head.transform.localRotation = Quaternion.Euler(0, 180, 0);
-            var speech = Text("Dialogue", robot.transform, new Vector3(0, 2.5f, 0), "HELLO, EXPLORER!\nAim here + Trigger / E", 0.065f);
+            var speech = Text("Dialogue", robot.transform, new Vector3(0, 2.1f, 0), "HELLO!\nTouch me + Trigger", 0.065f);
             var guide = robot.AddComponent<GuideRobot>(); guide.SetPresentation(speech, head.transform);
             var prefab = PrefabUtility.SaveAsPrefabAsset(robot, Root + "Prefabs/GuideRobot.prefab");
             UnityEngine.Object.DestroyImmediate(robot);
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            instance.transform.position = new Vector3(0, 0, -3);
+            instance.transform.position = new Vector3(-1.2f, 0, -1.2f);
             instance.GetComponent<GuideRobot>().Configure(game);
             PrefabUtility.RecordPrefabInstancePropertyModifications(instance.GetComponent<GuideRobot>());
         }
@@ -199,8 +198,8 @@ namespace HunJam.Editor
         private static void CreatePlayer()
         {
             var root = new GameObject("Quest Player"); root.layer = 2;
-            var body = root.AddComponent<CharacterController>(); body.height = 1.7f; body.radius = 0.25f; body.stepOffset = 0.2f;
-            body.center = Vector3.up * 0.85f; body.skinWidth = 0.025f;
+
+
             var player = root.AddComponent<DemoPlayer>();
             var space = new GameObject("Tracking Space").transform; space.SetParent(root.transform, false);
             var view = new GameObject("Main Camera").AddComponent<Camera>(); view.tag = "MainCamera";
@@ -211,20 +210,65 @@ namespace HunJam.Editor
             DemoHand Hand(bool left)
             {
                 var obj = new GameObject(left ? "Left Hand" : "Right Hand"); obj.transform.SetParent(space, false);
-                var visual = Shape("Controller", PrimitiveType.Cube, obj.transform, Vector3.zero, new Vector3(0.06f, 0.08f, 0.14f), cyan, false);
-                var anchor = new GameObject("Hold Anchor").transform; anchor.SetParent(obj.transform, false); anchor.localPosition = Vector3.forward * 0.55f;
-                var line = obj.AddComponent<LineRenderer>(); line.positionCount = 2; line.startWidth = 0.006f; line.endWidth = 0.003f;
-                line.sharedMaterial = MaterialAsset("Ray", Color.white, "Universal Render Pipeline/Particles/Unlit");
-                line.useWorldSpace = true; line.shadowCastingMode = ShadowCastingMode.Off; line.receiveShadows = false;
-                var hand = obj.AddComponent<DemoHand>(); hand.Configure(left, player, anchor, line, visual.GetComponent<Renderer>());
+                var visual = new GameObject("Basic Hand"); visual.transform.SetParent(obj.transform, false);
+                Shape("Palm", PrimitiveType.Cube, visual.transform, Vector3.zero, new Vector3(0.075f, 0.035f, 0.09f), white, false);
+                for (int finger = 0; finger < 4; finger++)
+                    Shape("Finger", PrimitiveType.Capsule, visual.transform, new Vector3(-0.027f + finger * 0.018f, -0.018f, 0.055f),
+                        new Vector3(0.016f, 0.026f, 0.018f), white, false);
+                Shape("Thumb", PrimitiveType.Capsule, visual.transform, new Vector3(left ? 0.045f : -0.045f, 0, 0.015f),
+                    new Vector3(0.023f, 0.025f, 0.023f), white, false);
+                var anchor = new GameObject("Hold Anchor").transform; anchor.SetParent(obj.transform, false);
+                var hand = obj.AddComponent<DemoHand>(); hand.Configure(left, player, anchor, visual);
                 return hand;
             }
             var leftHand = Hand(true); var rightHand = Hand(false);
             player.Configure(space, view, leftHand, rightHand);
             PrefabUtility.SaveAsPrefabAssetAndConnect(root, Root + "Prefabs/QuestPlayer.prefab", InteractionMode.AutomatedAction);
-            root.transform.position = new Vector3(0, 0.05f, -7);
+            root.transform.position = Vector3.zero;
         }
 
+        private static void CreateWorkshop(Transform world)
+        {
+            Shape("Workbench", PrimitiveType.Cube, world, new Vector3(0.45f, 0.75f, 0.85f), new Vector3(1.5f, 0.12f, 0.5f), dark);
+            var reset = Shape("Reset workshop", PrimitiveType.Cube, world, new Vector3(1.05f, 0.9f, 0.65f), Vector3.one * 0.12f, green);
+            reset.AddComponent<WorkshopReset>();
+            Text("Reset label", world, new Vector3(1.05f, 1.15f, 0.9f), "RESET", 0.035f);
+            var block = Shape("Cuttable block", PrimitiveType.Cube, world, new Vector3(0.55f, 1.02f, 0.85f), new Vector3(0.3f, 0.4f, 0.25f), orange);
+            block.AddComponent<Cuttable>();
+            var target = Shape("Hammer target", PrimitiveType.Cube, world, new Vector3(-0.05f, 0.9f, 0.85f), new Vector3(0.3f, 0.18f, 0.3f), cyan);
+            var counter = Text("Hit counter", world, new Vector3(-0.05f, 1.3f, 1.05f), "HAMMER HITS: 0", 0.035f);
+            target.AddComponent<ImpactTarget>().Configure(counter);
+
+            void MakeTool(string name, Tool.ToolKind kind, Vector3 position)
+            {
+                Shape(name + " stand", PrimitiveType.Cube, world, position - Vector3.up * 0.15f, new Vector3(0.3f, 0.1f, 0.55f), dark);
+                var item = new GameObject(name); item.transform.position = position;
+                Shape("Handle", PrimitiveType.Cube, item.transform, Vector3.zero, new Vector3(0.045f, 0.045f, 0.22f), dark);
+                Vector3 tipPosition = new Vector3(0, 0, 0.24f);
+                if (kind == Tool.ToolKind.Hammer)
+                    Shape("Hammer head", PrimitiveType.Cube, item.transform, tipPosition, new Vector3(0.2f, 0.1f, 0.1f), cyan);
+                else if (kind == Tool.ToolKind.Blade)
+                {
+                    Shape("Blade", PrimitiveType.Cube, item.transform, new Vector3(0, 0, 0.24f), new Vector3(0.012f, 0.06f, 0.3f), white);
+                    tipPosition.z = 0.37f;
+                }
+                else Shape("Lamp head", PrimitiveType.Cylinder, item.transform, new Vector3(0, 0, 0.13f), new Vector3(0.08f, 0.04f, 0.08f), orange);
+                var tip = new GameObject("Contact point").transform; tip.SetParent(item.transform, false); tip.localPosition = tipPosition;
+                Light light = null;
+                if (kind == Tool.ToolKind.Lamp)
+                {
+                    light = tip.gameObject.AddComponent<Light>(); light.type = LightType.Spot;
+                    light.range = 5; light.intensity = 5; light.spotAngle = 60; light.enabled = false;
+                }
+                var body = item.AddComponent<Rigidbody>(); body.mass = 0.5f; body.interpolation = RigidbodyInterpolation.Interpolate;
+                body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                item.AddComponent<Tool>().Configure(kind, tip, light);
+                PrefabUtility.SaveAsPrefabAssetAndConnect(item, Root + "Prefabs/" + name + ".prefab", InteractionMode.AutomatedAction);
+            }
+            MakeTool("Hammer", Tool.ToolKind.Hammer, new Vector3(0.85f, 0.95f, 0.05f));
+            MakeTool("Blade", Tool.ToolKind.Blade, new Vector3(0.85f, 0.95f, -0.45f));
+            MakeTool("Lamp", Tool.ToolKind.Lamp, new Vector3(0.85f, 0.95f, -0.95f));
+        }
         private static Material MaterialAsset(string name, Color color, string shaderName = "Universal Render Pipeline/Lit")
         {
             string path = Root + "Art/Materials/" + name + ".mat";
@@ -245,7 +289,7 @@ namespace HunJam.Editor
         private static TextMesh Text(string name, Transform parent, Vector3 position, string value, float size)
         {
             var obj = new GameObject(name); obj.transform.SetParent(parent, false); obj.transform.localPosition = position;
-            var text = obj.AddComponent<TextMesh>(); text.text = value; text.fontSize = 64; text.characterSize = size;
+            var text = obj.AddComponent<TextMesh>(); text.text = value; text.fontSize = 64; text.characterSize = size * 0.25f;
             text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             text.GetComponent<MeshRenderer>().sharedMaterial = text.font.material;
             text.anchor = TextAnchor.MiddleCenter; text.alignment = TextAlignment.Center; text.color = Color.white;
@@ -291,8 +335,8 @@ namespace HunJam.Editor
             // Batch previews must wait for real shaders instead of displaying compile placeholders.
             ShaderUtil.allowAsyncCompilation = false;
             var camera = Camera.main;
-            camera.transform.position = new Vector3(15, 13, -18);
-            camera.transform.LookAt(new Vector3(0, 0, 1));
+            camera.transform.position = new Vector3(3.5f, 3.3f, -4);
+            camera.transform.LookAt(new Vector3(0, 0.9f, 0));
             var target = new RenderTexture(1280, 800, 24);
             camera.targetTexture = target;
             camera.Render();

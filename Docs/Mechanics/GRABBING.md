@@ -1,15 +1,13 @@
-# Tárgyfogás
-
+# Közeli tárgyfogás
 ## Cél és források
-`Scripts/Interaction/DemoHand.cs`, `EnergyCell.cs`, `DemoInteractable.cs`; `Prefabs/EnergyOrb.prefab`, `QuestPlayer.prefab`. Mindkét kontroller rövid sugárral tárgyat foghat meg. A szürke sugár akadályt/üres teret, a cián interaktálható célt, a zöld teleportcélt jelöl.
-
-## Bemenetek és életciklus
-Grip lenyomása a megcélzott energiagömböt a kéz előtti anchorhoz rögzíti; elengedése visszaadja a fizikának. Desktopon a kamera céloz, bal egérgomb tartja a tárgyat. Hatótáv 3 m, anchor 0,55 m. A világ geometriája blokkolja a sugarat.
-
-Egyszerre egy kéz birtokolhat egy gömböt. Fogáskor kinematic és ütközésmentes; elengedéskor legfeljebb 6 m/s sebességet kap. Követésvesztés, fókuszvesztés és a kéz letiltása elengedi. A játékos saját kapszulája nem lökdösi a gömböket. A pálya alá eső gömb visszaáll a kiindulóhelyére.
-
-## Kapcsolatok és bővítés
-Az interakciós trigger `DemoInteractable.Interact()`-ot hív. A gyűjtő csak elengedett gömböt fogad. A játékkör újraindítása minden gömböt visszaállít. Haptika, fizikai kéz, komplex tárgymarkolat és kézkövetés későbbi bővítés.
-
+`Scripts/Interaction/DemoHand.cs`, `Grabbable.cs`, `EnergyCell.cs`; QuestPlayer, EnergyOrb és eszközprefabok.
+Két kontrollerrel követett, egyszerű primitívekből álló alapkéz. Nincs kontroller nélküli kézkövetés, animált ujj vagy külső kézmodell.
+## Bemenetek és állapot
+A kéz 12 cm sugarú környezetében a legközelebbi elérhető tárgyat a grip lenyomása fogja meg; a grip elengedése eldobja. Nincs távoli sugárfogás. Szilárd köztes geometria blokkolja a kiválasztást.
+A fogás megtartja az érintési pontot és a tárgy orientációját. Egy tárgynak egy birtokosa lehet. Fogva kinematic, az ütközések bekapcsolva maradnak; elengedve dinamikus Rigidbody, legfeljebb 8 m/s és 20 rad/s.
+Fókusz- és követésvesztés, kézletiltás: elengedés dobási impulzus nélkül. 50 cm-nél nagyobb egy fizikaframe-es ugrás szintén elenged. Pálya alá eséskor a tárgy visszaáll.
+## Kapcsolatok és hangolás
+A Grabbable az energiagömb és Tool közös alapja. A trigger a fogott tárgy Use metódusát, üres kéznél közeli DemoInteractable.Interact metódust hív.
+Hatótáv: DemoHand.reach. A kéz vizuális, nincs fizikai kézütköző. A kinematic tárgy erőltetett kézmozdulattal statikus falba tolható; fizikai erővisszacsatolás nincs.
 ## Ellenőrzés
-Bal és jobb kéz külön megfog/elenged; két kéz nem birtokolhat egyszerre egy tárgyat; fal mögül nincs fogás; reset közben sem maradhat kinematic tárgy. Desktopon bal gombbal ugyanez; Quest esetén a grip és a kéz orientációja külön hardvertesztet igényel. Futási eredmény: CHANGELOG.
+PlayMode: közeli/távoli tárgy, kizárólagos fogás, fogott gömb nem pontoz, reset és aktív tárgyütközés. Hardveren: mindkét kéz gripje, eszközfogás, dobás és tracking loss. Eredmény: CHANGELOG.

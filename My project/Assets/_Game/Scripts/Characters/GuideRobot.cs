@@ -16,7 +16,7 @@ namespace HunJam
                 game.Begin();
                 dialogue.text = "Hello, explorer!\nBring 3 orbs to the station.\nGrip to hold, release to deliver.";
             }
-            else dialogue.text = $"You have delivered {game.Round.Count} / {game.Round.Target}.\nFind the glowing orbs\naround the courtyard!";
+            else dialogue.text = $"You have delivered {game.Round.Count} / {game.Round.Target}.\nFind the glowing orbs\non the nearby stands!";
         }
         private void LateUpdate()
         {

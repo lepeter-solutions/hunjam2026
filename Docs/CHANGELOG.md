@@ -19,3 +19,15 @@
 - SHA-256: `02857d4093f0de42ac17fcf9788929a9e1b740782a4a9372f174e1bd5d707848`.
 - Helyi bizonyítékok: `My project/Builds/Validation/android-build.log`, `editmode-results.xml`, `playmode-results.xml`. Ezek szintén kizárt buildtermékek.
 - Következő elfogadási lépés: APK telepítése egy valós Questre, majd a QUEST_SETUP.md eszköztesztlistájának végrehajtása. Ezt hardver nélkül nem tekintjük teljesítettnek.
+
+## 2026-11-06 — Fizikai mozgás és kézből használható műhely
+- Kizárólag room-scale követés: joystickmozgás, snap turn, teleport, WASD és CharacterController eltávolítva. Az AGENTS.md rögzíti ezt a követelményt.
+- Két kontrollerrel követett egyszerű alapkéz; 12 cm-es közeli fogás és interakció, távoli sugár nélkül. Közös Grabbable alap az energiagömbökhöz és eszközökhöz; fogva is aktív ütközések, elengedési sebesség, tracking-ugrás elleni védelem.
+- Kalapács és fizikai lendítésre működő ütésszámláló; penge és két megfogható fizikai darabra bontható blokk; triggerrel kapcsolható lámpa; közeli RESET gomb.
+- A mechanikák a kezdőpont körüli műhelybe kerültek. A scene, kéz- és eszközprefabok, előnézet, vezérlési útmutató és mechanikánkénti Markdown-leírások frissültek.
+- Ellenőrzés Unity 6000.3.28f1 elkülönített másolatában: sikeres fordítás, scene-validáció, képi előnézet; 3/3 EditMode és 5/5 PlayMode teszt sikeres.
+- PlayMode: teljes energiakör, kizárólagos fogás, közeli/távoli tárgykiválasztás, rögzített rig, lámpakapcsolás, eszközreset, mozgó penge tényleges kontaktussöprése, kalapácsütés és követési ugrás miatti elengedés.
+- Helyi bizonyítékok: My project/Builds/Validation/roomscale-playmode-final.xml, roomscale-editmode.xml és a kapcsolódó naplók.
+- Korlát: primitív alapkéz, előre meghatározott kétfelé vágás a penge kontaktpontján; nincs általános mesh-vágás, haptika vagy fizikai kéz. Kinematic eszköz statikus falba tolható.
+- Valós Quest/Link-kontrolleres teszt és teljesítménymérés még szükséges. Ehhez a változathoz új APK nem készült; a korábbi helyi APK a régi demót tartalmazza. Unity Play + Quest Linkkel az új scene közvetlenül próbálható.
+- A felhasználó kérésére az ellenőrzött módosítás a GitHub main ágára kerül, a korábbi demóalap commitjaival együtt.
