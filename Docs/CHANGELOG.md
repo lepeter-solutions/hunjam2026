@@ -1,5 +1,9 @@
 # Változásnapló
 
+## 2026-11-07 — Manhattan kezdőirány 90°-os korrekciója
+- A felhasználó visszajelzése szerint a kameraátadás javítása után is 90°-kal balra nézett a játékos. A scene PilotPivotja helyi Y=0° helyett +90°: induláskor és RECENTER-kor jobbra korrigált célirány.
+- Kizárólag a pivot forgatása változott, a szemhelyzet és a fejkövetés változatlan. Diff áttekintve; kérésre nincs fordítás vagy teszt. A headsetes eredmény ellenőrizendő.
+
 ## 2026-11-07 — Pilóta kezdőiránya Meta kameraátadáskor
 - FlightSeat újrakalibrál, amikor a startup kamerát a Meta szemkamera váltja, így a régi kamerához számolt forgatás nem marad végleges. Érvényes Meta követés után a PilotPivot +Z irányát használja; a későbbi fejforgatás szabad.
 - Függőleges nézésnél az iránykalibráció újrapróbálkozik, nem jelöl hamis sikert. Forrás/diff áttekintve; kérésre nincs fordítás, teszt vagy build. Quest Linkes kezdőirány még ellenőrizendő.
