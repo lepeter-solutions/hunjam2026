@@ -15,6 +15,9 @@ Az átadási szerepek, fogási régiók, kétkezes elsődleges kontaktpont, yoke
 
 A projekt adapterét használd a fogáshoz. Külön SDK GrabInteractor/GrabInteractable pár hozzáadása ehhez a prefabhoz további eseményadaptert igényel; jelenleg a meglévő közelségi kiválasztást tartottuk meg. A Capsense nem tárgygeometriára illesztett IK: a pontos tenyér/markolat és ujjilleszkedés hardveren hangolandó.
 
+## PolyOne kézcsomag előnézete
+A `Assets/_Game/Scenes/Hands.unity` scene a PolyOne `Free Pack - VR Hands` riggelt prefabját külön, animált vizuális előnézetként jeleníti meg. A prefab idle animációja fut; a kamera közelebb került, hogy a két kéz Play módban látható legyen. Ez a scene nem ad Quest-kézkövetést, interakciót vagy Meta Capsense pózokat. A játék jelenlegi követett kezei továbbra is a Meta `OVRHandPrefab` változatai, a pack nem cseréli le azokat.
+
 ## Import és beállítás
 A mentett projektbeállításokban a Meta XR Core OpenXR feature Android és Standalone célon engedélyezett, az OpenXR kézcsontváz és a Capsense-hez szükséges Controllers And Hands támogatás beállított. Újraalkalmazás: `HunJam/Configure Meta XR Hands` (`Editor/MetaXrSetup.cs`). Ez minimum API 32-t is beállít a Meta 207 követelménye szerint; nem buildel, nem indít Play módot és nem futtat tesztet. A menü nem fut automatikusan minden domain reloadkor. Ha az SDK saját „Enable Meta XR Feature Set” ablakot mutatja, a Meta feature engedélyezése szükséges.
 

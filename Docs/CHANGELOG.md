@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — PolyOne VR Hands előnézet a Hands scene-ben
+- A megvásárolt Free Pack - VR Hands prefab animált preview-ként bekerült az `Assets/_Game/Scenes/Hands.unity` scene-be; a kamera közelebb került a kézmodellhez.
+- A pack idle animációja látható, de a prefab nem Quest-követett kéz. A játék Meta XR / Capsense alapú kezei és a gameplay változatlanok.
+- Ellenőrzés: YAML, prefab GUID és root Transform-hivatkozás forrásellenőrzése. Unity Editor/Play mód, build és headsetteszt nem futott; vizuális megjelenés még ellenőrizendő.
+
 ## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
 - Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.
 - Hét Git-ütközés rendezve: három XR Hands mintamappa a main GUID-ját tartja meg; a két material a bejövő, kiegészített URP-mezőket használja. Az OpenXR asset egészében a main konzisztens fileID-hálózatát és újabb HandTracking sémáját tartja meg; a feature-k engedélyezése azonos a két ágon.
