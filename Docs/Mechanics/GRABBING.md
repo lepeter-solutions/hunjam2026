@@ -9,6 +9,7 @@ A Rigidbody interpolation kikapcsolt: a Meta transformer közvetlenül a Transfo
 GameItem.IsHeld az SDK SelectingPointsCount állapotából származik. Reset megszakítja az SDK-kiválasztást, nullázza a sebességet és visszaállítja a kezdőpozíciót.
 ## Hangolás és kapcsolatok
 Az Inspectorban az SDK komponenseit hangold, ne hozz létre párhuzamos kézpozíció- vagy fogásimplementációt. Az energiagyűjtő csak elengedett gömböt fogad.
+A PhysicsCube és PhysicsBall prefab ugyanezzel az SDK-bekötéssel szabadon használható építőelem. Az InteractionSandbox scene hátulsó munkapadján találhatók; tömegük 0.5 és 0.2 kg, méretük 16 és 20 cm. A szabad tárgyak nem vesznek részt az energiagyűjtő körben.
 A trigger SDK ControllerSelector eseménye a MetaUseAction adapteren keresztül használja a fogott tárgyat, üres kéznél a közeli robotot/resetet.
 ## Ellenőrzés
 SDK pointereseményes PlayMode tesztek: kiválasztás, mozgatás, elengedés, pontozás, reset és eszközök. Valódi kontrollerekkel: mindkét kéz, fogáspóz, váltás, dobás, követés- és fókuszvesztés. Eredmény: CHANGELOG.

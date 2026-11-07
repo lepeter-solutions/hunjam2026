@@ -9,6 +9,7 @@
 - [Robotkarakter](Mechanics/CHARACTER.md)
 - [Energiagyűjtő játékkör](Mechanics/ENERGY_GAME.md)
 - [Demóvilág](Mechanics/DEMO_WORLD.md)
+- [Meta XR fejlesztői demóscene](Mechanics/INTERACTION_SANDBOX.md)
 - [Tárgyhasználat](Mechanics/TOOL_USE.md)
 - [Ütés](Mechanics/HITTING.md)
 - [Vágás](Mechanics/CUTTING.md)

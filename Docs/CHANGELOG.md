@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-07 — InteractionSandbox scene és fizikai építőelemek
+- Új, önálló InteractionSandbox.unity scene a közös Meta QuestPlayer riggel, kontrollervezérelt kezekkel és a meglévő robot-, energia-, kalapács-, penge-, lámpa- és resetdemóval.
+- Hátulsó fizikai munkapad, négy megfogható/rakható kocka és két megfogható/dobható/gurítható labda. Új PhysicsCube és PhysicsBall prefabok, kész Meta SDK komponensekkel, Rigidbodyval és szilárd colliderrel; új C# kód nélkül.
+- Külön scene-leírás, prefabparaméterek és bővítési útmutató. A korábbi scene-ek megmaradnak.
+- A felhasználó kérésére nem futott Unity-import, fordítás, build vagy teszt. Futás közbeni és headsetes működés nincs ellenőrizve; a scene és a hozzá tartozó assetek közvetlenül kerülnek commitba és GitHub mainre.
+
 ## 2026-11-07 — Meta XR SDK átállás
 - Meta XR Core, Interaction SDK és OVR Integration 207.0.1. A QuestPlayer és DemoWorld a hivatalos OVRCameraRig / OVRComprehensiveInteractionRig prefabokat használja. A saját követés, kézmodell, ujjanimáció és fogásmozgatás eltávolítva.
 - Kizárólag fizikai mozgás; SDK locomotion, távoli ray és distance grab letiltva. Grip fogás, trigger használat; a játékspecifikus robot, energiakör, kalapács, penge és lámpa megmarad.
