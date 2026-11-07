@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Minden automatikus repülő-reset kikapcsolható
+- Az előző változás csak az alsó magassági feltételt tiltotta. Most az `Automatic Reset Enabled` főkapcsoló alapból kikapcsolja az összes automatikus visszaállítást, az ütközéses ágat is.
+- Külön kapcsoló és állítható küszöb az alsó/felső magassághoz, bank/pitch szöghöz, vízszintes távolsághoz és ütközési sebességhez. A kézi RESET / RECENTER független maradt.
+- A ResetFlight hívási helyei és a diff áttekintve. Felhasználói kérésre nem futott fordítás, teszt vagy build; a határátlépések és ütközések headsetes próbája még nyitott.
+
 ## 2026-11-07 — Állítható és kikapcsolható alsó resetmagasság
 - FlightVehicle: az eddigi fix Y<8 resetet Inspectorban kapcsolható `Reset Below Altitude` és szabadon, negatívra is állítható `Reset Altitude` váltja. Alapból kikapcsolt, hogy a lejjebb helyezett pályán elindulhasson a gép.
 - A kézi reset és az egyéb automatikus resetfeltételek megmaradnak. A felhasználó scene- és assetmódosításait nem változtattuk meg.

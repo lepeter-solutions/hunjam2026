@@ -10,11 +10,28 @@ namespace HunJam
         [SerializeField, Range(5, 40)] private float pitchRate = 18f;
         [SerializeField, Range(5, 55)] private float rollRate = 30f;
         [SerializeField, Range(0, 2)] private float stabilization = 0.65f;
+        [Header("Automatic Reset")]
+        [Tooltip("Master switch for ALL automatic resets, including collisions. Manual RESET still works.")]
+        [SerializeField] private bool automaticResetEnabled = false;
         [Header("Altitude Reset")]
         [Tooltip("Reset below Reset Altitude. Disabled by default so lowered maps can be flown.")]
         [SerializeField] private bool resetBelowAltitude = false;
         [Tooltip("Minimum world-space Y in metres when Reset Below Altitude is enabled. Negative values are allowed.")]
         [SerializeField] private float resetAltitude = 8f;
+        [SerializeField] private bool resetAboveAltitude = true;
+        [SerializeField] private float maximumAltitude = 600f;
+        [Header("Attitude Reset")]
+        [SerializeField] private bool resetOnBank = true;
+        [SerializeField, Range(0, 180)] private float maximumBank = 75f;
+        [SerializeField] private bool resetOnPitch = true;
+        [SerializeField, Range(0, 90)] private float maximumPitch = 50f;
+        [Header("Distance Reset")]
+        [SerializeField] private bool resetOutsideRadius = true;
+        [Tooltip("Horizontal distance from world origin, in metres.")]
+        [SerializeField, Min(0)] private float maximumRadius = 1400f;
+        [Header("Collision Reset")]
+        [SerializeField] private bool resetOnCollision = true;
+        [SerializeField, Min(0)] private float collisionResetSpeed = 2f;
         private Rigidbody body;
         private Vector3 spawn;
         private Quaternion heading;
@@ -47,8 +64,13 @@ namespace HunJam
                 -Mathf.Sin(bank) * Physics.gravity.magnitude / Mathf.Max(forwardSpeed, 8),
                 -roll * rollRate * Mathf.Deg2Rad - bank * stabilization * (1 - Mathf.Abs(roll)));
             body.AddRelativeTorque((rates - transform.InverseTransformDirection(body.angularVelocity)) * 3f, ForceMode.Acceleration);
-            if ((resetBelowAltitude && body.position.y < resetAltitude) || body.position.y > 600 || Mathf.Abs(bank) > 75 * Mathf.Deg2Rad || Mathf.Abs(nose) > 50 * Mathf.Deg2Rad
-                || new Vector2(body.position.x, body.position.z).magnitude > 1400) ResetFlight();
+            if (automaticResetEnabled && (
+                (resetBelowAltitude && body.position.y < resetAltitude)
+                || (resetAboveAltitude && body.position.y > maximumAltitude)
+                || (resetOnBank && Mathf.Abs(bank) > maximumBank * Mathf.Deg2Rad)
+                || (resetOnPitch && Mathf.Abs(nose) > maximumPitch * Mathf.Deg2Rad)
+                || (resetOutsideRadius && new Vector2(body.position.x, body.position.z).magnitude > maximumRadius)))
+                ResetFlight();
         }
         private void Update()
         {
@@ -65,8 +87,9 @@ namespace HunJam
         }
         private void OnCollisionEnter(Collision collision)
         {
+            if (!automaticResetEnabled || !resetOnCollision) return;
             if (collision.transform.IsChildOf(transform)) return;
-            if (collision.relativeVelocity.magnitude > 2) ResetFlight();
+            if (collision.relativeVelocity.magnitude > collisionResetSpeed) ResetFlight();
         }
     }
 }
