@@ -34,6 +34,11 @@ namespace HunJam
             rotation = new InputAction("Hand rotation", InputActionType.Value, device + "deviceRotation");
             tracked = new InputAction("Hand tracked", InputActionType.Button, device + "isTracked");
             grip = new InputAction("Grab", InputActionType.Button, device + "grip");
+            // Scene reload recreates actions while the XR devices remain connected.
+            // Button actions otherwise wait for a change, so an already-true isTracked
+            // can leave this hand unusable until tracking is lost and regained.
+            tracked.wantsInitialStateCheck = true;
+            grip.wantsInitialStateCheck = true;
             trigger = new InputAction("Use / interact", InputActionType.Button, device + "trigger");
         }
         private void OnEnable()

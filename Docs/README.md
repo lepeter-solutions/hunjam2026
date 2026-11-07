@@ -9,6 +9,7 @@
 - [Dinamikus papírtépés](Mechanics/TEARING.md)
 - [Szúrási gyakorlóeszköz](Mechanics/STABBING.md)
 - [Flight Yoke és járműfizika](Mechanics/FLIGHT_YOKE.md)
+- [Repülős küldetés, ütközéses game-over és elsötétítés](Mechanics/FLIGHT_MISSION.md)
 - [Repülőhang és függőleges sebesség](Mechanics/FLIGHT_AUDIO.md)
 - [PilotPivot és rögzített pilótaülés](Mechanics/PILOT_SEAT.md)
 - [Jobb oldali gázkar és tolóerő](Mechanics/FLIGHT_THROTTLE.md)

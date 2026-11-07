@@ -9,7 +9,7 @@ A FlightSeat megvárja az érvényes fejkövetést, a nézés vízszintes irány
 A korrekció Meta UpdatedAnchors után, LateUpdate-ben és renderelés előtt is megtörténik, a natív fej-/kontrollerpózok felülírása nélkül. Tracking-vesztés alatt nincs új kalibráció. RESET / RECENTER újrakalibrálja a kezdő nézésirányt.
 
 ## Hangolás
-Manhattan: a felhasználó által jelzett 90°-os balra nézést a PilotPivot helyi Y=+90° forgatása korrigálja. Ez az indulási és RECENTER célirányt jobbra fordítja; a pivot pozíciója változatlan. Más jelenetekre nem vonatkozik. A korrekció utáni szélvédőirány headseten még ellenőrizendő.
+Manhattan: a korábban hozzáadott +90° PilotPivot elfordítás a felhasználó visszajelzése szerint jobbra fordította a nézetet. Ezt visszavontuk: helyi Y=0°, változatlan szemhelyzet. Indulás és RECENTER a repülő +Z irányába igazít; a kameraátadáskori újrakalibrálás megmarad. Headseten még ellenőrizendő.
 FlightSeat: `Pilot Pivot` explicit Transform-referencia, `Lock To Pilot Pivot` csak a cockpit scene-ben engedélyezve. A pivot legyen a repülő gyermeke, a kívánt szemmagasságon, +Z iránya a pilóta előreiránya. A közös prefab alapból nem tiltja a room-scale mozgást. Referencia nélkül a régi Seat Eye a pozíciótartalék.
 
 ## Ellenőrzés és korlátok

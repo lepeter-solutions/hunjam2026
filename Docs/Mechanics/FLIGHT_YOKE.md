@@ -15,6 +15,7 @@ A kormány állása csak repülési parancs: a gép Rigidbodyje előrehajtást, 
 A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, majd a valós fejmagasságot az ülés szemponthoz illeszti. Fej-/kézmozgás utána teljes egészében room-scale. Headset nélküli kameranézet is az ülésben indul. Nincs joystickos séta, fordulás vagy teleport.
 
 ## Inspector és reset
+Manhattan küldetés: a bekötött TerroristAi mellett a `Collision Game Over Enabled` külön játék-vége útvonalat kapcsol; ez nem automatikus gyakorló-reset, ezért a lent leírt reset főkapcsolótól független. [Ütközéses küldetés és fade](FLIGHT_MISSION.md).
 - Yoke: `maximumAngle` ±40°, `maximumTravel` ±9 cm; `maximumPushPullTilt` ±10° előre/hátra billenés (Inspectorban 0–25°, 0 kikapcsolja). Toláskor előre, húzáskor a pilóta felé dől, a simított eltolással arányosan. A teljes collideres yoke billen, elengedve az eltolással együtt középre tér. A repülő pitch-bemenete továbbra is az eltolásból származik. `deadZone` 0,06; `responseTime` 0,045 s; `returnTime` 0,25 s. Mounting alatt a lokális Z a push/pull tengely.
 - Jármű: `cruiseSpeed` 16 m/s; `pitchRate` 18°/s; `rollRate` 30°/s; `stabilization` 0,65. A műszer 10 Hz-en mutat sebességet, magasságot, pitch/bank értéket.
 - RESET / RECENTER: üres kéz + trigger a bal zöld gombon; elengedi a yoke-ot, visszaállítja a gépet és újrailleszti az ülést.

@@ -1,5 +1,20 @@
 # Változásnapló
 
+## 2026-11-07 — Yoke/gázkar fogás scene-reload után (nem commitolt)
+- DemoHand tracking és grip Button actionök kezdeti állapotellenőrzése engedélyezve. Újratöltéskor a továbbra is követett kontrollerek állapota az első inputfrissítésnél beolvasódik, nem kell követésvesztés az új isTracked action aktiválásához.
+- A trigger új lenyomást igényel; a fogási távolság és Meta transformer változatlan. Telepített Input System forrás és diff áttekintve; kérésre nincs fordítás vagy teszt. Többszörös headsetes reload és mindkét kéz ellenőrizendő. Nincs commit/push.
+
+## 2026-11-07 — Teljes látómezős fade és cockpit iránykorrekció (nem commitolt)
+- A négyzetként látszó UI-panel helyett URP clip-space overlay, stereo instancing támogatással és mélységtől független rajzolással. Alpha=1 már létrehozáskor; követésre várakozás, 0.5 s teljes fekete, majd a meglévő fadeDuration szerinti áttűnés. Game-over ugyanennek az overlaynek ad teljes feketét.
+- A korábban hozzáadott PilotPivot +90° forgatás visszavonva a jobbra nézési hibajelentés alapján; Y=0°, a kameraátadás utáni kalibrálás megtartva.
+- Forrás/diff áttekintés; nincs Unity-indítás, fordítás vagy teszt. Mindkét szem teljes lefedése, első képkocka, cockpit kezdőirány és ütközés utáni fekete headseten ellenőrizendő. Kérésre minden commitolatlan marad.
+
+## 2026-11-07 — Ütközéses game-over és VR kezdőfade javítása (nem commitolt)
+- A felhasználó helyi FlightVehicle/TerroristAi munkájának folytatása: a küldetéses ütközés különválasztva a kikapcsolt gyakorló-reset kapcsolóktól; aircraft felismerés komponens/ős alapján. Egyszeri game-over, startup fade leállítása, gépek megállítása, nullbiztos audio és aktív scene név szerinti újratöltése. Opcionálisan konfigurálható epilógus.
+- Kezdés teljes feketével, követésre várakozó 10 másodperces alapfade; meglévő Canvas újrakötése a tényleges Meta szemkamerára. A halálkori fekete szín visszaíródik az Image-re.
+- 39 üres MeshCollider azonosítva a scene-ben. Runtime statikus épületcolliderek a meshgyerekeken; enemy dinamikus Rigidbody/FixedUpdate sebesség és szükség esetén meshhatárokhoz illesztett primitív hitbox. Folytonos ütközésdetektálás a gépeken.
+- Forrás és sceneadatok áttekintve; kérésre nincs fordítás, teszt vagy build. Headsetes fade, kontaktusok, colliderilleszkedés és runtime mesh-cooking teljesítmény ellenőrizetlen. A felhasználó kifejezetten kérte, hogy minden maradjon commitolatlan; nincs commit vagy push. Részletek: Mechanics/FLIGHT_MISSION.md.
+
 ## 2026-11-07 — Sikertelen grip újrapróbálása közelítéskor
 - Main frissítve d2fc056-ra; a helyi ProBuilder-módosítás megőrizve. DemoWorld papírprefab, aktív collider, fogáskomponens és scene-override-ok áttekintve.
 - DemoHand: a sikertelen grip nem vész el a lenyomás frame-jében; nyomva tartva 0,05 másodpercenként újrakeres. Sikeres fogás után ugyanaz a szorítás nem szerezhet új tárgyat átadás/reset után.

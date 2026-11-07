@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 namespace HunJam
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -46,11 +48,21 @@ namespace HunJam
         [SerializeField, Min(0)] private float maximumRadius = 1400f;
         [Header("Collision Reset")]
         [SerializeField] private bool resetOnCollision = true;
+        [SerializeField] private Image fade;
+        [SerializeField] private float fadeDuration = 10;
+        [Tooltip("Mission game-over is independent of the optional automatic training resets.")]
+        [SerializeField] private bool collisionGameOverEnabled = true;
         [SerializeField, Min(0)] private float collisionResetSpeed = 2f;
+        public TerroristAi terroristAi;
         private Rigidbody body;
         private Vector3 spawn;
         private Quaternion heading;
         private float nextDisplay;
+        private bool gameOver;
+        private Coroutine startupFade;
+        private DemoPlayer player;
+        private FullViewFade screenFade;
+        private float fadeAlpha = 1f;
         public float Speed => body != null ? body.linearVelocity.magnitude : 0;
         public int ResetCount { get; private set; }
         public void Configure(FlightYoke control, TextMesh display, FlightThrottle power = null)
@@ -58,18 +70,69 @@ namespace HunJam
         private void Awake()
         {
             body = GetComponent<Rigidbody>(); spawn = body.position; heading = body.rotation;
+            player = GetComponentInChildren<DemoPlayer>();
+            if (fade != null)
+            {
+                fade.enabled = false; // The legacy UI panel must not render over the full-view fade.
+                fade.color = Color.black;
+                BindFadeCamera();
+            }
             if (flightAudio == null) flightAudio = GetComponent<AudioSource>();
             if (flightAudio == null) flightAudio = GetComponentInChildren<AudioSource>(true);
             if (flightAudio != null) baseAudioPitch = flightAudio.pitch;
             body.useGravity = true; body.interpolation = RigidbodyInterpolation.Interpolate;
+            body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             body.linearVelocity = transform.forward * cruiseSpeed;
             // Nested kinematic controls belong to the cockpit; they must not collide with the airframe.
             var colliders = GetComponentsInChildren<Collider>();
             foreach (var a in colliders) foreach (var b in colliders)
                 if (a != b && a.attachedRigidbody != b.attachedRigidbody) Physics.IgnoreCollision(a, b, true);
         }
+        private void Start()
+        {
+            if (fade != null) startupFade = StartCoroutine(FadeInRoutine());
+        }
+        private void LateUpdate() => BindFadeCamera();
+        private void BindFadeCamera()
+        {
+            if (fade == null || player == null || player.View == null) return;
+            if (screenFade == null)
+            {
+                var overlay = new GameObject("Full View Fade");
+                overlay.transform.SetParent(player.View.transform, false);
+                screenFade = overlay.AddComponent<FullViewFade>();
+            }
+            screenFade.transform.SetParent(player.View.transform, false);
+            screenFade.transform.localPosition = Vector3.forward;
+            screenFade.transform.localRotation = Quaternion.identity;
+            screenFade.transform.localScale = Vector3.one;
+            screenFade.SetAlpha(fadeAlpha);
+        }
+        private IEnumerator FadeInRoutine()
+        {
+            // Do not consume the reveal while the headset/Meta camera is initializing.
+            while (player != null && player.IsVR && !player.TrackingReady) yield return null;
+            // Ensure the first visible frames are exactly opaque, not already interpolated.
+            yield return new WaitForSecondsRealtime(0.5f);
+            float elapsed = 0f;
+            while (elapsed < fadeDuration)
+            {
+                yield return null;
+                elapsed += Time.unscaledDeltaTime;
+                fadeAlpha = 1f - Mathf.Clamp01(elapsed / fadeDuration);
+                if (screenFade != null) screenFade.SetAlpha(fadeAlpha);
+            }
+            fadeAlpha = 0f;
+            if (screenFade != null) screenFade.SetAlpha(0f);
+            startupFade = null;
+        }
+        private void OnDestroy()
+        {
+            if (screenFade != null) Destroy(screenFade.gameObject);
+        }
         private void FixedUpdate()
         {
+            if (gameOver) return;
             float forwardSpeed = Vector3.Dot(body.linearVelocity, transform.forward);
             // Lift depends on airflow relative to the wing, not just the nose's orientation.
             // Pushing the nose below the flight path reduces (and can reverse) lift.
@@ -103,6 +166,7 @@ namespace HunJam
         }
         private void Update()
         {
+            if (gameOver) return;
             if (flightAudio != null)
             {
                 float descent = Mathf.Clamp(-body.linearVelocity.y / Mathf.Max(0.1f, verticalSpeedForFullPitch), -1, 1);
@@ -116,6 +180,7 @@ namespace HunJam
         }
         public void ResetFlight()
         {
+            if (gameOver) return;
             RestoreAudioPitch();
             foreach (var hand in GetComponentsInChildren<DemoHand>()) hand.HeldItem?.Release(false);
             body.position = spawn; body.rotation = heading;
@@ -124,9 +189,28 @@ namespace HunJam
         }
         private void OnCollisionEnter(Collision collision)
         {
-            if (!automaticResetEnabled || !resetOnCollision) return;
+            if (gameOver) return;
             if (collision.transform.IsChildOf(transform)) return;
-            if (collision.relativeVelocity.magnitude > collisionResetSpeed) ResetFlight();
+            if (collisionGameOverEnabled && terroristAi != null)
+            {
+                bool intercepted = collision.collider.GetComponentInParent<TerroristAi>() != null;
+                terroristAi.BeginGameOver(intercepted);
+                return;
+            }
+            if (automaticResetEnabled && resetOnCollision && collision.relativeVelocity.magnitude > collisionResetSpeed)
+                ResetFlight();
+        }
+        public void EndFlight()
+        {
+            gameOver = true;
+            if (startupFade != null) StopCoroutine(startupFade);
+            startupFade = null;
+            fadeAlpha = 1f;
+            BindFadeCamera();
+            if (fade != null) fade.color = Color.black;
+            foreach (var hand in GetComponentsInChildren<DemoHand>()) hand.HeldItem?.Release(false);
+            body.linearVelocity = body.angularVelocity = Vector3.zero;
+            body.isKinematic = true;
         }
         private void RestoreAudioPitch()
         {
