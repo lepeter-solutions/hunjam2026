@@ -12,7 +12,7 @@ Assets/_Game/
   Audio/             későbbi saját hangok
   Prefabs/           játékos, robot, energiagömb
   Scenes/            DemoWorld
-                     VRInteractionTest, FlightYoke, Manhattan
+                     VRInteractionTest, FlightYoke, Manhattan, 03_Trianon
   Scripts/
     Core/            játékkör állapota
     Player/          követés és helyváltoztatás

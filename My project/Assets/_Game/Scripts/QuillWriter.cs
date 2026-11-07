@@ -13,6 +13,12 @@ public class QuillWriter : MonoBehaviour
 
     private bool hasBlood = false;
     private TrailRenderer currentTrail;
+    private PaperWritingDetector currentPaper;
+
+    private void Update()
+    {
+        if (currentPaper != null && !currentPaper.CanWrite) EndStroke();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +29,12 @@ public class QuillWriter : MonoBehaviour
         }
         else if (other.CompareTag("Paper") && hasBlood)
         {
-            StartStroke();
+            var paper = other.GetComponent<PaperWritingDetector>();
+            if (paper == null || paper.CanWrite)
+            {
+                StartStroke();
+                currentPaper = paper;
+            }
         }
     }
 
@@ -63,5 +74,6 @@ public class QuillWriter : MonoBehaviour
             currentTrail.transform.SetParent(null);
             currentTrail = null;
         }
+        currentPaper = null;
     }
 }

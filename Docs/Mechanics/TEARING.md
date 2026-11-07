@@ -15,6 +15,8 @@ Az előrehaladást a kéztávolság pozitív változása adja, legfeljebb 2,5 te
 A front végén a darabok a végső vizuális helyzetükön jönnek létre, középre rendezett lokális geometriával, területarányos tömeggel, külön Rigidbodyval és 4 mm vastag convex colliderrel. A meglévő Meta Grabbable adapter ugyanabban a frame-ben adja át őket a megfelelő kezeknek. Mindkettő TwoHands fogást és örökölt Tearable/hangbeállításokat kap. A szétszakadt szülő rejtve őrzi a darabfát; a WorkshopReset csak a gyökérlapot reseteli, amely rekurzívan felszabadítja az összes darabot, fogást és runtime mesht.
 
 ## Inspector és hangbekötés
+A `03_Trianon.unity` jelenetben ugyanez a prefab az aláírható laphoz kapcsolódik. A `PaperWritingDetector` teljesített aláírása után nem indul szakadás; a szakadás megkezdése után az aláírás nem teljesíthető. Az asztali elrendezést és az ellenőrzési korlátokat a [Trianon leírás](TRIANON_CONTRACT.md) rögzíti.
+
 A `TearableContract` prefab Tearable komponensében:
 - `Minimum Grip Separation`: 0,06 m lokális kontaktustávolság.
 - `Extension Threshold`: 0,025 m; `Spring Stiffness`: 40; `Force Threshold`: 0,8; `Minimum Pull Speed`: 0,005 m/s az induláshoz. Elindult szakadás lassú húzással is folytatható.

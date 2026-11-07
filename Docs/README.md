@@ -7,6 +7,7 @@
 - [Játékos és mozgás](Mechanics/PLAYER.md)
 - [Tárgyfogás és elengedés](Mechanics/GRABBING.md)
 - [Dinamikus papírtépés](Mechanics/TEARING.md)
+- [Trianon: aláírás vagy tépés](Mechanics/TRIANON_CONTRACT.md)
 - [Szúrási gyakorlóeszköz](Mechanics/STABBING.md)
 - [Flight Yoke és járműfizika](Mechanics/FLIGHT_YOKE.md)
 - [Repülős küldetés, ütközéses game-over és elsötétítés](Mechanics/FLIGHT_MISSION.md)

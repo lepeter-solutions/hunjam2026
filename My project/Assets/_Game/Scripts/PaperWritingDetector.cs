@@ -8,6 +8,7 @@ public class PaperWritingDetector : MonoBehaviour
     [Header("References")]
     [Tooltip("Reference to your QuillWriter in the scene (auto-found if left empty).")]
     [SerializeField] private QuillWriter quillWriter;
+    [SerializeField] private HunJam.Tearable tearablePaper;
 
     [Header("Completion Requirements")]
     [Tooltip("Required fraction of the paper covered (0.1 = 10%).")]
@@ -46,9 +47,13 @@ public class PaperWritingDetector : MonoBehaviour
     private Vector3 _lastTipWorldPos;
 
     private readonly HashSet<Collider> _touchingQuillColliders = new HashSet<Collider>();
+    private Renderer _inkOverlay;
+    private Camera _inkCamera;
 
     public float CurrentCoverage => currentCoverage;
     public bool IsCompleted => isCompleted;
+    public bool CanWrite => !isCompleted && (tearablePaper == null || !tearablePaper.HasStartedTearing);
+    public void SetTearablePaper(HunJam.Tearable paper) => tearablePaper = paper;
 
     private void Awake()
     {
@@ -58,6 +63,11 @@ public class PaperWritingDetector : MonoBehaviour
         }
 
         InitializeSurfaceGrid();
+        if (tearablePaper != null)
+        {
+            _inkOverlay = transform.Find("Plane")?.GetComponent<MeshRenderer>();
+            _inkCamera = GetComponentInChildren<Camera>();
+        }
     }
 
     private void InitializeSurfaceGrid()
@@ -92,7 +102,12 @@ public class PaperWritingDetector : MonoBehaviour
 
     private void Update()
     {
-        if (isCompleted || quillWriter == null || quillWriter.quillTip == null)
+        if (tearablePaper != null && tearablePaper.HasStartedTearing)
+        {
+            if (_inkOverlay != null) _inkOverlay.enabled = false;
+            if (_inkCamera != null) _inkCamera.enabled = false;
+        }
+        if (!CanWrite || quillWriter == null || quillWriter.quillTip == null)
             return;
 
         _touchingQuillColliders.RemoveWhere(c => c == null || !c.enabled || !c.gameObject.activeInHierarchy);
