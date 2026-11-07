@@ -13548,7 +13548,7 @@ Transform:
   m_GameObject: {fileID: 753085788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.187, y: 0.364, z: 21.488}
+  m_LocalPosition: {x: 36.359, y: 0.096, z: 21.783}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14538,7 +14538,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3745622627978696351}
-  - {fileID: 1597905445}
   - {fileID: 3103108188911574324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15206,37 +15205,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 38b71316c8046a546862ba5adc0823f0, type: 3}
   m_PrefabInstance: {fileID: 1466751750}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1597905444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1597905445}
-  m_Layer: 0
-  m_Name: Blade TIp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1597905445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1597905444}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.005593951, y: 0.8196132, z: -0.008003846, w: 0.57283413}
-  m_LocalPosition: {x: 36.624718, y: 0.95326394, z: 22.66391}
-  m_LocalScale: {x: 0.12739211, y: 0.12739211, z: 0.12739216}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1127333492}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1747263492
 GameObject:
   m_ObjectHideFlags: 0
@@ -16831,6 +16799,7 @@ GameObject:
   - component: {fileID: 4876933052985373734}
   - component: {fileID: 1305037034502768843}
   - component: {fileID: 4931218026696101414}
+  - component: {fileID: 4931218026696101415}
   m_Layer: 0
   m_Name: paper
   m_TagString: Paper
@@ -18016,6 +17985,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1653967, y: 0.5, z: 1.4942676}
   m_Center: {x: -0.000015230241, y: -0.1, z: -2.7733763e-20}
+--- !u!114 &4931218026696101415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193423313762318187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04bb5758529c09a4fa3c6f97b3b54f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::PaperWritingDetector
+  quillWriter: {fileID: 7022402391249498829}
+  requiredCoverage: 0.2
+  requiredIdleSeconds: 3
+  gridResolution: 25
+  minMoveDistance: 0.001
+  onWritingCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  currentCoverage: 0
+  timeNotTouching: 0
+  isTouchingPaper: 0
+  isCompleted: 0
 --- !u!1 &5050422055230729137
 GameObject:
   m_ObjectHideFlags: 0
