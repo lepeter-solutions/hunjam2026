@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 139512064}
   - component: {fileID: 139512066}
   - component: {fileID: 139512065}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1101,7 +1101,7 @@ GameObject:
   - component: {fileID: 396662408}
   - component: {fileID: 396662410}
   - component: {fileID: 396662409}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6015,7 +6015,7 @@ Transform:
   m_GameObject: {fileID: 422470448}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.47674942, y: 10.86, z: -8.22258}
+  m_LocalPosition: {x: -0.47674942, y: 10.86, z: -4.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14006,7 +14006,7 @@ Transform:
   m_GameObject: {fileID: 1317826052}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.3, y: 1.007, z: 21.33}
+  m_LocalPosition: {x: 36.3, y: 0, z: 21.737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14208,7 +14208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1597905445}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blade TIp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15266,8 +15266,7 @@ GameObject:
   - component: {fileID: 5334037120028286981}
   - component: {fileID: 5334037120028286980}
   - component: {fileID: 5334037120028286982}
-  - component: {fileID: 5334037120028286983}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "k\xE9s"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16672,7 +16671,7 @@ Transform:
   m_GameObject: {fileID: 832149484901734517}
   serializedVersion: 2
   m_LocalRotation: {x: 0.005593951, y: 0.8196132, z: -0.008003846, w: 0.57283413}
-  m_LocalPosition: {x: 36.315, y: 0.898, z: 22.841}
+  m_LocalPosition: {x: 36.307, y: 0.96, z: 22.816}
   m_LocalScale: {x: 0.2319493, y: 0.23194931, z: 0.23194933}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17404,7 +17403,7 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 5334037120028286983}
+  _oneGrabTransformer: {fileID: 0}
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 3745622627978696351}
   _maxGrabPoints: -1
@@ -17412,21 +17411,6 @@ MonoBehaviour:
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
   _forceKinematicDisabled: 0
---- !u!114 &5334037120028286983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832149484901734517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94900559e72f2654ca112bf2fbc6f0c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.OneGrabPhysicsJointTransformer
-  _customJoint: {fileID: 0}
-  _isKinematicGrab: 1
-  _rigidbodiesRoot: {fileID: 3745622627978696351}
 --- !u!23 &5343788701821687123
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17840,7 +17824,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.8820755, g: 0.9373981, b: 1, a: 1}
-  m_Intensity: 17.05
+  m_Intensity: 6.86
   m_Range: 10
   m_SpotAngle: 45
   m_InnerSpotAngle: 21.80208
@@ -18091,7 +18075,7 @@ GameObject:
   - component: {fileID: 7022402391249498825}
   - component: {fileID: 7022402391249498826}
   - component: {fileID: 7022402391249498827}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: toll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18363,7 +18347,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6427681322480960594}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -18381,7 +18365,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &7022402391249498826
 MonoBehaviour:
   m_ObjectHideFlags: 0
