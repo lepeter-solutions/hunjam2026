@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-07 — Fokozatos, továbbtéphető papír
+- A hirtelen split helyett kéztávolság-változással hajtott, megállítható szakadásfront, sűrített vizuális mesh, nyíló rés és szélfelhajlás. Újrafogáskor a megkezdett vonal folytatható.
+- A darabok öröklik a kétkezes Meta Grabbable fogást, a téphetőséget és hangbeállításokat; terület- és mélységhatár, területarányos tömeg, teljes darabfa-reset és runtime-mesh takarítás.
+- TearableContract prefabban külön húzás közbeni loop- és végső szakadás-hanghely, sebességfüggő térbeli hang és haptika. A közös prefab révén DemoWorld és VRInteractionTest is megkapja, scene-újragenerálás nélkül.
+- Forrás/prefab/diff áttekintve. Felhasználói kérésre nincs build, fordítás, Play mód vagy teszt. Headsetes látvány, kézillesztés, audio és Quest teljesítmény ellenőrizetlen; a korábbi azonnali splitre írt PlayMode papírtesztek későbbi frissítést igényelnek. Részletek: Mechanics/TEARING.md.
+
 ## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
 - Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.
 - Hét Git-ütközés rendezve: három XR Hands mintamappa a main GUID-ját tartja meg; a két material a bejövő, kiegészített URP-mezőket használja. Az OpenXR asset egészében a main konzisztens fileID-hálózatát és újabb HandTracking sémáját tartja meg; a feature-k engedélyezése azonos a két ágon.

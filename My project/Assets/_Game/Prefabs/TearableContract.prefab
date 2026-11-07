@@ -171,11 +171,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb6cd4ed22243c7a2b9f987cd615bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.Tearable
-  minimumGripSeparation: 0.12
-  extensionThreshold: 0.09
+  minimumGripSeparation: 0.06
+  extensionThreshold: 0.025
   springStiffness: 40
-  forceThreshold: 3
-  minimumPullSpeed: 0.04
-  gripHalfExtents: {x: 0.22, y: 0.16}
-  centreMargin: 0.025
+  forceThreshold: 0.8
+  minimumPullSpeed: 0.005
+  tearTravel: 0.18
+  minimumFragmentArea: 0.0018
+  maximumTearDepth: 5
+  edgeCurl: 0.012
+  tearingLoop: {fileID: 0}
   tearSound: {fileID: 0}
+  tearVolume: 0.4
