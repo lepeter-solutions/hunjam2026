@@ -19,7 +19,7 @@ MonoBehaviour:
   enableFaceTrackingVisemesOutput: 0
   telemetryProjectGuid: 011540b5-3582-4013-8964-b635ea4c0e83
   bodyTrackingFidelity: 1
-  bodyTrackingJointSet: 0
-  allowVisibilityMesh: 0
+  bodyTrackingJointSet: 1
+  allowVisibilityMesh: 1
   QuestVisibilityMeshOverriden: 0
   fovSimulationEnabled: 0
