@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Yoke billenés húzáskor és toláskor
+- A yoke ±9 cm-es eltolását arányos, legfeljebb ±10° billenés kíséri: húzáskor a pilóta felé, toláskor előre. A collideres test is követi, a fordítás és visszacentírozás megmarad.
+- `Maximum Push Pull Tilt` Inspector-paraméter (0–25°), a közös prefabban 10°. A repülő vezérlési bemenete változatlan.
+- Forrás/diff áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Headsetes fogás és látvány még ellenőrizendő.
+
 ## 2026-11-07 — Határozottabb gázreakció
 - Maximális tolóerő-gyorsulás 3 → 6 m/s², állítható négyzetes gázgörbe (`throttleExponent=2`). A felső kartartomány nagyobb gyorsuláskülönbséget ad, teljes gázon dupla tolóerővel. A közös repülőprefabban is rögzítve.
 - Forrás/diff áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Headsetes sebességérzet és magasabb sebességű repülési hangolás még ellenőrizendő.

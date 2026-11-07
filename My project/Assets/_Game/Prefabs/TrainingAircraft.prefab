@@ -1817,6 +1817,7 @@ MonoBehaviour:
   mounting: {fileID: 8826710062660553712}
   maximumAngle: 40
   maximumTravel: 0.09
+  maximumPushPullTilt: 10
   deadZone: 0.06
   responseTime: 0.045
   returnTime: 0.25

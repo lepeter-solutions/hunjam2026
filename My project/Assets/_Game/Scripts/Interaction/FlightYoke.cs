@@ -7,6 +7,8 @@ namespace HunJam
         [SerializeField] private Transform mounting;
         [SerializeField, Range(10, 65)] private float maximumAngle = 40f;
         [SerializeField, Range(0.03f, 0.2f)] private float maximumTravel = 0.09f;
+        [Tooltip("Forward/backward tilt at full push/pull, in degrees. Zero disables the tilt.")]
+        [SerializeField, Range(0, 25)] private float maximumPushPullTilt = 10f;
         [SerializeField, Range(0, 0.25f)] private float deadZone = 0.06f;
         [SerializeField, Min(0.01f)] private float responseTime = 0.045f;
         [SerializeField, Min(0.01f)] private float returnTime = 0.25f;
@@ -76,7 +78,10 @@ namespace HunJam
             angle = Mathf.Clamp(angle, -maximumAngle, maximumAngle);
             travel = Mathf.Clamp(travel, -maximumTravel, maximumTravel);
             position = mounting.TransformPoint(home + Vector3.forward * travel);
-            rotation = mounting.rotation * homeRotation * Quaternion.AngleAxis(angle, Vector3.forward);
+            float tilt = travel / Mathf.Max(0.001f, maximumTravel) * maximumPushPullTilt;
+            rotation = mounting.rotation * homeRotation
+                * Quaternion.AngleAxis(tilt, Vector3.right)
+                * Quaternion.AngleAxis(angle, Vector3.forward);
         }
         protected override void FixedUpdate()
         {

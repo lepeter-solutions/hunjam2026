@@ -14,7 +14,7 @@ A kormány állása csak repülési parancs: a gép Rigidbodyje előrehajtást, 
 A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, majd a valós fejmagasságot az ülés szemponthoz illeszti. Fej-/kézmozgás utána teljes egészében room-scale. Headset nélküli kameranézet is az ülésben indul. Nincs joystickos séta, fordulás vagy teleport.
 
 ## Inspector és reset
-- Yoke: `maximumAngle` ±40°, `maximumTravel` ±9 cm; `deadZone` 0,06; `responseTime` 0,045 s; `returnTime` 0,25 s. Mounting alatt a lokális Z a push/pull tengely.
+- Yoke: `maximumAngle` ±40°, `maximumTravel` ±9 cm; `maximumPushPullTilt` ±10° előre/hátra billenés (Inspectorban 0–25°, 0 kikapcsolja). Toláskor előre, húzáskor a pilóta felé dől, a simított eltolással arányosan. A teljes collideres yoke billen, elengedve az eltolással együtt középre tér. A repülő pitch-bemenete továbbra is az eltolásból származik. `deadZone` 0,06; `responseTime` 0,045 s; `returnTime` 0,25 s. Mounting alatt a lokális Z a push/pull tengely.
 - Jármű: `cruiseSpeed` 16 m/s; `pitchRate` 18°/s; `rollRate` 30°/s; `stabilization` 0,65. A műszer 10 Hz-en mutat sebességet, magasságot, pitch/bank értéket.
 - RESET / RECENTER: üres kéz + trigger a bal zöld gombon; elengedi a yoke-ot, visszaállítja a gépet és újrailleszti az ülést.
 - Alsó resetmagasság: a gép gyökerén a FlightVehicle komponens `Altitude Reset` szakasza. `Reset Below Altitude` kapcsolja be; alapból kikapcsolt, így a lejjebb helyezett pályán nem indul magassági resetciklus. `Reset Altitude` a világkoordinátás Y küszöb méterben (alapérték 8, negatív is lehet). Bekapcsolva a kezdőpontnál alacsonyabb értéket adj meg, például Y=-180 kezdőponthoz -250-et. Pontosan a határon nincs reset, csak alatta.
@@ -22,6 +22,8 @@ A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, m
 - Bekapcsolt főkapcsolónál külön engedélyezhető: `Reset Below Altitude` / `Reset Altitude` (8 m), `Reset Above Altitude` / `Maximum Altitude` (600 m), `Reset On Bank` / `Maximum Bank` (75°), `Reset On Pitch` / `Maximum Pitch` (50°), `Reset Outside Radius` / `Maximum Radius` (1400 m, világorigótól vízszintesen), `Reset On Collision` / `Collision Reset Speed` (2 m/s). Az alsó magasság kapcsolója alapból ki, a többi részkapcsoló be van kapcsolva, de a főkapcsoló nélkül egyik sem fut. Jobb gomb: DemoWorld.
 
 ## Ellenőrzés és korlátok
+Push/pull billenés: forrás/diff áttekintve; felhasználói kérésre nincs fordítás vagy teszt. Későbbi kézi próba: teljes tolásnál 10° előrebillenés, teljes húzásnál 10° hátrabillenés; egyidejű bal/jobb fordítás; elengedés és reset után középhelyzet; 0° Inspector-értéknél billenés nélkül megmaradó eltolás. Headsetes markolatilleszkedés még ellenőrizendő.
+
 Teljes automatikus resetkapcsoló: a két automatikus ResetFlight hívási hely (FixedUpdate és OnCollisionEnter) egyaránt a főkapcsolótól függ. A további hívó a kézi DemoSceneButton. Forrás- és híváshely-áttekintés történt; felhasználói kérésre fordítás/teszt/build nem indult. Későbbi próba: főkapcsoló nélkül minden határ átlépése és ütközés reset nélkül; bekapcsolva részkapcsolónként a hozzá tartozó határ túllépése; kézi reset mindkét főkapcsoló-állásnál.
 
 Állítható resetmagasság: csak forrás/diff áttekintés, a felhasználó kérésére nincs fordítás vagy teszt. Későbbi kézi próba: negatív Y kezdőpontból indulás kikapcsolt kapcsolóval; bekapcsolva a beállított küszöb alá repülés és visszaállás; küszöb felett/pontosan rajta nincs magassági reset; kézi reset továbbra is működik.
