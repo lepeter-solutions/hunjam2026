@@ -26,6 +26,8 @@ TagManager:
   - SamplesInfoPanel
   - QDSUIToggleCheckboxRadio
   - QDSUIToggleThumbnail
+  - Blood
+  - Paper
   layers:
   - Default
   - TransparentFX
@@ -37,7 +39,7 @@ TagManager:
   - Grabbables
   - NPCFace
   - NPCObjectsGrab
-  - 
+  - Ink
   - 
   - 
   - 
