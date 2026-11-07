@@ -11,14 +11,16 @@ namespace HunJam
         [SerializeField] private GameObject handVisual;
         [SerializeField] private float reach = 0.12f;
         private InputAction position, rotation, tracked, grip, trigger;
-        private Grabbable held;
+        public bool IsLeft => left;
+        public Transform Anchor => anchor;
+        public Grabbable HeldItem => Grabbable.HeldBy(anchor);
         private ControllerHandPose handPose;
         private bool wasGripping, focused = true;
         public void Configure(bool isLeft, DemoPlayer rig, Transform holdAnchor, GameObject visual)
         { left = isLeft; player = rig; anchor = holdAnchor; handVisual = visual; }
         private void Awake()
         {
-            handPose = handVisual.GetComponent<ControllerHandPose>();
+            handPose = handVisual != null ? handVisual.GetComponent<ControllerHandPose>() : null;
             string device = left ? "<XRController>{LeftHand}/" : "<XRController>{RightHand}/";
             position = new InputAction("Hand position", InputActionType.Value, device + "devicePosition");
             rotation = new InputAction("Hand rotation", InputActionType.Value, device + "deviceRotation");
@@ -40,6 +42,7 @@ namespace HunJam
             {
                 var candidate = collider.GetComponentInParent<T>();
                 if (candidate == null) continue;
+                if (candidate is Grabbable item && !item.CanGrab(anchor)) continue;
                 Vector3 point = collider.ClosestPoint(anchor.position);
                 float d = Vector3.Distance(anchor.position, point);
                 if (d > distance) continue;
@@ -52,29 +55,35 @@ namespace HunJam
         }
         private void LateUpdate()
         {
-            bool usable = focused && player.IsVR && tracked.IsPressed();
-            handVisual.SetActive(usable);
+            bool usable = focused && player != null && player.IsVR && tracked.IsPressed();
+            if (handVisual != null) handVisual.SetActive(usable);
             if (!usable) { Drop(false); return; }
             transform.localPosition = position.ReadValue<Vector3>();
             transform.localRotation = rotation.ReadValue<Quaternion>();
-            handPose?.SetPose(grip.ReadValue<float>(), trigger.ReadValue<float>());
+            var held = HeldItem;
+            handPose?.SetPose(grip.ReadValue<float>(), trigger.ReadValue<float>(), held != null ? held.FingerClosure : 1f);
             bool grabbing = grip.IsPressed();
-            if (held != null && (!held.IsHeld || !held.isActiveAndEnabled)) held = null;
             if (grabbing && !wasGripping && held == null)
             {
                 var item = FindNearby<Grabbable>();
-                if (item != null && item.Grab(anchor)) held = item;
+                if (item != null) item.Grab(anchor);
             }
             if (!grabbing) Drop(true);
             wasGripping = grabbing;
             if (trigger.WasPressedThisFrame())
             {
-                if (held != null) held.Use();
+                if (HeldItem != null) HeldItem.Use();
                 else FindNearby<DemoInteractable>()?.Interact();
             }
         }
         private void Drop(bool throwing)
-        { if (held != null) held.Release(throwing); held = null; wasGripping = false; }
+        { HeldItem?.Release(anchor, throwing); wasGripping = false; }
+        public void Pulse(float amplitude, float duration)
+        {
+            var device = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(left ? UnityEngine.XR.XRNode.LeftHand : UnityEngine.XR.XRNode.RightHand);
+            if (device.TryGetHapticCapabilities(out var capabilities) && capabilities.supportsImpulse)
+                device.SendHapticImpulse(0, Mathf.Clamp01(amplitude), Mathf.Max(0, duration));
+        }
         private void OnApplicationFocus(bool focus) { focused = focus; if (!focus) Drop(false); }
         private void OnApplicationPause(bool pause) { if (pause) Drop(false); }
     }

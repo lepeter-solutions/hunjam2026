@@ -37,3 +37,10 @@
 - Touch kontrolleres követés; gripre ujjhajlítás, triggerre mutatóujj-hajlítás. A közeli fogás, használat, ütés és vágás ugyanazokhoz a kezekhez kapcsolódik. Nincs joystickos mozgás.
 - A QuestPlayer prefab és a demógenerátor is az új modelleket használja. A teljes XR Hands runtime nem szükséges.
 - Unity fordítás és scene-validáció sikeres; 5/5 PlayMode regressziós teszt sikeres. Kontrolleres póz és csuklóillesztés valódi headseten még ellenőrizendő; új APK nem készült.
+
+## 2026-11-07 — Kétkezes fogás és közvetlen átadás
+- A Grabbable kizárólagos fogását közös anchor–tárgy nyilvántartás, elsődleges/másodlagos kéz és explicit állapotok váltják. TransferOnly esetén grip-átfedés, TwoHands esetén kétkezes orientáció. Elengedéskor folyamatos újrabázisolás, tracking/tiltás/megsemmisülés utáni takarítás.
+- DemoHand a közös tulajdonlást használja; az átadás nem ejti el a másik kéz tárgyát. Rövid grip-haptika, nyugodt alapujjtartás és tárgyfüggő zárás. A mozgásbemenetek változatlanok.
+- Dokumentáció: Mechanics/GRABBING.md frissítve az API-val, állapotokkal és korlátokkal.
+- Unity 6000.3.28f1, elkülönített TwoHandValidation másolat: fordítás sikeres; 9/9 PlayMode teszt sikeres (5 meglévő regresszió, 4 új fogáspróba). Helyi bizonyíték: My project/Builds/TwoHandValidation/grab-results.xml és grab-tests.log.
+- Headsetes két szem/kontroller, kézpóz-illeszkedés, haptika, dobásérzet és teljesítmény még ellenőrizendő. A papír-, szúrás- és repülésbővítés következő munkalépés.
