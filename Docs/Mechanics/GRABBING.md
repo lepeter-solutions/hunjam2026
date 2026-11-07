@@ -6,7 +6,7 @@
 `Scripts/Interaction/Grabbable.cs`, `DemoHand.cs`, `Scripts/Player/MetaRoomScaleRig.cs`; QuestPlayer, MetaLeftHand/MetaRightHand, EnergyOrb és eszközprefabok. Meta XR Interaction SDK 207.0.1, XRI nélkül. A HunJam.Grabbable a natív Oculus.Interaction.Grabbable leszármazottja; annak ITransformer hívása mozgatja a Rigidbodyt. Ugyanaz az anchor nem birtokolhat két tárgyat. [Pontos SDK-határok és beállítás](../META_XR.md).
 
 ## Bemenetek és állapotok
-A grip új lenyomása a 12 cm-es közelségben kiválasztott tárgyhoz csatlakozik. Köztes szilárd geometria blokkol. Trigger: fogott tárgy Use, üres kéz: közeli interakció. Nincsenek új input action assetek vagy mozgásbemenetek.
+A grip lenyomása a 12 cm-es közelségben kiválasztott tárgyhoz csatlakozik. Sikertelen első keresés után a nyomva tartott grip 0,05 másodpercenként újrapróbálkozik, így a már szorított kézzel megközelített vékony papír is felvehető. Sikeres fogás után az adott grip már felhasználtnak számít: átadás, reset vagy kényszerített elengedés után új lenyomás szükséges, nem kap fel automatikusan másik tárgyat. Köztes szilárd geometria blokkol. Trigger: fogott tárgy Use, üres kéz: közeli interakció. Nincsenek új input action assetek vagy mozgásbemenetek.
 - Free → HeldLeft/HeldRight: első kéz. A nem DemoHand tesztanchor HeldRightként jelenik meg.
 - TwoHands mód: második grip → HeldBoth. Két kézből számított orientáció, elsődleges kontaktpont, változatlan méret.
 - TransferOnly (alapértelmezés): második grip → TransferPending. Csak az eredeti kéz mozgat; az átfedést bármelyik kéz elengedése zárja. Az eredeti grip elengedése fejezi be az átadást.

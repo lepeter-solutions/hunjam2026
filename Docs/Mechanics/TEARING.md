@@ -40,3 +40,7 @@ Később ellenőrizendő:
 7. Quest: két szem, két kontroller, komfort, késleltetés, szakadáskezdeti mesh-készítés költsége, sok darab képkockaideje.
 
 Korlátok: síkbeli, egyenes szakadásnyom, nem rostszimuláció vagy általános softbody. A folyamat közben a collider még az összefüggő eredeti lapot képviseli; az új önálló colliderek a végén készülnek. A finom szélfelhajlás a leválás végére kisimul. Egy lapon egyszerre egy megkezdett vonal folytatható. A hang, vizuális sűrűség és küszöbök headseten hangolandók; támogatott alap a felosztott, konvex XY lap, egységnyi skálával.
+
+## 2026-11-07 — DemoWorld fogási hibajelzés
+A friss main (d2fc056) papírprefabján a collider és a Grabbable aktív, a scene nem írja ezeket felül. A fogáskeresés korábban kizárólag a grip lenyomási frame-jében futott: a hatótávon kívül megkezdett szorítás közelítéskor nem próbált újra. A DemoHand most sikerig vagy felengedésig periodikusan újrakeres, változatlan közelségi és akadályszabállyal. Ez az azonosított bemeneti eset javítása; a jelentett headsetes hiba teljes oka futtatás nélkül nem igazolt.
+Későbbi ellenőrzés: grip lenyomása a laptól távol, majd közelítés felengedés nélkül; normál közeli felvétel, kétkezes fogás, reset utáni új lenyomás és fal mögötti tárgy tiltása. Csak forrás/prefab/diff áttekintés történt; kérésre nincs build vagy teszt.

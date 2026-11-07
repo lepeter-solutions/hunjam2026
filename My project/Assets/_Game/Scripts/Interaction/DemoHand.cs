@@ -15,7 +15,8 @@ namespace HunJam
         public Transform Anchor => anchor;
         public Grabbable HeldItem => Grabbable.HeldBy(anchor);
         private ControllerHandPose handPose;
-        private bool wasGripping, focused = true;
+        private bool gripConsumed, focused = true;
+        private float nextGrabAttempt;
         private Transform metaController;
         public void UseMetaTracking(Transform controller)
         {
@@ -78,13 +79,17 @@ namespace HunJam
             var held = HeldItem;
             handPose?.SetPose(grip.ReadValue<float>(), trigger.ReadValue<float>(), held != null ? held.FingerClosure : 1f);
             bool grabbing = grip.IsPressed();
-            if (grabbing && !wasGripping && held == null)
+            // Keep an unsuccessful squeeze pending while the hand approaches the surface.
+            // Once it owns anything, require release before another acquisition (including
+            // after a transfer, reset or forced release). Never steal a second object.
+            if (held != null) gripConsumed = true;
+            if (grabbing && !gripConsumed && held == null && Time.unscaledTime >= nextGrabAttempt)
             {
+                nextGrabAttempt = Time.unscaledTime + 0.05f;
                 var item = FindNearby<Grabbable>();
-                if (item != null) item.Grab(anchor);
+                if (item != null && item.Grab(anchor)) gripConsumed = true;
             }
             if (!grabbing) Drop(true);
-            wasGripping = grabbing;
             if (trigger.WasPressedThisFrame())
             {
                 if (HeldItem != null) HeldItem.Use();
@@ -92,7 +97,7 @@ namespace HunJam
             }
         }
         private void Drop(bool throwing)
-        { HeldItem?.Release(anchor, throwing); wasGripping = false; }
+        { HeldItem?.Release(anchor, throwing); gripConsumed = false; nextGrabAttempt = 0; }
         public void Pulse(float amplitude, float duration)
         {
             var device = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(left ? UnityEngine.XR.XRNode.LeftHand : UnityEngine.XR.XRNode.RightHand);

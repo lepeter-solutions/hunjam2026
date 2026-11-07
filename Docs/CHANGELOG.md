@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Sikertelen grip újrapróbálása közelítéskor
+- Main frissítve d2fc056-ra; a helyi ProBuilder-módosítás megőrizve. DemoWorld papírprefab, aktív collider, fogáskomponens és scene-override-ok áttekintve.
+- DemoHand: a sikertelen grip nem vész el a lenyomás frame-jében; nyomva tartva 0,05 másodpercenként újrakeres. Sikeres fogás után ugyanaz a szorítás nem szerezhet új tárgyat átadás/reset után.
+- A hatótáv, akadályvizsgálat és Meta Grabbable útvonal változatlan. Forrás/diff áttekintés; nincs build, fordítás vagy teszt. A felhasználói hibajelzés teljes headsetes reprodukciója és a javítás visszaellenőrzése még nyitott.
+
 ## 2026-11-07 — Manhattan kezdőirány 90°-os korrekciója
 - A felhasználó visszajelzése szerint a kameraátadás javítása után is 90°-kal balra nézett a játékos. A scene PilotPivotja helyi Y=0° helyett +90°: induláskor és RECENTER-kor jobbra korrigált célirány.
 - Kizárólag a pivot forgatása változott, a szemhelyzet és a fejkövetés változatlan. Diff áttekintve; kérésre nincs fordítás vagy teszt. A headsetes eredmény ellenőrizendő.
