@@ -1,5 +1,9 @@
 # Változásnapló
 
+## 2026-11-07 — Határozottabb gázreakció
+- Maximális tolóerő-gyorsulás 3 → 6 m/s², állítható négyzetes gázgörbe (`throttleExponent=2`). A felső kartartomány nagyobb gyorsuláskülönbséget ad, teljes gázon dupla tolóerővel. A közös repülőprefabban is rögzítve.
+- Forrás/diff áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Headsetes sebességérzet és magasabb sebességű repülési hangolás még ellenőrizendő.
+
 ## 2026-11-07 — Süllyedési fizika és jobb oldali gázkar
 - Fix sebességszabályozás helyett tolóerő, sebességnégyzetes légellenállás és állásszögfüggő, a sebességre merőleges felhajtóerő. Orrlenyomáskor csökkenő/negatív felhajtóerő engedi a tényleges süllyedést; nagy állásszögnél egyszerűsített felhajtóerő-csökkenés.
 - TrainingAircraft jobb oldalán megfogható, ±35° végállású, elengedve állástartó gázkar, Meta Grabbable adapterrel. Tolóerő 0–100%, reset 70%; V/S és THR műszerkijelzés. A prefab és Editor-generátor is frissült, a meglévő scene-ek öröklik.

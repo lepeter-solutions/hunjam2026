@@ -1713,6 +1713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.FlightVehicle
   yoke: {fileID: 3454916248434332307}
   throttle: {fileID: 8000000000000004}
+  maximumThrustAcceleration: 6
+  throttleExponent: 2
   instruments: {fileID: 8513286299159541888}
   cruiseSpeed: 16
   pitchRate: 18

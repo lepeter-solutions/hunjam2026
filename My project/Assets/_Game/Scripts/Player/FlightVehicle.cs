@@ -8,7 +8,9 @@ namespace HunJam
         [SerializeField] private TextMesh instruments;
         [SerializeField] private FlightThrottle throttle;
         [Header("Aerodynamics")]
-        [SerializeField, Min(0)] private float maximumThrustAcceleration = 3f;
+        [SerializeField, Min(0)] private float maximumThrustAcceleration = 6f;
+        [Tooltip("Higher values reserve more thrust for the upper part of the throttle travel.")]
+        [SerializeField, Range(1, 3)] private float throttleExponent = 2f;
         [SerializeField, Min(0)] private float dragCoefficient = 0.0082f;
         [SerializeField, Min(0)] private float liftSlope = 4f;
         [SerializeField, Range(5, 40)] private float stallAngle = 18f;
@@ -69,7 +71,8 @@ namespace HunJam
             float speedRatio = Mathf.Max(0, forwardSpeed) / cruiseSpeed;
             Vector3 liftDirection = Vector3.ProjectOnPlane(transform.up, body.linearVelocity.normalized).normalized;
             float power = throttle != null ? throttle.Value : 0.7f;
-            body.AddForce(transform.forward * (power * maximumThrustAcceleration), ForceMode.Acceleration);
+            float thrust = Mathf.Pow(Mathf.Clamp01(power), throttleExponent) * maximumThrustAcceleration;
+            body.AddForce(transform.forward * thrust, ForceMode.Acceleration);
             body.AddForce(-body.linearVelocity * (Speed * dragCoefficient * (1 + 2 * stall)), ForceMode.Acceleration);
             body.AddForce(liftDirection * (Physics.gravity.magnitude * speedRatio * speedRatio * liftCoefficient), ForceMode.Acceleration);
             body.AddForce(-transform.right * Vector3.Dot(body.linearVelocity, transform.right) * 0.8f, ForceMode.Acceleration);

@@ -9,7 +9,9 @@ Touch grip a kar közelében, majd kézzel előre/hátra billentés. Előre: tö
 A FlightVehicle 0–100% között olvassa a Value értéket. A kar tolóerőt szabályoz, nem közvetlen sebességet: gyorsítás/lassítás fokozatos, a gravitáció és légellenállás is számít; nulla gázon siklik, nem áll meg a levegőben. A műszer THR százalékot és V/S függőleges sebességet mutat (negatív = süllyedés).
 
 ## Hangolás és kapcsolatok
-Kar: `maximumAngle` 35°, `initialThrottle` 0.7. Jobb oldali pivot: (0.55, 0.65, 0.15) a géphez képest. FlightVehicle: `maximumThrustAcceleration` 3 m/s²; `dragCoefficient` 0.0082; a 16 m/s `cruiseSpeed` a kezdősebesség és a felhajtóerő referenciaértéke, nem automatikusan tartott sebesség. Kar nélküli régi scene-ben 70% gáz az alapérték.
+Kar: `maximumAngle` 35°, `initialThrottle` 0.7. Jobb oldali pivot: (0.55, 0.65, 0.15) a géphez képest. FlightVehicle: `maximumThrustAcceleration` 6 m/s²; `throttleExponent` 2; `dragCoefficient` 0.0082; a 16 m/s `cruiseSpeed` a kezdősebesség és a felhajtóerő referenciaértéke, nem automatikusan tartott sebesség. Kar nélküli régi scene-ben 70% gáz az alapérték.
+
+A tolóerő képlete: gázarány² × 6 m/s². Félgázon 1.5, 70%-on 2.94, teljes gázon 6 m/s² tolóerő-gyorsulás keletkezik, amelyből még levonódik a légellenállás. A felső kartartomány így határozottabb gyorsítást ad; teljes gázon kétszeres a korábbi maximális tolóerő. A paraméterek a közös prefabban is rögzítettek. Forrás/diff áttekintve; futtatott teszt vagy headsetes sebességmérés nem történt.
 
 A kinematic cockpit-kezelőszervek kimaradnak a Grabbable Y<-3 tárgymentő resetjéből, így negatív világmagasságon is megmarad a kar állása. A gép automatikus resetkapcsolója változatlanul alapból kikapcsolt.
 
