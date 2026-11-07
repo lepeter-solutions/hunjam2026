@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Movement SDK avatar pozícióillesztés
+- A felhasználói teszt szerint a test pozíciója és mozgása eltért a VR játékosétól. Az avatar kikerült a `TrackingSpace` gyermeke alól: a Meta provider már világkoordinátára alakítja a pózt, így a tracking origin kétszeres alkalmazása megszűnik.
+- A bekötés a Movement SDK `MovementBody` mintascene struktúráját követi. A dokumentáció frissült; statikus diff-ellenőrzés megtörtént.
+- Android build és Quest teszt nem futott; a kezdeti illesztés és fizikai séta headseten ellenőrizendő.
+
 ## 2026-11-07 — Movement SDK teljes test a Vérszerződés scene-ben
 - A Meta Movement SDK `RealisticCharacter` prefabja a scene TrackingSpace gyermeke lett; a body tracking runtime-joint set FullBody, a scene induláskor kéri az engedélyt. A meglévő projekt Body Tracking támogatása már engedélyezett volt.
 - Első személyű nézethez a prefab fej/arc rendererei scene-override-ként rejtettek, hogy ne takarják a kamerát. Más scene, kézkövetés és locomotion nem változik.

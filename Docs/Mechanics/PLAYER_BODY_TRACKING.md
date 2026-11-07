@@ -15,7 +15,7 @@ Az első személyű nézet elől az avatar fej- és arcmesh-ei rejtettek, hogy n
 ## Bemenetek, állapotok és kapcsolatok
 - A scene `OVRManager` komponense induláskor kéri a Body Tracking engedélyt. Engedélyezés nélkül az avatár nem kap érvényes body pózt.
 - A `MetaSourceDataProvider` FullBody joint setet kér; a `CharacterRetargeter` az SDK pózt a RealisticCharacter csontvázára alakítja.
-- A prefab a scene `TrackingSpace` objektumának gyermeke, ezért a body póz ugyanahhoz a Meta tracking originhez igazodik, mint a kamera.
+- A `MetaSourceDataProvider` az SDK `TrackingSpace` transzformjával világkoordinátára alakítja a body pózt. Emiatt az avatar prefab gyökere scene-szintű, nem lehet a `TrackingSpace` gyermeke: különben a tracking origin eltolása kétszer adódna hozzá.
 - A projekt Body Tracking támogatása engedélyezett. A globális runtime joint set FullBody; más scene-ben nincs automatikusan avatárpéldány.
 - A body tracking becsült póz, nem külön testre szerelt szenzorokból származó mozgásmérés. A fizikai room-scale mozgás továbbra is az egyetlen játékosi helyváltoztatás.
 
@@ -25,9 +25,9 @@ Az első személyű nézet elől az avatar fej- és arcmesh-ei rejtettek, hogy n
 - Az avatar megjelenése és retargetelése a Meta Movement SDK `RealisticCharacter` prefabból jön. A fej, száj és két cornea renderer kizárólag a Vérszerződés scene példányában van kikapcsolva.
 
 ## Ellenőrzés
-2026-11-07, Unity 6000.3.28f1: batch Editorben a prefab betöltése, scene-be helyezése, scene-specifikus fej/arc renderer override-ok, Body Tracking engedélykérés és FullBody runtime beállítás mentése sikeres volt. A C# Editor assembly fordítása sikeres; a scene/prefab GUID-ok és beállításértékek statikusan ellenőrizve.
+2026-11-07, Unity 6000.3.28f1: a scene-ben a prefab scene-szintű gyökérként van példányosítva, az SDK Body Tracking Samples `MovementBody` scene-jének mintáját követve. A forráskód alapján a provider már világkoordinátára transzformálja a pózt a Meta `TrackingSpace` segítségével; a scene- és dokumentációs módosítás ellenőrzése megtörtént.
 
-Nyitott headsetes teszt: Questen engedélyezni a body trackinget, majd álló helyzetben, guggoláskor és kar-/kézmozgáskor mindkét szem képén ellenőrizni a törzs, lábak és karok illeszkedését, az avatar fejének kamerából való hiányát, a követésvesztés utáni visszatérést, komfortot és teljesítményt. Android build és fizikai eszközteszt ebben a módosításban nem futott.
+Nyitott headsetes teszt: Questen engedélyezni a body trackinget, majd induláskor összevetni a test és a headset pozícióját, fizikai séta közben pedig ellenőrizni, hogy az avatar nem mozdul-e a headsethez képest gyorsabban. Guggoláskor és kar-/kézmozgáskor mindkét szem képén ellenőrizendő a törzs, lábak és karok illeszkedése, a fejmesh hiánya, a követésvesztés utáni visszatérés, komfort és teljesítmény. Android build és fizikai eszközteszt ebben a módosításban nem futott; a korábbi eltérés headseten még visszaellenőrzendő.
 
 ## Ismert korlátok
 - Az avatar fej/arc mesh-e önnézetben szándékosan nem látható; nincs külső kamera vagy tükörnézet.
