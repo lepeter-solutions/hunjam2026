@@ -16,6 +16,10 @@ A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, m
 - Automatikus reset: 8 m alatti / 600 m fölötti magasság, 75°-nál nagyobb bank, 50°-nál nagyobb pitch, 1400 m-es vízszintes körzet elhagyása vagy 2 m/s feletti ütközés. Jobb gomb: DemoWorld.
 
 ## Ellenőrzés és korlátok
+2026-11-07, fogási hibajavítás: a felhasználó szerint az előző rögzítési javítás után a yoke nem volt megfogható. A FlightYoke most a DemoHand előtt igazítja a megjelenítési pózt; a közelségi keresés Physics.SyncTransforms után vizsgálja a collidereket, hogy a fogási felület a látható markolatnál legyen. A követési ugrás vizsgálata a yoke-nál mounting-koordinátákban történik, így a repülő haladása nem oldja a fogást. A tényleges angle/travel állapot is ±40°/±9 cm végállásra korlátozott, nem csak a célérték. Az egy-/kétkezes bemenet, rugós centírozás és kinematic rögzítés megmarad.
+
+Ellenőrzési lépések a következő headsetes próbához: repülés közben mindkét markolat megfogása; húzás/tolás és fordítás a végállásokig és azokon túl; második kéz csatlakoztatása és átadás; elengedés, újrafogás, reset és többperces repülés. Tényleges eredmény: forrásáttekintés; a korábbi kérésnek megfelelően most sem indult fordítás vagy teszt, a headsetes eredmény még nem ismert.
+
 2026-11-07: a yoke rögzített cockpit-vezérlő. Elengedéskor sem kapcsol dinamikus Rigidbodyre, nincs gravitáció vagy dobási sebesség. A helyi alaphelyzetből, korlátozott Z eltolásból és elfordulásból számított póz közvetlenül rögzíti a fizikai testet; LateUpdate a repülő interpolált megjelenítési pózához is illeszti. Így nincs külön, lemaradó világkoordinátás MovePosition-pályája. A prefab és generátor gravitáció nélküli, kinematic, ContinuousSpeculative beállítással készül. A ±40° és ±9 cm végállás, kétkezes átlagolás és visszacentírozás megmarad. Csak forrásáttekintés történt; felhasználói kérésre nem futott fordítás vagy teszt. A többperces repülés és reset utáni rögzítés headseten ellenőrizendő.
 
 Ugyanez a prefab a [Manhattan pályán](MANHATTAN_FLIGHT.md) is használható.

@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-07 — Yoke fogási felület és mozgáshatárok
+- Felhasználói hibajelzés: az előző rögzítési javítás után a yoke nem fogható. A yoke LateUpdate-je most a kéz lekérdezése előtt fut, és a fogáskeresés szinkronizálja a látható Transformokat a fizikával.
+- A yoke kézkövetésiugrás-védelme cockpit-koordinátákban számol; a repülő haladása nem ad hamis elengedési parancsot. A normál tárgyak világkoordinátás védelme megmarad.
+- A tényleges kormányállás is korlátozott: ±9 cm ki-be mozgás, ±40° fordítás. Gravitáció és szabad eldobás nincs, a kézvezérlés és visszacentírozás megmarad.
+- Ellenőrzés: forrás és diff áttekintése. Felhasználói kérésre nem futott fordítás, teszt vagy build; a fogás és a többperces repülés headsetes visszaellenőrzése nyitott.
+
 ## 2026-11-07 — Rögzített yoke és Manhattan integráció
 - A yoke elengedéskor sem vált szabad fizikára. A cockpitből számított kötött pózt fizikában és a repülő interpolált megjelenítése után is felveszi; megmarad a kétkezes fogás, ±40° fordítás, ±9 cm eltolás és centírozás. Prefab és generátor gravitáció nélkül készül.
 - A manhatten branch beolvasztása a codex/vr-two-hand-demos ágba; város, művészeti assetek és hangok átvétele, a meglévő kétkezes Meta runtime megtartásával. Részletes konfliktusfeloldási döntések: Mechanics/MANHATTAN_FLIGHT.md.

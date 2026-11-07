@@ -43,6 +43,9 @@ namespace HunJam
         { position?.Dispose(); rotation?.Dispose(); tracked?.Dispose(); grip?.Dispose(); trigger?.Dispose(); }
         public T FindNearby<T>() where T : Component
         {
+            // Mounted controls follow an interpolated vehicle in LateUpdate. Their visible
+            // transforms must reach PhysX before overlap, closest-point and occlusion queries.
+            Physics.SyncTransforms();
             T closest = null;
             float distance = reach;
             foreach (var collider in Physics.OverlapSphere(anchor.position, reach, ~(1 << 2), QueryTriggerInteraction.Ignore))

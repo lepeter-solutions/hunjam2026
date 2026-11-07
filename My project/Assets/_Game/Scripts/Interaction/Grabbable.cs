@@ -31,6 +31,8 @@ namespace HunJam
         public GripMode Mode => gripMode;
         public bool CanImpact => IsHeld && Time.time >= armedAt;
         private Vector3 startPosition, previousPosition, localOffset, previousPrimary, previousSecondary;
+        private Vector3 previousPrimaryTracking, previousSecondaryTracking;
+        protected virtual Vector3 TrackingPosition(Transform hand) => hand.position;
         private Quaternion startRotation, previousRotation, rotationOffset, twoHandOffset;
         private Vector3 frameUp;
         private bool twoHandFrameValid;
@@ -123,6 +125,7 @@ namespace HunJam
             previousRotation = Body.rotation;
             previousPrimary = Primary.position;
             previousSecondary = Secondary != null ? Secondary.position : Vector3.zero;
+            CaptureTrackingPositions();
             twoHandFrameValid = false;
             frameUp = Primary.up;
             if (Secondary != null && TryGripFrame(out var frame))
@@ -212,8 +215,8 @@ namespace HunJam
                 if (Body.position.y < -3f) ResetObject();
                 return;
             }
-            if (Vector3.Distance(Primary.position, previousPrimary) > 0.5f) { Release(Primary, false); return; }
-            if (Secondary != null && Vector3.Distance(Secondary.position, previousSecondary) > 0.5f) { Release(Secondary, false); return; }
+            if (Vector3.Distance(TrackingPosition(Primary), previousPrimaryTracking) > 0.5f) { Release(Primary, false); return; }
+            if (Secondary != null && Vector3.Distance(TrackingPosition(Secondary), previousSecondaryTracking) > 0.5f) { Release(Secondary, false); return; }
             // Update both native grab points, then apply one physics step through Meta's transformer.
             if (Secondary != null) SendPointer(Secondary, PointerEventType.Move);
             applyingPhysics = true;
@@ -235,7 +238,13 @@ namespace HunJam
             previousPosition = target; previousRotation = rotation;
             previousPrimary = Primary.position;
             previousSecondary = Secondary != null ? Secondary.position : Vector3.zero;
+            CaptureTrackingPositions();
             ApplyTargetPose(target, rotation);
+        }
+        private void CaptureTrackingPositions()
+        {
+            previousPrimaryTracking = Primary != null ? TrackingPosition(Primary) : Vector3.zero;
+            previousSecondaryTracking = Secondary != null ? TrackingPosition(Secondary) : Vector3.zero;
         }
         protected virtual void ApplyTargetPose(Vector3 position, Quaternion rotation)
         { Body.MovePosition(position); Body.MoveRotation(rotation); }

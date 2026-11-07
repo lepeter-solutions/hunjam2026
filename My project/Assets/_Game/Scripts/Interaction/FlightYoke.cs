@@ -1,6 +1,7 @@
 using UnityEngine;
 namespace HunJam
 {
+    [DefaultExecutionOrder(-100)] // Align the mounted collider before DemoHand's LateUpdate queries.
     public sealed class FlightYoke : Grabbable
     {
         [SerializeField] private Transform mounting;
@@ -13,6 +14,7 @@ namespace HunJam
         private Quaternion homeRotation;
         private float angle, travel, startAngle, startTravel, angleVelocity, travelVelocity;
         protected override bool KeepKinematicOnRelease => true;
+        protected override Vector3 TrackingPosition(Transform hand) => mounting.InverseTransformPoint(hand.position);
         public float Roll => ApplyDeadZone(-angle / maximumAngle, deadZone);
         public float Pitch => ApplyDeadZone(-travel / maximumTravel, deadZone);
         public float Angle => angle;
@@ -70,6 +72,9 @@ namespace HunJam
         }
         private void Pose(out Vector3 position, out Quaternion rotation)
         {
+            // Clamp the actual state as well as its target, including after handoffs and tuning.
+            angle = Mathf.Clamp(angle, -maximumAngle, maximumAngle);
+            travel = Mathf.Clamp(travel, -maximumTravel, maximumTravel);
             position = mounting.TransformPoint(home + Vector3.forward * travel);
             rotation = mounting.rotation * homeRotation * Quaternion.AngleAxis(angle, Vector3.forward);
         }
