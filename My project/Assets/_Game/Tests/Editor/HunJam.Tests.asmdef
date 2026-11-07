@@ -1,6 +1,6 @@
 {
   "name": "HunJam.Tests",
-  "references": ["HunJam.Runtime"],
+  "references": ["HunJam.Runtime", "Oculus.Interaction", "Oculus.VR"],
   "includePlatforms": ["Editor"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

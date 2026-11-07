@@ -2,6 +2,8 @@
 
 Unity **6000.3.28f1**, URP, Meta Quest standalone / OpenXR / Touch kontrollerek.
 
+Meta XR Core + Interaction SDK **207.0.1**, natív Capsense Natural kezek és Meta Grabbable alapú tárgyak. [Bekötés és import](Docs/META_XR.md). A legutóbbi kérés szerint az SDK-átálláshoz nem futtatunk buildet vagy tesztet; az alábbi indítási lépések későbbi kipróbáláshoz szólnak.
+
 ![A DemoWorld gyakorlópálya](Docs/Images/DemoWorld.png)
 
 ## Indítás

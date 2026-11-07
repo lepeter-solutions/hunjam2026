@@ -67,6 +67,10 @@ namespace HunJam.Editor
                 if (touch == null) throw new InvalidOperationException("Touch interaction profile missing.");
                 touch.enabled = true;
                 EditorUtility.SetDirty(touch);
+                var meta = settings.GetFeature<Meta.XR.MetaXRFeature>();
+                if (meta == null) throw new InvalidOperationException("Meta XR Core feature missing. Import the pinned Meta packages first.");
+                meta.enabled = true;
+                EditorUtility.SetDirty(meta);
                 if (group == BuildTargetGroup.Android)
                 {
                     var quest = settings.GetFeature<MetaQuestFeature>();
@@ -84,7 +88,7 @@ namespace HunJam.Editor
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.lepetersolutions.hunjam2026");
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
-            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel29;
+            PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel32;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
             PlayerSettings.Android.applicationEntry = AndroidApplicationEntry.GameActivity;
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.LandscapeLeft;
@@ -217,6 +221,11 @@ namespace HunJam.Editor
             }
             var leftHand = Hand(true); var rightHand = Hand(false);
             player.Configure(space, view, leftHand, rightHand);
+            root.AddComponent<MetaRoomScaleRig>().Configure(
+                AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.meta.xr.sdk.core/Prefabs/OVRCameraRig.prefab"),
+                AssetDatabase.LoadAssetAtPath<GameObject>(Root + "Prefabs/MetaLeftHand.prefab"),
+                AssetDatabase.LoadAssetAtPath<GameObject>(Root + "Prefabs/MetaRightHand.prefab"),
+                AssetDatabase.LoadAssetAtPath<Material>(Root + "Art/Materials/MetaHandSkin.mat"));
             PrefabUtility.SaveAsPrefabAssetAndConnect(root, Root + "Prefabs/QuestPlayer.prefab", InteractionMode.AutomatedAction);
             root.transform.position = Vector3.zero;
         }

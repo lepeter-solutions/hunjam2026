@@ -26,3 +26,9 @@
 Thumbs.db
 sysinfo.txt
 crashlytics-build.properties
+
+# Meta SDK machine-specific development and publishing settings.
+My project/Assets/Resources/DevAgentSettings.asset
+My project/Assets/Resources/DevAgentSettings.asset.meta
+My project/Assets/Resources/OVRPlatformToolSettings.asset
+My project/Assets/Resources/OVRPlatformToolSettings.asset.meta

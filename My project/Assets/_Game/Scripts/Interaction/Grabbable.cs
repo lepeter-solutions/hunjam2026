@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using UnityEngine;
 
 namespace HunJam
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Grabbable : MonoBehaviour
+    public class Grabbable : Oculus.Interaction.Grabbable, ITransformer
     {
         public enum GripMode { TransferOnly, TwoHands }
         public enum GrabState { Free, HeldLeft, HeldRight, HeldBoth, TransferPending, Releasing, Thrown }
@@ -33,6 +34,7 @@ namespace HunJam
         private Vector3 frameUp;
         private bool twoHandFrameValid;
         private float armedAt;
+        private bool sdkStarted, applyingPhysics;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ClearOwners() => owners.Clear();
@@ -40,11 +42,35 @@ namespace HunJam
         public bool IsHeldBy(Transform anchor) => anchor != null && (Primary == anchor || Secondary == anchor);
         public void ConfigureGrip(GripMode mode, Transform first = null, Transform second = null, float radius = 0.14f, float closure = 0.75f)
         { gripMode = mode; primaryGrip = first; secondaryGrip = second; gripRadius = radius; fingerClosure = closure; }
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Body = GetComponent<Rigidbody>();
             startPosition = Body.position;
             startRotation = Body.rotation;
+            // The native Meta Grabbable owns the pointer/transformer lifecycle.
+            // This transformer adds our primary-contact, yoke and stabbing constraints.
+            InjectOptionalTargetTransform(transform);
+            InjectOptionalRigidbody(Body);
+            InjectOptionalOneGrabTransformer(this);
+            InjectOptionalTwoGrabTransformer(this);
+            InjectOptionalKinematicWhileSelected(false);
+            InjectOptionalThrowWhenUnselected(false);
+            MaxGrabPoints = 2;
+            TransferOnSecondSelection = false;
+        }
+        protected override void Start()
+        {
+            if (sdkStarted) return;
+            base.Start();
+            sdkStarted = true;
+        }
+        private void SendPointer(Transform anchor, PointerEventType type)
+        {
+            // Fragments can be selected in their creation frame, before Unity calls Start.
+            if (!sdkStarted) Start();
+            Pose pose = anchor != null ? new Pose(anchor.position, anchor.rotation) : Pose.identity;
+            base.ProcessPointerEvent(new PointerEvent(anchor.GetInstanceID(), type, pose));
         }
         public bool CanGrab(Transform anchor)
         {
@@ -75,6 +101,8 @@ namespace HunJam
             }
             Rebase();
             UpdateState();
+            SendPointer(anchor, PointerEventType.Hover);
+            SendPointer(anchor, PointerEventType.Select);
             OnGripChanged();
             anchor.GetComponentInParent<DemoHand>()?.Pulse(0.18f, 0.035f);
             return true;
@@ -118,6 +146,8 @@ namespace HunJam
         {
             bool primary = ReferenceEquals(Primary, anchor), secondary = ReferenceEquals(Secondary, anchor);
             if ((!primary && !secondary) || ReferenceEquals(anchor, null)) return;
+            SendPointer(anchor, PointerEventType.Unselect);
+            SendPointer(anchor, PointerEventType.Unhover);
             owners.Remove(anchor);
             if (primary) { Primary = Secondary; PrimaryContact = SecondaryContact; Secondary = null; }
             else Secondary = null;
@@ -127,10 +157,10 @@ namespace HunJam
         }
         public void Release(bool throwObject = true)
         {
-            if (!ReferenceEquals(Secondary, null)) { owners.Remove(Secondary); Secondary = null; }
-            if (!ReferenceEquals(Primary, null)) { owners.Remove(Primary); Primary = null; }
-            FinishRelease(throwObject);
-            OnGripChanged();
+            bool hadHands = !ReferenceEquals(Primary, null) || !ReferenceEquals(Secondary, null);
+            if (!ReferenceEquals(Secondary, null)) Release(Secondary, throwObject);
+            if (!ReferenceEquals(Primary, null)) Release(Primary, throwObject);
+            if (!hadHands) { FinishRelease(throwObject); OnGripChanged(); }
         }
         protected virtual void FinishRelease(bool throwObject)
         {
@@ -179,6 +209,18 @@ namespace HunJam
             }
             if (Vector3.Distance(Primary.position, previousPrimary) > 0.5f) { Release(Primary, false); return; }
             if (Secondary != null && Vector3.Distance(Secondary.position, previousSecondary) > 0.5f) { Release(Secondary, false); return; }
+            // Update both native grab points, then apply one physics step through Meta's transformer.
+            if (Secondary != null) SendPointer(Secondary, PointerEventType.Move);
+            applyingPhysics = true;
+            try { SendPointer(Primary, PointerEventType.Move); }
+            finally { applyingPhysics = false; }
+        }
+        void ITransformer.Initialize(IGrabbable grabbable) { }
+        void ITransformer.BeginTransform() { }
+        void ITransformer.EndTransform() { }
+        void ITransformer.UpdateTransform()
+        {
+            if (!applyingPhysics || !IsHeld) return;
             CalculateTarget(out var target, out var rotation);
             Velocity = Vector3.ClampMagnitude((target - previousPosition) / Time.fixedDeltaTime, 8f);
             Quaternion difference = rotation * Quaternion.Inverse(previousRotation);
@@ -190,7 +232,11 @@ namespace HunJam
             previousSecondary = Secondary != null ? Secondary.position : Vector3.zero;
             Body.MovePosition(target); Body.MoveRotation(rotation);
         }
-        protected virtual void OnDisable() { if (Body != null) Release(false); }
+        protected override void OnDisable()
+        {
+            if (Body != null) Release(false);
+            base.OnDisable();
+        }
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.cyan;

@@ -1,5 +1,5 @@
 {
   "name": "HunJam.PlayModeTests",
-  "references": ["HunJam.Runtime"],
+  "references": ["HunJam.Runtime", "Oculus.Interaction", "Oculus.VR"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

@@ -1,5 +1,7 @@
 # VR interakciók — indítás és elfogadás
 
+**Állapot 2026-11-07:** a legutóbbi felhasználói kérés tiltja a buildelést és tesztelést. A lista későbbi elfogadáshoz készült; a Meta XR-átállás után nem hajtottuk végre. A korábbi 10 EditMode / 17 PlayMode siker és a scene-képek a Meta előtti verzióból származnak.
+
 ## Jelenetek
 | Scene az Assets/_Game/Scenes alatt | Indítás és tartalom | Reset |
 | --- | --- | --- |
@@ -7,7 +9,7 @@
 | VRInteractionTest.unity | Külön Play vagy INTERACTION LAB gomb. Kocka, palack, kétkezes rúd, téphető lap, nem téphető referenciatárgyak, tompa szúróeszköz és céltömb. | Bal zöld RESET + üres kéz trigger. |
 | FlightYoke.unity | Külön Play vagy FLIGHT YOKE gomb. Indulás az ülésben, gép már stabil előrehaladással. | Bal RESET / RECENTER gomb + trigger; jobb gomb visszavisz a demóba. |
 
-Unity 6000.3.28f1, OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1. Nincs XR Interaction Toolkit. Valódi interakcióhoz Quest Link + Touch vagy a standalone Quest build kell. Headset nélkül a jelenetek és az automatikus tesztek használhatók; desktop billentyűs vezérlés nincs.
+Unity 6000.3.28f1, OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1, Meta XR Core + Interaction SDK 207.0.1. Nincs XR Interaction Toolkit. Valódi interakcióhoz Quest Link + Touch vagy a standalone Quest build kell. Headset nélkül statikus scene-nézet van; desktop billentyűs vezérlés nincs. [Meta import, Capsense és Grabbable](META_XR.md).
 
 ## Manuális headsetes tesztlista
 1. Ellenőrizd külön a két szem képét, padlószintet, bal/jobb követést és kézpózt. Grip nélkül az ujjak enyhén hajlítottak; fogva a markolat a tenyér környékén maradjon.

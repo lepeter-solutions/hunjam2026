@@ -16,6 +16,13 @@ namespace HunJam
         public Grabbable HeldItem => Grabbable.HeldBy(anchor);
         private ControllerHandPose handPose;
         private bool wasGripping, focused = true;
+        private Transform metaController;
+        public void UseMetaTracking(Transform controller)
+        {
+            metaController = controller;
+            if (handVisual != null) handVisual.SetActive(false);
+            handPose = null;
+        }
         public void Configure(bool isLeft, DemoPlayer rig, Transform holdAnchor, GameObject visual)
         { left = isLeft; player = rig; anchor = holdAnchor; handVisual = visual; }
         private void Awake()
@@ -56,10 +63,15 @@ namespace HunJam
         private void LateUpdate()
         {
             bool usable = focused && player != null && player.IsVR && tracked.IsPressed();
-            if (handVisual != null) handVisual.SetActive(usable);
+            if (handVisual != null) handVisual.SetActive(usable && metaController == null);
             if (!usable) { Drop(false); return; }
-            transform.localPosition = position.ReadValue<Vector3>();
-            transform.localRotation = rotation.ReadValue<Quaternion>();
+            if (metaController != null)
+                transform.SetPositionAndRotation(metaController.position, metaController.rotation);
+            else
+            {
+                transform.localPosition = position.ReadValue<Vector3>();
+                transform.localRotation = rotation.ReadValue<Quaternion>();
+            }
             var held = HeldItem;
             handPose?.SetPose(grip.ReadValue<float>(), trigger.ReadValue<float>(), held != null ? held.FingerClosure : 1f);
             bool grabbing = grip.IsPressed();

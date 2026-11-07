@@ -1,14 +1,17 @@
 # Quest build és ellenőrzés
 
 ## Rögzített környezet
+- Meta XR Core + Interaction SDK 207.0.1; Meta XR Feature engedélyezve mindkét OpenXR célon, Capsense Natural / OpenXR kézcsontváz. [Import és konfiguráció](META_XR.md).
 - Unity 6000.3.28f1, Android Build Support + SDK/NDK + OpenJDK modulok.
 - OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1.
 - Android: OpenXR loader, Meta Quest Support és Oculus Touch Controller Profile; Initialize XR on Startup.
-- ARM64, IL2CPP, Vulkan, Linear, minimum Android API 29; target SDK az installált SDK szerint automatikus. Ez fejlesztői APK-konfiguráció, nem Store-leadás.
+- ARM64, IL2CPP, Vulkan, Linear, minimum Android API 32 (Meta XR 207 követelmény); target SDK az installált SDK szerint automatikus. Ez fejlesztői APK-konfiguráció, nem Store-leadás.
 - Single Pass Instanced; mobil URP profil, HDR kikapcsolva, 4× MSAA.
 - Standalone OpenXR profil is beállítva Quest Linkhez; headset nélkül álló előnézet.
 
 ## Build
+**Aktuális munkamenet:** a felhasználó kérésére nem végzünk buildet vagy tesztet. A lenti útmutató későbbi, külön kért ellenőrzéshez marad meg. A mostani Editor-telepítésből hiányzik az Android buildmodul.
+
 1. A Hubban ellenőrizd az Android modulokat az adott Editor mellett.
 2. Nyisd meg a DemoWorld scene-t. Project Settings > XR Plug-in Management > Project Validation: az Android cél hibáit javítsd, és dokumentáld a változtatást.
 3. File > Build Profiles > Android > Switch Platform.
