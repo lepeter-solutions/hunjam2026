@@ -1,5 +1,19 @@
 # Változásnapló
 
+## 2026-11-07 — Cockpit integráció mainbe
+- A cockpit branch repülőmodellje, PilotPivot ülésrögzítése és függőleges sebességhez kötött hangmagassága beolvasztva a friss mainbe. A recovery metaütközéseknél a main azonosítói maradtak.
+- Helyi commitolatlan módosítások érintetlenek; külön worktree-ben készült. Konfliktusok statikusan áttekintve, felhasználói kérésre nincs fordítás vagy teszt.
+
+## 2026-11-07 — Függőleges sebességgel változó repülőhang
+- FlightVehicle a meglévő, automatikusan megtalált vagy Inspectorban megadott AudioSource pitchét simítva változtatja: süllyedéskor magasabb, emelkedéskor mélyebb, alapból ±30% eltérés 10 m/s-nál, 0.4 s válaszidővel.
+- Reset/letiltás visszaállítja az eredeti pitch-et; a lejátszást és a helyi scene-módosításokat nem írja át.
+- Forrás/diff áttekintve; nincs fordítás, teszt vagy build. A mentett helyi AudioSource klip nélkül volt; a hallható eredmény még ellenőrizendő.
+
+## 2026-11-07 — PilotPivot ülésrögzítés a cockpit branchen
+- Munka előtt origin/cockpit pull (720c54e). A felhasználó helyi Manhattan-módosításából kizárólag a kért PilotPivot objektum átvéve, eredeti azonosítókkal és pozícióval; a többi helyi cockpit-átrendezés nem része ennek a commitnak.
+- FlightSeat: explicit PilotPivot szemhelyzet/indulási irány és scene-szintű helyzetzár. Meta anchorfrissítés után és renderelés előtt korrigált közös rig; fejforgatás és kézvezérlés megmarad, kisétálás nincs. A többi scene room-scale marad.
+- Dokumentáció és szabály frissítve a felhasználó által kért kivétellel. Forrás/prefab-override áttekintés történt; kérésre nincs fordítás, Play mód vagy teszt. Headsetes rögzítés és komfort ellenőrizendő.
+
 ## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
 - Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.
 - Hét Git-ütközés rendezve: három XR Hands mintamappa a main GUID-ját tartja meg; a két material a bejövő, kiegészített URP-mezőket használja. Az OpenXR asset egészében a main konzisztens fileID-hálózatát és újabb HandTracking sémáját tartja meg; a feature-k engedélyezése azonos a két ágon.

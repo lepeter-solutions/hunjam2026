@@ -5,6 +5,7 @@
 Külön nyitható Play módban, vagy a DemoWorld / VRInteractionTest FLIGHT YOKE gombjával (üres kéz, közelség + trigger). Quest Link és két Touch kontroller, illetve standalone APK szükséges a valódi VR-próbához. A gép 120 m magasan, 16 m/s utazósebességgel indul. A játékos közvetlenül a pilótaülésben van.
 
 ## Bemenetek és állapot
+Cockpit Manhattan kivétel: a felhasználó kérésére a [PilotPivot ülésrögzítés](PILOT_SEAT.md) zárolja a fej helyzetét; a fej forgatása és a kezek továbbra is követettek. A külön FlightYoke demóban az eredeti room-scale üléskalibráció marad.
 A repülési modell most a szárnyhoz viszonyított légáramlásból számol állásszöget: orrlenyomáskor csökkenhet vagy negatívvá válhat a felhajtóerő, így a gép pályája is lefelé fordul. A felhajtóerő a sebességre merőleges; a légellenállás sebességnégyzetes, nagy állásszögnél nő, a felhajtóerő pedig gyengül. Nincs többé fix sebességre visszaszabályozás. A jobb oldali [gázkar](FLIGHT_THROTTLE.md) a tolóerőt állítja; a kijelző V/S és THR értéke segít követni a süllyedést és a gázt.
 
 Hangolás: `liftSlope` 4/radián, `stallAngle` 18°, `dragCoefficient` 0.0082, `maximumThrustAcceleration` 6 m/s², `throttleExponent` 2. A 16 m/s cruiseSpeed indulási és felhajtóerő-referencia, nem tartott célsebesség. Egyszerűsített modell, futás közbeni hangolás még szükséges; e módosításhoz a felhasználó kérésére nem indult fordítás vagy teszt.
