@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Függőleges sebességgel változó repülőhang
+- FlightVehicle a meglévő, automatikusan megtalált vagy Inspectorban megadott AudioSource pitchét simítva változtatja: süllyedéskor magasabb, emelkedéskor mélyebb, alapból ±30% eltérés 10 m/s-nál, 0.4 s válaszidővel.
+- Reset/letiltás visszaállítja az eredeti pitch-et; a lejátszást és a helyi scene-módosításokat nem írja át.
+- Forrás/diff áttekintve; nincs fordítás, teszt vagy build. A mentett helyi AudioSource klip nélkül volt; a hallható eredmény még ellenőrizendő.
+
 ## 2026-11-07 — PilotPivot ülésrögzítés a cockpit branchen
 - Munka előtt origin/cockpit pull (720c54e). A felhasználó helyi Manhattan-módosításából kizárólag a kért PilotPivot objektum átvéve, eredeti azonosítókkal és pozícióval; a többi helyi cockpit-átrendezés nem része ennek a commitnak.
 - FlightSeat: explicit PilotPivot szemhelyzet/indulási irány és scene-szintű helyzetzár. Meta anchorfrissítés után és renderelés előtt korrigált közös rig; fejforgatás és kézvezérlés megmarad, kisétálás nincs. A többi scene room-scale marad.

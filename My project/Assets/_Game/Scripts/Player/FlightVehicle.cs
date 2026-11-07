@@ -7,6 +7,13 @@ namespace HunJam
         [SerializeField] private FlightYoke yoke;
         [SerializeField] private TextMesh instruments;
         [SerializeField] private FlightThrottle throttle;
+        [Header("Flight Audio")]
+        [Tooltip("Existing aircraft sound. If empty, finds an AudioSource on this object or its children.")]
+        [SerializeField] private AudioSource flightAudio;
+        [SerializeField, Range(0, 0.9f)] private float verticalPitchAmount = 0.3f;
+        [SerializeField, Min(0.1f)] private float verticalSpeedForFullPitch = 10f;
+        [SerializeField, Min(0.01f)] private float audioPitchResponseTime = 0.4f;
+        private float baseAudioPitch, audioPitchVelocity;
         [Header("Aerodynamics")]
         [SerializeField, Min(0)] private float maximumThrustAcceleration = 6f;
         [Tooltip("Higher values reserve more thrust for the upper part of the throttle travel.")]
@@ -51,6 +58,9 @@ namespace HunJam
         private void Awake()
         {
             body = GetComponent<Rigidbody>(); spawn = body.position; heading = body.rotation;
+            if (flightAudio == null) flightAudio = GetComponent<AudioSource>();
+            if (flightAudio == null) flightAudio = GetComponentInChildren<AudioSource>(true);
+            if (flightAudio != null) baseAudioPitch = flightAudio.pitch;
             body.useGravity = true; body.interpolation = RigidbodyInterpolation.Interpolate;
             body.linearVelocity = transform.forward * cruiseSpeed;
             // Nested kinematic controls belong to the cockpit; they must not collide with the airframe.
@@ -93,12 +103,20 @@ namespace HunJam
         }
         private void Update()
         {
+            if (flightAudio != null)
+            {
+                float descent = Mathf.Clamp(-body.linearVelocity.y / Mathf.Max(0.1f, verticalSpeedForFullPitch), -1, 1);
+                float targetPitch = Mathf.Clamp(baseAudioPitch * (1 + descent * verticalPitchAmount), 0.01f, 3f);
+                flightAudio.pitch = Mathf.SmoothDamp(flightAudio.pitch, targetPitch, ref audioPitchVelocity,
+                    Mathf.Max(0.01f, audioPitchResponseTime), Mathf.Infinity, Time.deltaTime);
+            }
             if (instruments == null || Time.time < nextDisplay) return;
             nextDisplay = Time.time + 0.1f;
             instruments.text = $"{Speed * 3.6f:0} km/h  ALT {body.position.y:0} m\nV/S {body.linearVelocity.y:+0.0;-0.0;0.0} m/s  THR {(throttle != null ? throttle.Value : 0.7f) * 100:0}%\nPULL: UP   PUSH: DOWN\nRIGHT LEVER: THROTTLE";
         }
         public void ResetFlight()
         {
+            RestoreAudioPitch();
             foreach (var hand in GetComponentsInChildren<DemoHand>()) hand.HeldItem?.Release(false);
             body.position = spawn; body.rotation = heading;
             body.linearVelocity = heading * Vector3.forward * cruiseSpeed; body.angularVelocity = Vector3.zero;
@@ -110,5 +128,11 @@ namespace HunJam
             if (collision.transform.IsChildOf(transform)) return;
             if (collision.relativeVelocity.magnitude > collisionResetSpeed) ResetFlight();
         }
+        private void RestoreAudioPitch()
+        {
+            if (flightAudio != null) flightAudio.pitch = baseAudioPitch;
+            audioPitchVelocity = 0;
+        }
+        private void OnDisable() => RestoreAudioPitch();
     }
 }
