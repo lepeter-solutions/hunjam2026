@@ -1,5 +1,9 @@
 # Változásnapló
 
+## 2026-11-07 — Papírtépés integrációja mainbe
+- A codex/progressive-paper-tearing ág (6e215ce) beolvasztva a friss mainbe (46f2536), a cockpit- és egyéb main-változások megtartásával.
+- Egyetlen szöveges ütközés a változásnaplóban: mindkét ág bejegyzése megmaradt. Git/diff áttekintés; kérésre nincs build, fordítás vagy teszt.
+
 ## 2026-11-07 — Cockpit integráció mainbe
 - A cockpit branch repülőmodellje, PilotPivot ülésrögzítése és függőleges sebességhez kötött hangmagassága beolvasztva a friss mainbe. A recovery metaütközéseknél a main azonosítói maradtak.
 - Helyi commitolatlan módosítások érintetlenek; külön worktree-ben készült. Konfliktusok statikusan áttekintve, felhasználói kérésre nincs fordítás vagy teszt.
@@ -13,6 +17,12 @@
 - Munka előtt origin/cockpit pull (720c54e). A felhasználó helyi Manhattan-módosításából kizárólag a kért PilotPivot objektum átvéve, eredeti azonosítókkal és pozícióval; a többi helyi cockpit-átrendezés nem része ennek a commitnak.
 - FlightSeat: explicit PilotPivot szemhelyzet/indulási irány és scene-szintű helyzetzár. Meta anchorfrissítés után és renderelés előtt korrigált közös rig; fejforgatás és kézvezérlés megmarad, kisétálás nincs. A többi scene room-scale marad.
 - Dokumentáció és szabály frissítve a felhasználó által kért kivétellel. Forrás/prefab-override áttekintés történt; kérésre nincs fordítás, Play mód vagy teszt. Headsetes rögzítés és komfort ellenőrizendő.
+
+## 2026-11-07 — Fokozatos, továbbtéphető papír
+- A hirtelen split helyett kéztávolság-változással hajtott, megállítható szakadásfront, sűrített vizuális mesh, nyíló rés és szélfelhajlás. Újrafogáskor a megkezdett vonal folytatható.
+- A darabok öröklik a kétkezes Meta Grabbable fogást, a téphetőséget és hangbeállításokat; terület- és mélységhatár, területarányos tömeg, teljes darabfa-reset és runtime-mesh takarítás.
+- TearableContract prefabban külön húzás közbeni loop- és végső szakadás-hanghely, sebességfüggő térbeli hang és haptika. A közös prefab révén DemoWorld és VRInteractionTest is megkapja, scene-újragenerálás nélkül.
+- Forrás/prefab/diff áttekintve. Felhasználói kérésre nincs build, fordítás, Play mód vagy teszt. Headsetes látvány, kézillesztés, audio és Quest teljesítmény ellenőrizetlen; a korábbi azonnali splitre írt PlayMode papírtesztek későbbi frissítést igényelnek. Részletek: Mechanics/TEARING.md.
 
 ## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
 - Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.
