@@ -4,27 +4,30 @@ namespace HunJam
 {
     public class CharacterController : MonoBehaviour
     {
-        [SerializeField]
-        private Transform start_pivot;
+        [Tooltip("Drag your OVRCameraRig or Player Controller here")]
+        public Transform playerRig;
 
-        [SerializeField]
-        private Camera sceneCamera;
+        [Tooltip("Drag the empty GameObject acting as your teleport destination here")]
+        public Transform destination;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-           
-        }
-
-        // Update is called once per frame
         void Update()
         {
-            if (OVRInput.Get(OVRInput.RawButton.X)) ResetPosition();
-        }
+            // OVRInput.RawButton.A specifically targets the A button on the right Meta Quest controller
+            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            {
+                if (playerRig != null && destination != null)
+                {
+                    // Move the player to the destination
+                    playerRig.position = destination.position;
 
-        private void ResetPosition()
-        {
-            sceneCamera.transform.position = start_pivot.position;
+                    // Optional: Snap the player's rotation to match the destination's rotation
+                    playerRig.rotation = destination.rotation;
+                }
+                else
+                {
+                    Debug.LogWarning("Teleport failed: Player Rig or Destination is missing in the Inspector.");
+                }
+            }
         }
     }
 }
