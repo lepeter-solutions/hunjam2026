@@ -1,5 +1,9 @@
 # Változásnapló
 
+## 2026-11-07 — Pilóta kezdőiránya Meta kameraátadáskor
+- FlightSeat újrakalibrál, amikor a startup kamerát a Meta szemkamera váltja, így a régi kamerához számolt forgatás nem marad végleges. Érvényes Meta követés után a PilotPivot +Z irányát használja; a későbbi fejforgatás szabad.
+- Függőleges nézésnél az iránykalibráció újrapróbálkozik, nem jelöl hamis sikert. Forrás/diff áttekintve; kérésre nincs fordítás, teszt vagy build. Quest Linkes kezdőirány még ellenőrizendő.
+
 ## 2026-11-07 — Meta kézprefabok referenciajavítása
 - A Quest Link naplóban hiányzó prefabreferencia miatt leállt Meta rig inicializálás. A kézvariánsokat a Meta SDK 207.0.1 eredeti kézkomponenseit használó önálló prefabok váltják, explicit gyökér-fileID-val; GUID, Capsense, OpenXR oldal és anyag megmarad.
 - A hiányzó referenciák diagnosztikája külön megnevezi a kamera, bal és jobb kéz állapotát. Nincs saját kézmodell vagy ujjanimáció.
