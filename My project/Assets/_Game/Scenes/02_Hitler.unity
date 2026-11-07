@@ -358,7 +358,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 1240759039}
 --- !u!1 &173821796
@@ -642,7 +642,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 433727898}
 --- !u!1 &404359349
@@ -716,7 +716,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 588980140}
 --- !u!1 &412465505
@@ -745,7 +745,7 @@ Transform:
   m_GameObject: {fileID: 412465505}
   serializedVersion: 2
   m_LocalRotation: {x: -0.018859949, y: 0.019632647, z: 0.7208887, w: 0.692516}
-  m_LocalPosition: {x: 0, y: -0.026, z: 0.0791}
+  m_LocalPosition: {x: -0.5203, y: 0.5336, z: 0.3737}
   m_LocalScale: {x: 1.3157895, y: 1.3157895, z: 1.3157895}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -864,7 +864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &433727897
 Transform:
   m_ObjectHideFlags: 0
@@ -1726,7 +1726,7 @@ MonoBehaviour:
     - {x: 0.1151107, y: 0.04873112, z: -0.001109484, w: 0.992156}
   _targetHandPose:
     _handedness: 0
-    _fingersFreedom: 0200000002000000020000000200000002000000
+    _fingersFreedom: 0200000001000000020000000200000002000000
     _jointRotations:
     - {x: -0.06665304, y: 0.3969201, z: -0.5750258, w: 0.71229}
     - {x: -0.595798, y: -0.0946641, z: 0.014795957, w: 0.7973987}
@@ -2195,7 +2195,7 @@ MonoBehaviour:
     - {x: 0.1151107, y: 0.04873112, z: -0.001109484, w: 0.992156}
   _targetHandPose:
     _handedness: 1
-    _fingersFreedom: 0200000002000000020000000200000002000000
+    _fingersFreedom: 0200000001000000020000000200000002000000
     _jointRotations:
     - {x: -0.06665303, y: -0.39692008, z: 0.5750258, w: 0.71229005}
     - {x: -0.3848017, y: 0.088256754, z: -0.037295252, w: 0.9180128}
@@ -2290,7 +2290,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 1609239670}
 --- !u!1 &1673458852
@@ -2598,7 +2598,7 @@ Transform:
   m_GameObject: {fileID: 1888988551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5255, y: 0.579, z: 0.2948}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2665,7 +2665,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 412465507}
 --- !u!1 &1915647633
@@ -9626,7 +9626,7 @@ MonoBehaviour:
     _pinkyRequirement: 1
     _unselectMode: 0
   _movementProvider: {fileID: 0}
-  _handAligment: 0
+  _handAligment: 1
   _handGrabPoses:
   - {fileID: 1673458854}
 --- !u!1 &1988594435
@@ -10556,6 +10556,7 @@ GameObject:
   - component: {fileID: 2145179967212357858}
   - component: {fileID: 7221632229362335356}
   - component: {fileID: 1242546733766615715}
+  - component: {fileID: 7221632229362335357}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -11456,7 +11457,7 @@ Transform:
   m_GameObject: {fileID: 6909313486476864506}
   serializedVersion: 2
   m_LocalRotation: {x: -0.11382094, y: -0.11382093, z: 0.69788593, w: 0.697886}
-  m_LocalPosition: {x: -0.20931773, y: 0.391, z: 0.39170915}
+  m_LocalPosition: {x: -0.20931773, y: 0.4317, z: 0.39170915}
   m_LocalScale: {x: 0.009051576, y: 0.009051575, z: 0.009051575}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11590,6 +11591,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2716314562436023816}
   m_Mesh: {fileID: -5495902117074765545, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
+--- !u!64 &7221632229362335357
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2716314562436023816}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!33 &7234702957644751335
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11652,7 +11675,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2984111865609423646, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!1 &7586999395946420091
@@ -11967,7 +11990,7 @@ Transform:
   m_GameObject: {fileID: 793591140026737070}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08539581, y: 0.0214, z: -0.08770756}
+  m_LocalPosition: {x: -0.08539581, y: 0.0705, z: -0.08770756}
   m_LocalScale: {x: 0.76, y: 0.76, z: 0.76}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11983,7 +12006,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793591140026737070}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11999,9 +12022,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8481766362688975511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12025,8 +12048,8 @@ MonoBehaviour:
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
   _forceKinematicDisabled: 0
---- !u!65 &8481766362688975512
-BoxCollider:
+--- !u!64 &8481766362688975512
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12040,12 +12063,13 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.089923024, y: 0.112877965, z: 0.08992207}
-  m_Center: {x: -0.44614458, y: 0.55197805, z: 0.507112}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 18a3ab7c92407234da519c606782fd53, type: 3}
 --- !u!23 &8711620932416257575
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12168,7 +12192,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6909313486476864506}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -12184,9 +12208,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8760247502305087768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12210,8 +12234,8 @@ MonoBehaviour:
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
   _forceKinematicDisabled: 0
---- !u!65 &8760247502305087769
-BoxCollider:
+--- !u!64 &8760247502305087769
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12225,12 +12249,13 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.9999968, y: 4.505085, z: 1.9999976}
-  m_Center: {x: 0, y: 1.2525417, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4711208715938537054, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!23 &8929312596487128218
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12304,9 +12329,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8929312596487128220
 MonoBehaviour:
   m_ObjectHideFlags: 0
