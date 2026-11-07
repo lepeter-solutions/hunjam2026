@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-08 — Trianon tinta és többszöri tépés javítása
+- Trianonban a tál feltöltve indul, a toll tintával előkészített; a többi scene továbbra is mártást igényel. Az írásrács a tényleges XY érzékelőfelületet használja a régi mesh helyett.
+- Toll és papír közös HunJam/Meta Grabbable fogásnyilvántartásba került; a toll párhuzamos scene-interaktorai kikapcsolva. Egy grip egy legközelebbi, akadály nélkül elérhető tárgyat választ.
+- A keletkező papírdarabok is kereshetők, és a nyilvántartás ténylegesen kézben tartott darabját engedi el az adapter. Újrafogás és további tépés a meglévő mérethatárokig támogatott.
+- Forrás és scene-hivatkozások áttekintve; Unity 6000.3.28f1 C# fordítás sikeres. Play mód, teszt, játékbuild és headsetes ellenőrzés nem futott. A fogás, tintanyom, többgenerációs tépés és komfort headseten visszaellenőrizendő.
+
 ## 2026-11-07 — Trianon szerződéses választás
 - A Trianon scene a Vérszerződés VR játékosát, asztali környezetét, tollát és tintás tálját kapta; az eredeti írófelület a DemoWorld téphető szerződéséhez kapcsolódik.
 - A Touch grip a meglévő Grabbable papírt fogja. Az aláírás teljesítése kizárja a tépést, a megkezdett szakadás kizárja az aláírás teljesítését.

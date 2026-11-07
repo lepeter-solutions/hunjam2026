@@ -77,7 +77,12 @@ public class PaperWritingDetector : MonoBehaviour
         _totalCells = gridResolution * gridResolution;
 
         MeshFilter mf = GetComponent<MeshFilter>();
-        if (mf != null && mf.sharedMesh != null)
+        if (tearablePaper != null && TryGetComponent(out BoxCollider writingSurface))
+        {
+            // Trianon keeps the old visual mesh disabled; its XZ bounds do not describe the new XY sheet.
+            _localSurfaceBounds = new Bounds(writingSurface.center, writingSurface.size);
+        }
+        else if (mf != null && mf.sharedMesh != null)
         {
             _localSurfaceBounds = mf.sharedMesh.bounds;
         }

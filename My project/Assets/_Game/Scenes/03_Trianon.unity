@@ -867,7 +867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &202386408
 Transform:
   m_ObjectHideFlags: 0
@@ -13716,7 +13716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d69b522cc8b4e1c9aef9471d5cc0216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.TrianonPaperGrip
-  paper: {fileID: 922971654}
   leftAnchor: {fileID: 867001622}
   rightAnchor: {fileID: 699637215}
   reach: 0.12
@@ -15031,7 +15030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1327685753
 Transform:
   m_ObjectHideFlags: 0
@@ -17383,7 +17382,7 @@ Transform:
   m_GameObject: {fileID: 5305844669213787331}
   serializedVersion: 2
   m_LocalRotation: {x: 0.018630594, y: -0.7068615, z: 0.018630583, w: 0.70686114}
-  m_LocalPosition: {x: 0.126, y: -0.798, z: -0.013}
+  m_LocalPosition: {x: 0.126, y: -0.616, z: -0.013}
   m_LocalScale: {x: 0.4634286, y: 0.7676592, z: 0.645602}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19343,9 +19342,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6427681322480960594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Script: {fileID: 11500000, guid: e4676172ff584a048ad2e79692b96b8b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.Grabbable
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
@@ -19357,6 +19356,9 @@ MonoBehaviour:
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
   _forceKinematicDisabled: 0
+  gripMode: 0
+  gripRadius: 0.14
+  fingerClosure: 0.75
 --- !u!114 &7022402391249498829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19373,6 +19375,7 @@ MonoBehaviour:
   quillTip: {fileID: 1417785185}
   inkStrokePrefab: {fileID: 5519533173700401116, guid: 222c43e209ef1754299e6d709296decc, type: 3}
   bloodColor: {r: 0.6, g: 0, b: 0, a: 1}
+  startsWithInk: 1
 --- !u!135 &7022402391249498830
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -20315,7 +20318,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7513135851368762200}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea7455ed066885a4f93ba934eb30f472, type: 3}
   m_Name: 

@@ -10,10 +10,23 @@ public class QuillWriter : MonoBehaviour
     public GameObject inkStrokePrefab;
 
     public Color bloodColor = new Color(0.6f, 0f, 0f);
+    [Tooltip("Start with ink already on the tip (Trianon); other scenes can still require dipping.")]
+    [SerializeField] private bool startsWithInk;
 
     private bool hasBlood = false;
     private TrailRenderer currentTrail;
     private PaperWritingDetector currentPaper;
+
+    private void Awake()
+    {
+        if (startsWithInk) LoadInk();
+    }
+
+    private void LoadInk()
+    {
+        hasBlood = true;
+        if (tipRenderer != null) tipRenderer.material.color = bloodColor;
+    }
 
     private void Update()
     {
@@ -21,13 +34,18 @@ public class QuillWriter : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+    { TryWrite(other); }
+
+    private void OnTriggerStay(Collider other)
+    { TryWrite(other); }
+
+    private void TryWrite(Collider other)
     {
         if (other.CompareTag("Blood") && !hasBlood)
         {
-            hasBlood = true;
-            if (tipRenderer != null) tipRenderer.material.color = bloodColor;
+            LoadInk();
         }
-        else if (other.CompareTag("Paper") && hasBlood)
+        else if (other.CompareTag("Paper") && hasBlood && currentTrail == null)
         {
             var paper = other.GetComponent<PaperWritingDetector>();
             if (paper == null || paper.CanWrite)
@@ -64,7 +82,15 @@ public class QuillWriter : MonoBehaviour
         currentTrail.emitting = true;
         currentTrail.startColor = bloodColor;
         currentTrail.endColor = bloodColor;
+        // Also tint shaders which do not multiply by the trail's vertex colors.
+        var inkProperties = new MaterialPropertyBlock();
+        currentTrail.GetPropertyBlock(inkProperties);
+        inkProperties.SetColor("_BaseColor", bloodColor);
+        inkProperties.SetColor("_Color", bloodColor);
+        currentTrail.SetPropertyBlock(inkProperties);
     }
+
+    private void OnDisable() => EndStroke();
 
     private void EndStroke()
     {
