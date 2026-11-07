@@ -5,6 +5,10 @@
 Külön nyitható Play módban, vagy a DemoWorld / VRInteractionTest FLIGHT YOKE gombjával (üres kéz, közelség + trigger). Quest Link és két Touch kontroller, illetve standalone APK szükséges a valódi VR-próbához. A gép 120 m magasan, 16 m/s utazósebességgel indul. A játékos közvetlenül a pilótaülésben van.
 
 ## Bemenetek és állapot
+A repülési modell most a szárnyhoz viszonyított légáramlásból számol állásszöget: orrlenyomáskor csökkenhet vagy negatívvá válhat a felhajtóerő, így a gép pályája is lefelé fordul. A felhajtóerő a sebességre merőleges; a légellenállás sebességnégyzetes, nagy állásszögnél nő, a felhajtóerő pedig gyengül. Nincs többé fix sebességre visszaszabályozás. A jobb oldali [gázkar](FLIGHT_THROTTLE.md) a tolóerőt állítja; a kijelző V/S és THR értéke segít követni a süllyedést és a gázt.
+
+Hangolás: `liftSlope` 4/radián, `stallAngle` 18°, `dragCoefficient` 0.0082, `maximumThrustAcceleration` 3 m/s². A 16 m/s cruiseSpeed indulási és felhajtóerő-referencia, nem tartott célsebesség. Egyszerűsített modell, futás közbeni hangolás még szükséges; e módosításhoz a felhasználó kérésére nem indult fordítás vagy teszt.
+
 A két cián markolat egy vagy két kézzel fogható. Óramutató szerinti elfordítás jobbra dönt, előretolás lefelé, hátrahúzás felfelé irányít. A második kéz átlagolt parancsot ad; csatlakozás és kézváltás újrabázisolja a referenciákat. Elengedve rugó/csillapítás jellegű visszacentírozás történik. A yoke nem válik eldobhatóvá.
 A kormány állása csak repülési parancs: a gép Rigidbodyje előrehajtást, sebességfüggő felhajtóerőt, légellenállást, oldalcsúszás-csillapítást és helyi forgatónyomatékot kap. A bedöntés koordinált yaw-parancsot ad; elengedve enyhe stabilizáció működik. A kamera nem külön forgatott repüléspótlék: a rig a jármű gyermeke.
 A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, majd a valós fejmagasságot az ülés szemponthoz illeszti. Fej-/kézmozgás utána teljes egészében room-scale. Headset nélküli kameranézet is az ülésben indul. Nincs joystickos séta, fordulás vagy teleport.
@@ -31,4 +35,4 @@ Ellenőrzési lépések a következő headsetes próbához: repülés közben mi
 Ugyanez a prefab a [Manhattan pályán](MANHATTAN_FLIGHT.md) is használható.
 
 EditMode: dead zone és határolás. PlayMode: üléshelyzet, tényleges haladás, jobb bank és pull-up, egy-/kétkezes fogás, kézváltás folytonossága, kinematic elengedés, centírozás és reset. Tényleges eredmény: CHANGELOG.
-Könnyített demonstráció, nem repülésszimulátor: nincs átesésmodell, throttle vagy aerodinamikai szárnyfelület-szimuláció. Az automatikus reset azonnali; headsetes komfortját még ellenőrizni kell. A virtuális repülés érzékenysége, horizont, két szem képe, Link/Quest követés, ülés és újracentírozás, valamint standalone teljesítmény külön hardverteszt. A normál világ rigjének helyváltoztatását a flight komponensek nem módosítják.
+Könnyített demonstráció, nem repülésszimulátor: van gázkar és egyszerűsített állásszög-/átesési hatás, de nincs részletes aerodinamikai szárnyfelület-szimuláció. Az automatikus reset azonnali; headsetes komfortját még ellenőrizni kell. A virtuális repülés érzékenysége, horizont, két szem képe, Link/Quest követés, ülés és újracentírozás, valamint standalone teljesítmény külön hardverteszt. A normál világ rigjének helyváltoztatását a flight komponensek nem módosítják.

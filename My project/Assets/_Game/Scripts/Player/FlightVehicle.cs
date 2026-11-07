@@ -6,6 +6,12 @@ namespace HunJam
     {
         [SerializeField] private FlightYoke yoke;
         [SerializeField] private TextMesh instruments;
+        [SerializeField] private FlightThrottle throttle;
+        [Header("Aerodynamics")]
+        [SerializeField, Min(0)] private float maximumThrustAcceleration = 3f;
+        [SerializeField, Min(0)] private float dragCoefficient = 0.0082f;
+        [SerializeField, Min(0)] private float liftSlope = 4f;
+        [SerializeField, Range(5, 40)] private float stallAngle = 18f;
         [SerializeField, Min(8)] private float cruiseSpeed = 16f;
         [SerializeField, Range(5, 40)] private float pitchRate = 18f;
         [SerializeField, Range(5, 55)] private float rollRate = 30f;
@@ -38,7 +44,8 @@ namespace HunJam
         private float nextDisplay;
         public float Speed => body != null ? body.linearVelocity.magnitude : 0;
         public int ResetCount { get; private set; }
-        public void Configure(FlightYoke control, TextMesh display) { yoke = control; instruments = display; }
+        public void Configure(FlightYoke control, TextMesh display, FlightThrottle power = null)
+        { yoke = control; instruments = display; throttle = power; }
         private void Awake()
         {
             body = GetComponent<Rigidbody>(); spawn = body.position; heading = body.rotation;
@@ -52,10 +59,19 @@ namespace HunJam
         private void FixedUpdate()
         {
             float forwardSpeed = Vector3.Dot(body.linearVelocity, transform.forward);
-            float speedRatio = Mathf.Clamp(forwardSpeed / cruiseSpeed, 0, 1.5f);
-            body.AddForce(transform.forward * ((cruiseSpeed - forwardSpeed) * 1.6f + 0.5f), ForceMode.Acceleration);
-            body.AddForce(-body.linearVelocity * 0.03f, ForceMode.Acceleration);
-            body.AddForce(transform.up * (Physics.gravity.magnitude * speedRatio * speedRatio), ForceMode.Acceleration);
+            // Lift depends on airflow relative to the wing, not just the nose's orientation.
+            // Pushing the nose below the flight path reduces (and can reverse) lift.
+            Vector3 localVelocity = transform.InverseTransformDirection(body.linearVelocity);
+            float angleOfAttack = Mathf.Atan2(-localVelocity.y, Mathf.Max(0.1f, forwardSpeed));
+            float liftCoefficient = Mathf.Clamp(1 + liftSlope * angleOfAttack, -1.5f, 2.2f);
+            float stall = Mathf.InverseLerp(stallAngle, 60f, Mathf.Abs(angleOfAttack) * Mathf.Rad2Deg);
+            liftCoefficient *= 1 - 0.85f * stall;
+            float speedRatio = Mathf.Max(0, forwardSpeed) / cruiseSpeed;
+            Vector3 liftDirection = Vector3.ProjectOnPlane(transform.up, body.linearVelocity.normalized).normalized;
+            float power = throttle != null ? throttle.Value : 0.7f;
+            body.AddForce(transform.forward * (power * maximumThrustAcceleration), ForceMode.Acceleration);
+            body.AddForce(-body.linearVelocity * (Speed * dragCoefficient * (1 + 2 * stall)), ForceMode.Acceleration);
+            body.AddForce(liftDirection * (Physics.gravity.magnitude * speedRatio * speedRatio * liftCoefficient), ForceMode.Acceleration);
             body.AddForce(-transform.right * Vector3.Dot(body.linearVelocity, transform.right) * 0.8f, ForceMode.Acceleration);
             float pitch = yoke != null ? yoke.Pitch : 0, roll = yoke != null ? yoke.Roll : 0;
             float bank = Mathf.DeltaAngle(0, transform.eulerAngles.z) * Mathf.Deg2Rad;
@@ -76,14 +92,14 @@ namespace HunJam
         {
             if (instruments == null || Time.time < nextDisplay) return;
             nextDisplay = Time.time + 0.1f;
-            instruments.text = $"{Speed * 3.6f:0} km/h     ALT {body.position.y:0} m\nBANK {Mathf.DeltaAngle(0, transform.eulerAngles.z):0}°  PITCH {-Mathf.DeltaAngle(0, transform.eulerAngles.x):0}°\nPULL: UP   PUSH: DOWN\nTurn yoke to bank | Release to level";
+            instruments.text = $"{Speed * 3.6f:0} km/h  ALT {body.position.y:0} m\nV/S {body.linearVelocity.y:+0.0;-0.0;0.0} m/s  THR {(throttle != null ? throttle.Value : 0.7f) * 100:0}%\nPULL: UP   PUSH: DOWN\nRIGHT LEVER: THROTTLE";
         }
         public void ResetFlight()
         {
             foreach (var hand in GetComponentsInChildren<DemoHand>()) hand.HeldItem?.Release(false);
             body.position = spawn; body.rotation = heading;
             body.linearVelocity = heading * Vector3.forward * cruiseSpeed; body.angularVelocity = Vector3.zero;
-            yoke?.ResetObject(); ResetCount++;
+            yoke?.ResetObject(); throttle?.ResetObject(); ResetCount++;
         }
         private void OnCollisionEnter(Collision collision)
         {

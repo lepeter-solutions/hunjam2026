@@ -9,6 +9,7 @@
 - [Dinamikus papírtépés](Mechanics/TEARING.md)
 - [Szúrási gyakorlóeszköz](Mechanics/STABBING.md)
 - [Flight Yoke és járműfizika](Mechanics/FLIGHT_YOKE.md)
+- [Jobb oldali gázkar és tolóerő](Mechanics/FLIGHT_THROTTLE.md)
 - [Manhattan repülőpálya és branch-integráció](Mechanics/MANHATTAN_FLIGHT.md)
 - [Interakciós tesztlista és három scene](VR_INTERACTION_TESTS.md)
 - [VR-bővítés: fájl- és dokumentációs leltár](VR_IMPLEMENTATION_REPORT.md)

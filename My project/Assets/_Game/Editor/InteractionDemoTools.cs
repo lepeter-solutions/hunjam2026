@@ -150,7 +150,15 @@ namespace HunJam.Editor
             yokeBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             var yoke = yokeObj.AddComponent<FlightYoke>(); yoke.ConfigureMount(mount); yoke.ConfigureGrip(Grabbable.GripMode.TwoHands, closure: 0.8f);
             var display = Label("Flight instruments", plane.transform, new Vector3(0, 0.95f, 0.82f), "58 km/h     ALT 120 m\nBANK 0°  PITCH 0°\nPULL: UP   PUSH: DOWN\nTurn yoke to bank | Release to level", 0.015f);
-            var vehicle = plane.AddComponent<FlightVehicle>(); vehicle.Configure(yoke, display);
+            Shape("Throttle pedestal", PrimitiveType.Cube, plane.transform, new Vector3(0.55f, 0.4f, 0.15f), new Vector3(0.16f, 0.5f, 0.25f), cyan);
+            var throttleObj = new GameObject("Throttle lever"); throttleObj.transform.SetParent(plane.transform, false);
+            throttleObj.transform.localPosition = new Vector3(0.55f, 0.65f, 0.15f);
+            Shape("Throttle shaft", PrimitiveType.Cube, throttleObj.transform, new Vector3(0, 0.11f, 0), new Vector3(0.025f, 0.22f, 0.025f), cyan);
+            Shape("Throttle grip", PrimitiveType.Cube, throttleObj.transform, new Vector3(0, 0.24f, 0), new Vector3(0.12f, 0.065f, 0.065f), cyan);
+            var throttleBody = throttleObj.AddComponent<Rigidbody>(); throttleBody.isKinematic = true; throttleBody.useGravity = false;
+            throttleBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            var throttle = throttleObj.AddComponent<FlightThrottle>(); throttle.ConfigureMount(plane.transform);
+            var vehicle = plane.AddComponent<FlightVehicle>(); vehicle.Configure(yoke, display, throttle);
             var player = Player(plane.transform); player.View.farClipPlane = 1600; player.View.backgroundColor = RenderSettings.fogColor;
             player.View.transform.localRotation = Quaternion.Euler(15, 0, 0);
             var eye = new GameObject("Seated eye").transform; eye.SetParent(plane.transform, false); eye.localPosition = new Vector3(0, 1.2f, 0);

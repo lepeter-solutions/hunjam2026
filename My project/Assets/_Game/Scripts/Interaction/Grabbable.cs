@@ -212,7 +212,7 @@ namespace HunJam
             if (!ReferenceEquals(Secondary, null) && (Secondary == null || !Secondary.gameObject.activeInHierarchy)) Release(Secondary, false);
             if (!IsHeld)
             {
-                if (Body.position.y < -3f) ResetObject();
+                if (!KeepKinematicOnRelease && Body.position.y < -3f) ResetObject();
                 return;
             }
             if (Vector3.Distance(TrackingPosition(Primary), previousPrimaryTracking) > 0.5f) { Release(Primary, false); return; }

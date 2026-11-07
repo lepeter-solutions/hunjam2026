@@ -21,6 +21,8 @@ A grip új lenyomása a 12 cm-es közelségben kiválasztott tárgyhoz csatlakoz
 Hivatalos Meta OVRHandPrefab kézmodellek, Capsense Natural pózokkal és Touch követéssel. A régi ControllerHandPose nem animálja ezeket. Nincs optikai grip-bemenet vagy ujjfizika. Gripkor rövid, támogatott eszközön működő haptika. A Capsense nem tárgyfüggő IK; a markolatok illeszkedése headseten hangolandó.
 
 ## Ellenőrzés és korlátok
+A tartósan kinematic cockpit-kezelőszervek (yoke és throttle) nem kapják meg a szabad tárgyak Y<-3 mentőresetjét. Így a gázkar elengedett állása a világorigó alatt is megmarad; a normál eldobható tárgyak mentése változatlan. A throttle a meglévő Meta transformer bővítési pontot és cockpit-relatív követésvédelmet használja.
+
 2026-11-07: a DemoHand közelségi keresése először szinkronizálja a Transformokat a fizikával. Ez szükséges a mozgó repülő interpolált cockpitjében látható yoke megfogásához. A Grabbable TrackingPosition bővítési pontja a yoke követésiugrás-védelmét a rögzítés helyi koordinátáiban számolja; normál tárgyaknál továbbra is világkoordinátában működik. A küszöb 50 cm, a valódi követésvesztés továbbra is elenged. Forrásáttekintés történt, futtatott teszt/fordítás nem.
 
 Az SDK-átállás után a felhasználó kérésére nem futott teszt vagy build. Az alábbi tesztek korábbi, Meta előtti eredményei nem igazolják az átállás működését.

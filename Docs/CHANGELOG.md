@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-07 — Süllyedési fizika és jobb oldali gázkar
+- Fix sebességszabályozás helyett tolóerő, sebességnégyzetes légellenállás és állásszögfüggő, a sebességre merőleges felhajtóerő. Orrlenyomáskor csökkenő/negatív felhajtóerő engedi a tényleges süllyedést; nagy állásszögnél egyszerűsített felhajtóerő-csökkenés.
+- TrainingAircraft jobb oldalán megfogható, ±35° végállású, elengedve állástartó gázkar, Meta Grabbable adapterrel. Tolóerő 0–100%, reset 70%; V/S és THR műszerkijelzés. A prefab és Editor-generátor is frissült, a meglévő scene-ek öröklik.
+- A cockpit-kezelőszervek kimaradnak a szabad tárgyak Y<-3 resetjéből, így lejjebb helyezett pályán sem áll vissza magától a gázkar.
+- Forrás/diff és prefab-referenciák áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Repülési hangolás, kar elérhetősége és headsetes működés ellenőrizetlen.
+
 ## 2026-11-07 — Minden automatikus repülő-reset kikapcsolható
 - Az előző változás csak az alsó magassági feltételt tiltotta. Most az `Automatic Reset Enabled` főkapcsoló alapból kikapcsolja az összes automatikus visszaállítást, az ütközéses ágat is.
 - Külön kapcsoló és állítható küszöb az alsó/felső magassághoz, bank/pitch szöghöz, vízszintes távolsághoz és ütközési sebességhez. A kézi RESET / RECENTER független maradt.
