@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Helyi Manhattan munka publikálása mainre
+- Új felhasználói kérés alapján a korábban commitolatlan javítások és a felhasználó helyi scene/audio/beállítás módosításai mentve (79a16c2), majd a friss origin/main (f695a21) beolvasztva. A korábbi „nem commitolt” bejegyzések az akkori munkafázist jelölik.
+- Animation mappa metaütközésénél a main GUID-ja marad (külső assethivatkozás nincs); ProBuilder beállítások azonos értékei egyszer szerepelnek, a main sorrendjében. Scene-ek automatikusan egyesítve.
+- Git konfliktusok és változáslista áttekintve; kérésre nincs fordítás, teszt vagy build. VR-futásidejű ellenőrzések továbbra is nyitottak.
+
 ## 2026-11-07 — Yoke/gázkar fogás scene-reload után (nem commitolt)
 - DemoHand tracking és grip Button actionök kezdeti állapotellenőrzése engedélyezve. Újratöltéskor a továbbra is követett kontrollerek állapota az első inputfrissítésnél beolvasódik, nem kell követésvesztés az új isTracked action aktiválásához.
 - A trigger új lenyomást igényel; a fogási távolság és Meta transformer változatlan. Telepített Input System forrás és diff áttekintve; kérésre nincs fordítás vagy teszt. Többszörös headsetes reload és mindkét kéz ellenőrizendő. Nincs commit/push.
