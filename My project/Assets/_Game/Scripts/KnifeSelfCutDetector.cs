@@ -184,7 +184,7 @@ public class KnifeSelfCutDetector : MonoBehaviour
     {
         _lastCutTime = Time.time;
 
-       // Quaternion rotation = normal.sqrMagnitude > 0.0001f
+       //Quaternion rotation = normal.sqrMagnitude > 0.0001f
         //    ? Quaternion.LookRotation(normal)
        //     : Quaternion.identity;
 
