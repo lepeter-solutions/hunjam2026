@@ -6,7 +6,7 @@ A `manhatten` branch városa a `Assets/_Game/Scenes/Manhattan.unity` scene-ben, 
 ## Bemenetek, állapotok és hangolás
 Touch grip: egy- vagy kétkezes yoke-fogás. Fordítás: bedöntés; húzás/tolás: emelkedés/süllyedés. Bal zöld gomb üres kézzel és triggerrel: gép reset és üléskalibráció. Jobb gomb: DemoWorld. Részletek és végállások: [FLIGHT_YOKE.md](FLIGHT_YOKE.md). A játékos saját mozgása room-scale; a jármű szállítja a riget. Nincs joystickos locomotion.
 
-A kezdőpóz a scene prefab-override-ja. A sebesség és a kormány érzékenysége a közös aircraft prefabban hangolható. A város eredeti geometriája és léptéke megmaradt; a jármű eredeti 8–600 m magassági és 1400 m vízszintes reset-határa változatlan.
+A kezdőpóz a scene prefab-override-ja. A sebesség és a kormány érzékenysége a közös aircraft prefabban hangolható. Lejjebb helyezett pályához a FlightVehicle `Reset Below Altitude` kapcsolója alapból kikapcsolt; bekapcsolva a `Reset Altitude` világkoordinátás Y értékét a kezdőpont alá kell állítani (negatív érték is megadható). A 600 m felső és 1400 m vízszintes reset-határ változatlan.
 
 ## Merge-döntések
 A `codex/vr-two-hand-demos` fogási, kéz-, tépési, szúrási és repülési rendszere maradt az integrált runtime. A `manhatten` városassetjei, BlenderScenes, hangok és Vérszerződés pálya átkerültek. Az eltérő GameItem/MetaUseAction alapú demó-runtime és InteractionSandbox nem váltja fel a kétkezes branch rendszereit; ezek az eredeti branch történetében megmaradnak.

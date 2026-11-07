@@ -13,9 +13,12 @@ A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, m
 - Yoke: `maximumAngle` ±40°, `maximumTravel` ±9 cm; `deadZone` 0,06; `responseTime` 0,045 s; `returnTime` 0,25 s. Mounting alatt a lokális Z a push/pull tengely.
 - Jármű: `cruiseSpeed` 16 m/s; `pitchRate` 18°/s; `rollRate` 30°/s; `stabilization` 0,65. A műszer 10 Hz-en mutat sebességet, magasságot, pitch/bank értéket.
 - RESET / RECENTER: üres kéz + trigger a bal zöld gombon; elengedi a yoke-ot, visszaállítja a gépet és újrailleszti az ülést.
-- Automatikus reset: 8 m alatti / 600 m fölötti magasság, 75°-nál nagyobb bank, 50°-nál nagyobb pitch, 1400 m-es vízszintes körzet elhagyása vagy 2 m/s feletti ütközés. Jobb gomb: DemoWorld.
+- Alsó resetmagasság: a gép gyökerén a FlightVehicle komponens `Altitude Reset` szakasza. `Reset Below Altitude` kapcsolja be; alapból kikapcsolt, így a lejjebb helyezett pályán nem indul magassági resetciklus. `Reset Altitude` a világkoordinátás Y küszöb méterben (alapérték 8, negatív is lehet). Bekapcsolva a kezdőpontnál alacsonyabb értéket adj meg, például Y=-180 kezdőponthoz -250-et. Pontosan a határon nincs reset, csak alatta.
+- További automatikus reset: 600 m fölötti magasság, 75°-nál nagyobb bank, 50°-nál nagyobb pitch, 1400 m-es vízszintes körzet elhagyása vagy 2 m/s feletti ütközés. Ezeket az alsó magasság kapcsolója nem tiltja. Jobb gomb: DemoWorld.
 
 ## Ellenőrzés és korlátok
+Állítható resetmagasság: csak forrás/diff áttekintés, a felhasználó kérésére nincs fordítás vagy teszt. Későbbi kézi próba: negatív Y kezdőpontból indulás kikapcsolt kapcsolóval; bekapcsolva a beállított küszöb alá repülés és visszaállás; küszöb felett/pontosan rajta nincs magassági reset; kézi reset továbbra is működik.
+
 2026-11-07, fogási hibajavítás: a felhasználó szerint az előző rögzítési javítás után a yoke nem volt megfogható. A FlightYoke most a DemoHand előtt igazítja a megjelenítési pózt; a közelségi keresés Physics.SyncTransforms után vizsgálja a collidereket, hogy a fogási felület a látható markolatnál legyen. A követési ugrás vizsgálata a yoke-nál mounting-koordinátákban történik, így a repülő haladása nem oldja a fogást. A tényleges angle/travel állapot is ±40°/±9 cm végállásra korlátozott, nem csak a célérték. Az egy-/kétkezes bemenet, rugós centírozás és kinematic rögzítés megmarad.
 
 Ellenőrzési lépések a következő headsetes próbához: repülés közben mindkét markolat megfogása; húzás/tolás és fordítás a végállásokig és azokon túl; második kéz csatlakoztatása és átadás; elengedés, újrafogás, reset és többperces repülés. Tényleges eredmény: forrásáttekintés; a korábbi kérésnek megfelelően most sem indult fordítás vagy teszt, a headsetes eredmény még nem ismert.

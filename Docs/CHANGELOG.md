@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Állítható és kikapcsolható alsó resetmagasság
+- FlightVehicle: az eddigi fix Y<8 resetet Inspectorban kapcsolható `Reset Below Altitude` és szabadon, negatívra is állítható `Reset Altitude` váltja. Alapból kikapcsolt, hogy a lejjebb helyezett pályán elindulhasson a gép.
+- A kézi reset és az egyéb automatikus resetfeltételek megmaradnak. A felhasználó scene- és assetmódosításait nem változtattuk meg.
+- Forrás/diff áttekintve; a korábbi kérés szerint nincs fordítás, teszt vagy build. A negatív magasságú indulás és a kapcsoló/küszöb futásidejű próbája még nyitott.
+
 ## 2026-11-07 — Yoke fogási felület és mozgáshatárok
 - Felhasználói hibajelzés: az előző rögzítési javítás után a yoke nem fogható. A yoke LateUpdate-je most a kéz lekérdezése előtt fut, és a fogáskeresés szinkronizálja a látható Transformokat a fizikával.
 - A yoke kézkövetésiugrás-védelme cockpit-koordinátákban számol; a repülő haladása nem ad hamis elengedési parancsot. A normál tárgyak világkoordinátás védelme megmarad.
