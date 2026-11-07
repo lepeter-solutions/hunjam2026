@@ -1,4 +1,5 @@
 # Fizikai mozgás és követés
+Kifejezett felhasználói kivétel: a cockpit Manhattan scene-ben a FlightSeat PilotPivothoz rögzíti a szemhelyzetet, így nincs kisétálás a gépből; fejforgatás és kézvezérlés megmarad. Részletek: [pilótaülés](PILOT_SEAT.md). Más jelenetekben továbbra is room-scale a mozgás. A DemoPlayer TrackingUpdated eseménye a Meta anchorfrissítés után értesíti az üléskomponenst.
 ## Cél és források
 `Scripts/Player/DemoPlayer.cs`, `MetaRoomScaleRig.cs`, `Prefabs/QuestPlayer.prefab`, MetaLeftHand/MetaRightHand, mindhárom demóscene.
 A játékos csak a valós térben sétálva, fordulva és lehajolva mozog. A rig gyökere változatlan; XR kapcsolatkor a Meta OVRCameraRig követi a fejet, és letiltja a régi kamerát/TrackedPoseDrivert. A kézpózokat a Meta Capsense Natural állítja elő. [Integráció](../META_XR.md).

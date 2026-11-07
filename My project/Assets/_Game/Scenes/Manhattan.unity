@@ -8282,6 +8282,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 331560f2206dc024cb084301a19c05ad, type: 3}
+--- !u!1 &932381568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 932381569}
+  m_Layer: 0
+  m_Name: PilotPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &932381569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932381568}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.18301392, y: 1.8430023, z: 3.8910217}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9090259150084749189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &934340459
 GameObject:
   m_ObjectHideFlags: 0
@@ -173095,9 +173126,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 3.92
       objectReference: {fileID: 0}
+    - target: {fileID: 3525450213326177757, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      propertyPath: pilotPivot
+      value:
+      objectReference: {fileID: 932381569}
+    - target: {fileID: 3525450213326177757, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      propertyPath: lockToPilotPivot
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6245778300405413185, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 932381569}
     - targetCorrespondingSourceObject: {fileID: 6245778300405413185, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       insertIndex: -1
       addedObject: {fileID: 85591592537733060}

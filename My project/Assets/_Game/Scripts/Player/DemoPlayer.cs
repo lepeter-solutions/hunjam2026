@@ -16,6 +16,7 @@ namespace HunJam
         private readonly List<XRInputSubsystem> subsystems = new List<XRInputSubsystem>();
         public bool IsVR => XRSettings.isDeviceActive;
         public Camera View => view;
+        public event System.Action TrackingUpdated;
         public bool TrackingReady => metaRig != null ? metaTrackingReady && OVRManager.isHmdPresent : floorConfigured;
         public void Configure(Transform space, Camera camera, DemoHand left, DemoHand right)
         { trackingSpace = space; view = camera; }
@@ -26,7 +27,11 @@ namespace HunJam
             metaTrackingReady = false;
             metaRig.UpdatedAnchors += OnMetaAnchorsUpdated;
         }
-        private void OnMetaAnchorsUpdated(OVRCameraRig rig) => metaTrackingReady = OVRManager.isHmdPresent;
+        private void OnMetaAnchorsUpdated(OVRCameraRig rig)
+        {
+            metaTrackingReady = OVRManager.isHmdPresent;
+            TrackingUpdated?.Invoke();
+        }
         private void OnDestroy()
         { if (metaRig != null) metaRig.UpdatedAnchors -= OnMetaAnchorsUpdated; }
         private void Awake()

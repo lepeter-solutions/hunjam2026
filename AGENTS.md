@@ -28,6 +28,7 @@
 - Konkrét ellenőrzési lépések, tényleges eredmény, ismert korlátok.
 
 ## Készültség
+- Kifejezett felhasználói kivétel a room-scale szabály alól: a cockpit Manhattan scene-ben a szemhelyzet a Training Aircraft/PilotPivothoz rögzített, nincs kisétálás; fejforgatás és kézvezérlés marad. Csak a scene FlightSeat override-ja kapcsolja be. Lásd Docs/Mechanics/PILOT_SEAT.md.
 - Fordítás sikeres, az érintett működéshez illő teszt vagy manuális ellenőrzés megtörtént.
 - VR változásnál headseten ellenőrizendő: két szem képe, követés, bal/jobb kontroller, mozgás, interakció, komfort és teljesítmény.
 - Ha nincs eszköz vagy buildkörnyezet, ezt pontosan írd le. Ne állíts headsetes sikert pusztán fordítás vagy desktop teszt alapján.
