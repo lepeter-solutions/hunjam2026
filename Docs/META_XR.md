@@ -4,7 +4,7 @@
 A felhasználó kérésére a projekt a hivatalos Meta XR Core SDK és Interaction SDK `207.0.1` verzióját használja. Forrásuk a manifestben rögzített `https://npm.developer.oculus.com` scoped registry. A `packages-lock.json` fájlt a Unity Package Manager frissíti. A meglévő Unity OpenXR loader, Touch bemenetek és room-scale szabály maradnak.
 
 ## Természetes kontrollerkezek
-A `QuestPlayer` prefab `MetaRoomScaleRig` komponense XR kapcsolatkor létrehozza a csomag eredeti `OVRCameraRig` példányát. Az `OVRManager.controllerDrivenHandPosesType` értéke `Natural`: a Meta Capsense a Touch érintés- és gombadataiból készít természetes ujjpózt. A `MetaLeftHand` és `MetaRightHand` a csomag `OVRHandPrefab` prefabjának változatai, OpenXR bal/jobb csontvázzal, `ControllerInHand` láthatósággal és URP bőrszínű anyaggal. Az SDK adja a kézgeometriát és a csontanimációt. Nincs saját ujjfizika, optikai grip vagy pinch-vezérlés.
+A `QuestPlayer` prefab `MetaRoomScaleRig` komponense XR kapcsolatkor létrehozza a csomag eredeti `OVRCameraRig` példányát. Az `OVRManager.controllerDrivenHandPosesType` értéke `Natural`: a Meta Capsense a Touch érintés- és gombadataiból készít természetes ujjpózt. A `MetaLeftHand` és `MetaRightHand` a csomag `OVRHandPrefab` prefabjának önálló, konfigurált példányai, OpenXR bal/jobb csontvázzal, `ControllerInHand` láthatósággal és URP bőrszínű anyaggal. Az SDK adja a kézgeometriát és a csontanimációt. Nincs saját ujjfizika, optikai grip vagy pinch-vezérlés.
 
 A Meta rig ugyanazon játékosgyökér gyermeke. A régi kamera kikapcsol, a Meta középső szemkamerája veszi át a scene kamerabeállításait. A DemoHand a Meta kontrolleranchor világpózát követi. A régi Unity kézmodell és ControllerHandPose nem fut a Meta kezek mellett. Headset nélkül az eredeti statikus kamera marad. Nincs locomotion/teleport prefab. FlightYoke-ban a meglévő járműgyökér szállítja a teljes riget; az üléskalibráció megvárja az első érvényes Meta anchorfrissítést.
 
@@ -32,4 +32,4 @@ Az SDK létrehozott közös Oculus/Resources konfigurációi, AndroidManifestje 
 - [Meta: Interaction SDK beállítás](https://developers.meta.com/vr/documentation/unity/unity-isdk-setup/)
 - [Meta: Unity Package Manager](https://developers.meta.com/vr/documentation/unity/unity-package-manager/)
 
-A Meta assetek a csomagokban maradnak, saját licencükkel; a projekt csak prefabváltozatokat és hivatkozásokat tárol.
+A Meta scriptek és runtime kézgeometria a csomagban maradnak, saját licencükkel. A két helyi kézprefab a 207.0.1 OVRHandPrefab komponensbeállításait tárolja; SDK-frissítéskor összevetendők a csomag eredetijével.

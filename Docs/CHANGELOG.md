@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-07 — Meta kézprefabok referenciajavítása
+- A Quest Link naplóban hiányzó prefabreferencia miatt leállt Meta rig inicializálás. A kézvariánsokat a Meta SDK 207.0.1 eredeti kézkomponenseit használó önálló prefabok váltják, explicit gyökér-fileID-val; GUID, Capsense, OpenXR oldal és anyag megmarad.
+- A hiányzó referenciák diagnosztikája külön megnevezi a kamera, bal és jobb kéz állapotát. Nincs saját kézmodell vagy ujjanimáció.
+- Statikus prefab/diff áttekintés; kérésre nincs fordítás, teszt, Play mód vagy build. A Linkes megjelenés még headseten ellenőrizendő. Más helyi projektbeállítások nem részei a javításnak.
+
 ## 2026-11-07 — Papírtépés integrációja mainbe
 - A codex/progressive-paper-tearing ág (6e215ce) beolvasztva a friss mainbe (46f2536), a cockpit- és egyéb main-változások megtartásával.
 - Egyetlen szöveges ütközés a változásnaplóban: mindkét ág bejegyzése megmaradt. Git/diff áttekintés; kérésre nincs build, fordítás vagy teszt.

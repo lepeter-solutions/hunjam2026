@@ -25,7 +25,10 @@ namespace HunJam
             if (rig != null || !player.IsVR) return;
             if (cameraRigPrefab == null || leftHandPrefab == null || rightHandPrefab == null)
             {
-                Debug.LogError("Meta XR prefab references are missing on QuestPlayer.", this);
+                Debug.LogError($"Meta XR prefab references are missing on QuestPlayer. " +
+                    $"Camera rig: {(cameraRigPrefab != null ? "OK" : "MISSING")}, " +
+                    $"left hand: {(leftHandPrefab != null ? "OK" : "MISSING")}, " +
+                    $"right hand: {(rightHandPrefab != null ? "OK" : "MISSING")}", this);
                 enabled = false;
                 return;
             }
