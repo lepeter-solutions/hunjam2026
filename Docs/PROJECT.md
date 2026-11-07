@@ -12,7 +12,7 @@ Assets/_Game/
   Audio/             későbbi saját hangok
   Prefabs/           játékos, robot, energiagömb
   Scenes/            DemoWorld
-                     VRInteractionTest, FlightYoke
+                     VRInteractionTest, FlightYoke, Manhattan
   Scripts/
     Core/            játékkör állapota
     Player/          követés és helyváltoztatás
@@ -29,6 +29,6 @@ Docs/Mechanics/      mechanikánkénti leírások
 Egy ember/agent a játékosé, egy a mechanikáké, egy a pályáé lehet; az aktuális feladattábla jelöli a tényleges felelőst. Közös scene és projektbeállítás integrátori terület. A prefabok külön szerkeszthetők. A generátor a kezdeti demó reprodukálására szolgál; kézzel szerkesztett scene-re nem futtatjuk rá automatikusan.
 
 ## Technikai döntések
-OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1. Meta XR Core és Interaction SDK 207.0.1, hivatalos registryből. A HunJam.Grabbable a Meta Grabbable leszármazottja, saját közelségi inputadapterrel és az átadás/yoke/szúrás szabályait megtartó ITransformerrel. A kezek Meta Capsense Natural / OVRHandPrefab alapúak. Nincs XR Interaction Toolkit. Részletek és ellenőrzési korlátok: [Meta XR](META_XR.md).
+OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1. Meta XR Core és Interaction SDK 207.0.1, hivatalos registryből. A HunJam.Grabbable a Meta Grabbable leszármazottja, saját közelségi inputadapterrel és az átadás/yoke/szúrás szabályait megtartó ITransformerrel. A kezek Meta Capsense Natural / OVRHandPrefab alapúak. A manhatten merge óta a városassetekkel érkező XRI/Hands minták csomagjai is telepítve vannak; a játékos továbbra is a kétkezes branch Meta runtime-ját használja. Részletek és ellenőrzési korlátok: [Meta XR](META_XR.md).
 
 A világ valódi Unity assetekből áll, nem csak Play módban létrejövő geometriából. A mobil URP profil és egyszerű primitívek csökkentik a kezdeti renderköltséget. A teljesítmény céleszközön mérendő.

@@ -20,3 +20,6 @@ A demó szerkeszthető scene-t, prefabokat és materialokat tartalmaz. A `HunJam
 Munkakezdés: [AGENTS.md](AGENTS.md). Dokumentáció: [Docs/README.md](Docs/README.md). Build és eszközteszt: [Docs/QUEST_SETUP.md](Docs/QUEST_SETUP.md).
 
 Új interakciók: közvetlen kézváltás, kétkezes rúd, dinamikusan téphető szerződés és szúrási próba a kezdőpont mögötti asztalon. A másik grip csatlakozik, az első elengedése átadja a tárgyat. A lapot két oldalt fogva húzd szét. Külön jelenetek: `Assets/_Game/Scenes/VRInteractionTest.unity` és `FlightYoke.unity`; a zöld scene-gombokat üres kézzel, triggerrel használhatod. [Indítás, reset és teljes tesztlista](Docs/VR_INTERACTION_TESTS.md).
+
+## Manhattan repülőpálya
+Nyisd meg a `My project/Assets/_Game/Scenes/Manhattan.unity` scene-t. A TrainingAircraft prefab pilótaülésében indulsz, Touch kontrollerekkel fogható, rögzített yoke-kal. Részletek: [Manhattan repülőpálya](Docs/Mechanics/MANHATTAN_FLIGHT.md). A merge és javítás után nem futott teszt vagy fordítás a kérésnek megfelelően.

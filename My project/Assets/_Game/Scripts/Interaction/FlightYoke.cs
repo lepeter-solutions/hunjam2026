@@ -12,6 +12,7 @@ namespace HunJam
         private Vector3 home, firstStart, secondStart;
         private Quaternion homeRotation;
         private float angle, travel, startAngle, startTravel, angleVelocity, travelVelocity;
+        protected override bool KeepKinematicOnRelease => true;
         public float Roll => ApplyDeadZone(-angle / maximumAngle, deadZone);
         public float Pitch => ApplyDeadZone(-travel / maximumTravel, deadZone);
         public float Angle => angle;
@@ -23,9 +24,16 @@ namespace HunJam
         {
             base.Awake();
             if (mounting == null) mounting = transform.parent;
-            home = mounting.InverseTransformPoint(Body.position);
-            homeRotation = Quaternion.Inverse(mounting.rotation) * Body.rotation;
+            if (mounting == null || mounting == transform || mounting.IsChildOf(transform))
+            {
+                Debug.LogError("FlightYoke needs a mounting fixed to the cockpit.", this);
+                enabled = false;
+                return;
+            }
+            home = mounting.InverseTransformPoint(transform.position);
+            homeRotation = Quaternion.Inverse(mounting.rotation) * transform.rotation;
             Body.isKinematic = true; Body.useGravity = false;
+            Body.interpolation = RigidbodyInterpolation.None;
             Body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         }
         protected override void OnGripChanged()
@@ -39,7 +47,7 @@ namespace HunJam
         protected override void FinishRelease(bool throwObject)
         {
             base.FinishRelease(false);
-            Body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative; Body.isKinematic = true;
+            Body.useGravity = false;
         }
         private void Sample(Transform hand, Vector3 start, out float turn, out float push)
         {
@@ -67,11 +75,24 @@ namespace HunJam
         }
         protected override void FixedUpdate()
         {
-            if (IsHeld) { base.FixedUpdate(); return; }
             base.FixedUpdate(); // Also cleans destroyed/disabled anchors.
-            angle = Mathf.SmoothDamp(angle, 0, ref angleVelocity, returnTime, Mathf.Infinity, Time.fixedDeltaTime);
-            travel = Mathf.SmoothDamp(travel, 0, ref travelVelocity, returnTime, Mathf.Infinity, Time.fixedDeltaTime);
-            Pose(out var position, out var rotation); Body.MovePosition(position); Body.MoveRotation(rotation);
+            if (!IsHeld)
+            {
+                angle = Mathf.SmoothDamp(angle, 0, ref angleVelocity, returnTime, Mathf.Infinity, Time.fixedDeltaTime);
+                travel = Mathf.SmoothDamp(travel, 0, ref travelVelocity, returnTime, Mathf.Infinity, Time.fixedDeltaTime);
+            }
+            Pose(out var position, out var rotation); ApplyTargetPose(position, rotation);
+        }
+        protected override void ApplyTargetPose(Vector3 position, Quaternion rotation)
+        {
+            // A mounted control has no free world-space trajectory between physics steps.
+            Body.position = position; Body.rotation = rotation;
+        }
+        private void LateUpdate()
+        {
+            // Follow the aircraft's interpolated render pose too; only roll and travel are free.
+            Pose(out var position, out var rotation);
+            transform.SetPositionAndRotation(position, rotation);
         }
         public override void ResetObject()
         {

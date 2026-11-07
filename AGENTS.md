@@ -33,3 +33,4 @@
 - Ha nincs eszköz vagy buildkörnyezet, ezt pontosan írd le. Ne állíts headsetes sikert pusztán fordítás vagy desktop teszt alapján.
 - Dokumentáció, változásnapló és commit elkészült; a végső beszámoló tartalmazza az eredményt és a nyitott ellenőrzéseket.
 - Játékosi mozgás kizárólag fizikai room-scale követésből származhat. Ne adj joystickos mozgást, mesterséges fordulást vagy teleportot új felhasználói kérés nélkül. A kezek Touch kontrollerekkel követett alapkezek.
+- Követéshez, kézmodellekhez, kézpózokhoz és fogáshoz a Meta XR Core / Interaction SDK kész komponenseit használd. Ne építs mellé saját riget, ujjanimációt vagy fogásmozgatást; lásd Docs/META_XR.md.

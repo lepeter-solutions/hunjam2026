@@ -1,5 +1,12 @@
 # Változásnapló
 
+## 2026-11-07 — Rögzített yoke és Manhattan integráció
+- A yoke elengedéskor sem vált szabad fizikára. A cockpitből számított kötött pózt fizikában és a repülő interpolált megjelenítése után is felveszi; megmarad a kétkezes fogás, ±40° fordítás, ±9 cm eltolás és centírozás. Prefab és generátor gravitáció nélkül készül.
+- A manhatten branch beolvasztása a codex/vr-two-hand-demos ágba; város, művészeti assetek és hangok átvétele, a meglévő kétkezes Meta runtime megtartásával. Részletes konfliktusfeloldási döntések: Mechanics/MANHATTAN_FLIGHT.md.
+- TrainingAircraft prefab a Manhattan scene-ben (500, 120, -300) kezdőpózzal, pilóta riggel; a régi kamera inaktív, Manhattan az első build-scene.
+- A helyi, eltérő Manhattan scene és editorállapot külön Git stashben és a repo melletti hunjam2026-local-before-flight-merge mappa ZIP-mentéseiben megőrizve, nem commitolva saját munkaként.
+- Ellenőrzés: forrás- és YAML-áttekintés. Felhasználói kérésre nincs fordítás, Play mód, teszt vagy build; többperces repülés, városütközés, Quest követés és teljesítmény ellenőrizetlen.
+
 ## 2026-11-06 — Közös fejlesztési alap és Quest demó
 - Kötelező dokumentációolvasás, mechanikánkénti leírás, változásnapló és commit az AGENTS.md-ben.
 - Saját játékstruktúra, szerkeszthető demóvilág, robot, mozgás, tárgyfogás és háromgömbös játékkör.

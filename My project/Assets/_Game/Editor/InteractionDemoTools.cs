@@ -145,7 +145,9 @@ namespace HunJam.Editor
             Shape("Crossbar", PrimitiveType.Cube, yokeObj.transform, Vector3.zero, new Vector3(0.42f, 0.04f, 0.04f), dark, false);
             Shape("Left grip", PrimitiveType.Cube, yokeObj.transform, new Vector3(-0.21f, 0.04f, 0), new Vector3(0.045f, 0.17f, 0.055f), cyan);
             Shape("Right grip", PrimitiveType.Cube, yokeObj.transform, new Vector3(0.21f, 0.04f, 0), new Vector3(0.045f, 0.17f, 0.055f), cyan);
-            yokeObj.AddComponent<Rigidbody>().isKinematic = true;
+            var yokeBody = yokeObj.AddComponent<Rigidbody>();
+            yokeBody.isKinematic = true; yokeBody.useGravity = false;
+            yokeBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             var yoke = yokeObj.AddComponent<FlightYoke>(); yoke.ConfigureMount(mount); yoke.ConfigureGrip(Grabbable.GripMode.TwoHands, closure: 0.8f);
             var display = Label("Flight instruments", plane.transform, new Vector3(0, 0.95f, 0.82f), "58 km/h     ALT 120 m\nBANK 0°  PITCH 0°\nPULL: UP   PUSH: DOWN\nTurn yoke to bank | Release to level", 0.015f);
             var vehicle = plane.AddComponent<FlightVehicle>(); vehicle.Configure(yoke, display);

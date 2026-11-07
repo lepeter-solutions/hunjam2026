@@ -1,5 +1,7 @@
 # Közeli tárgyfogás, két kéz és átadás
 
+2026-11-07: a Grabbable `KeepKinematicOnRelease` és `ApplyTargetPose` bővítési pontjai engedik a FlightYoke cockpit-rögzítését. Normál tárgyak továbbra is dinamikusan elengedhetők és MovePosition-t használnak. A yoke elengedve is kinematic marad, és a rögzítési pontból kapja a pózát. Csak forrásáttekintés történt, teszt/fordítás nem indult a felhasználó kérésére.
+
 ## Cél és források
 `Scripts/Interaction/Grabbable.cs`, `DemoHand.cs`, `Scripts/Player/MetaRoomScaleRig.cs`; QuestPlayer, MetaLeftHand/MetaRightHand, EnergyOrb és eszközprefabok. Meta XR Interaction SDK 207.0.1, XRI nélkül. A HunJam.Grabbable a natív Oculus.Interaction.Grabbable leszármazottja; annak ITransformer hívása mozgatja a Rigidbodyt. Ugyanaz az anchor nem birtokolhat két tárgyat. [Pontos SDK-határok és beállítás](../META_XR.md).
 

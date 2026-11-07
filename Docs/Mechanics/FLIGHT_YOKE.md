@@ -16,5 +16,9 @@ A FlightSeat megvárja a fejkövetést és a DemoPlayer padlóbeállítását, m
 - Automatikus reset: 8 m alatti / 600 m fölötti magasság, 75°-nál nagyobb bank, 50°-nál nagyobb pitch, 1400 m-es vízszintes körzet elhagyása vagy 2 m/s feletti ütközés. Jobb gomb: DemoWorld.
 
 ## Ellenőrzés és korlátok
+2026-11-07: a yoke rögzített cockpit-vezérlő. Elengedéskor sem kapcsol dinamikus Rigidbodyre, nincs gravitáció vagy dobási sebesség. A helyi alaphelyzetből, korlátozott Z eltolásból és elfordulásból számított póz közvetlenül rögzíti a fizikai testet; LateUpdate a repülő interpolált megjelenítési pózához is illeszti. Így nincs külön, lemaradó világkoordinátás MovePosition-pályája. A prefab és generátor gravitáció nélküli, kinematic, ContinuousSpeculative beállítással készül. A ±40° és ±9 cm végállás, kétkezes átlagolás és visszacentírozás megmarad. Csak forrásáttekintés történt; felhasználói kérésre nem futott fordítás vagy teszt. A többperces repülés és reset utáni rögzítés headseten ellenőrizendő.
+
+Ugyanez a prefab a [Manhattan pályán](MANHATTAN_FLIGHT.md) is használható.
+
 EditMode: dead zone és határolás. PlayMode: üléshelyzet, tényleges haladás, jobb bank és pull-up, egy-/kétkezes fogás, kézváltás folytonossága, kinematic elengedés, centírozás és reset. Tényleges eredmény: CHANGELOG.
 Könnyített demonstráció, nem repülésszimulátor: nincs átesésmodell, throttle vagy aerodinamikai szárnyfelület-szimuláció. Az automatikus reset azonnali; headsetes komfortját még ellenőrizni kell. A virtuális repülés érzékenysége, horizont, két szem képe, Link/Quest követés, ülés és újracentírozás, valamint standalone teljesítmény külön hardverteszt. A normál világ rigjének helyváltoztatását a flight komponensek nem módosítják.

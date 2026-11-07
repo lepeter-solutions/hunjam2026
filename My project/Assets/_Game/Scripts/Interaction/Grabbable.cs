@@ -17,6 +17,7 @@ namespace HunJam
         [SerializeField, Range(0, 1)] private float fingerClosure = 0.75f;
         private static readonly Dictionary<Transform, Grabbable> owners = new Dictionary<Transform, Grabbable>();
         protected Rigidbody Body { get; private set; }
+        protected virtual bool KeepKinematicOnRelease => false;
         public Transform Primary { get; private set; }
         public Transform Secondary { get; private set; }
         public Vector3 PrimaryContact { get; private set; }
@@ -165,10 +166,14 @@ namespace HunJam
         protected virtual void FinishRelease(bool throwObject)
         {
             State = GrabState.Releasing;
-            Body.isKinematic = false;
-            Body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            Body.linearVelocity = throwObject ? Velocity : Vector3.zero;
-            Body.angularVelocity = throwObject ? AngularVelocity : Vector3.zero;
+            Body.isKinematic = KeepKinematicOnRelease;
+            Body.collisionDetectionMode = KeepKinematicOnRelease
+                ? CollisionDetectionMode.ContinuousSpeculative : CollisionDetectionMode.ContinuousDynamic;
+            if (!KeepKinematicOnRelease)
+            {
+                Body.linearVelocity = throwObject ? Velocity : Vector3.zero;
+                Body.angularVelocity = throwObject ? AngularVelocity : Vector3.zero;
+            }
             State = throwObject && Velocity.sqrMagnitude > 0.01f ? GrabState.Thrown : GrabState.Free;
             Velocity = AngularVelocity = Vector3.zero;
         }
@@ -230,8 +235,10 @@ namespace HunJam
             previousPosition = target; previousRotation = rotation;
             previousPrimary = Primary.position;
             previousSecondary = Secondary != null ? Secondary.position : Vector3.zero;
-            Body.MovePosition(target); Body.MoveRotation(rotation);
+            ApplyTargetPose(target, rotation);
         }
+        protected virtual void ApplyTargetPose(Vector3 position, Quaternion rotation)
+        { Body.MovePosition(position); Body.MoveRotation(rotation); }
         protected override void OnDisable()
         {
             if (Body != null) Release(false);
