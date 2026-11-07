@@ -12,6 +12,7 @@ Assets/_Game/
   Audio/             későbbi saját hangok
   Prefabs/           játékos, robot, energiagömb
   Scenes/            DemoWorld
+                     VRInteractionTest, FlightYoke
   Scripts/
     Core/            játékkör állapota
     Player/          követés és helyváltoztatás

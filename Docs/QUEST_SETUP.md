@@ -45,3 +45,6 @@ Az aktuális gépi ellenőrzések eredménye és a még szükséges hardverteszt
 Windows alatt indítsd el a Meta Quest Link alkalmazást, állítsd aktív OpenXR runtime-ra, csatlakozz USB Linkkel vagy Air Linkkel, és a headsetben lépj be a Link környezetbe. Nyisd meg a DemoWorld scene-t, majd Unity Play. A Standalone OpenXR beállítás használatos; nem kell APK-t építeni minden próbához.
 Az Editor-próba PC-n fut; a standalone Quest teljesítményt külön Android builddel kell ellenőrizni.
 A korábban készült helyi APK még a régi demó: az új műhelyhez újra kell építeni a Build Quest APK menüvel.
+
+## Kétkezes és repülésdemó
+A buildmenü az engedélyezett EditorBuildSettings scene-listát használja; DemoWorld mellett VRInteractionTest és FlightYoke is regisztrált. Újrapróbálás előtt mindig az adott forrásból készült APK-t használd. A [részletes interakciós tesztlista](VR_INTERACTION_TESTS.md) tartalmazza a kézváltás, papírtépés, szúrás, üléskalibráció és yoke próbáit. A flight scene járműmozgása külön komfortellenőrzést igényel.

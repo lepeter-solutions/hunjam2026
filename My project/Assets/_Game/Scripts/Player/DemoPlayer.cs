@@ -14,6 +14,7 @@ namespace HunJam
         private readonly List<XRInputSubsystem> subsystems = new List<XRInputSubsystem>();
         public bool IsVR => XRSettings.isDeviceActive;
         public Camera View => view;
+        public bool TrackingReady => floorConfigured;
         public void Configure(Transform space, Camera camera, DemoHand left, DemoHand right)
         { trackingSpace = space; view = camera; }
         private void Awake()

@@ -16,3 +16,5 @@ Questen: kizárólag fizikai séta és fordulás. Grip: közeli tárgy megfogás
 A demó szerkeszthető scene-t, prefabokat és materialokat tartalmaz. A `HunJam/Generate Demo World` menü csak tudatos újragenerálásra való: felülírja a demó generált tartalmát. A `HunJam/Configure Quest` a Quest buildbeállításokat alkalmazza.
 
 Munkakezdés: [AGENTS.md](AGENTS.md). Dokumentáció: [Docs/README.md](Docs/README.md). Build és eszközteszt: [Docs/QUEST_SETUP.md](Docs/QUEST_SETUP.md).
+
+Új interakciók: közvetlen kézváltás, kétkezes rúd, dinamikusan téphető szerződés és szúrási próba a kezdőpont mögötti asztalon. A másik grip csatlakozik, az első elengedése átadja a tárgyat. A lapot két oldalt fogva húzd szét. Külön jelenetek: `Assets/_Game/Scenes/VRInteractionTest.unity` és `FlightYoke.unity`; a zöld scene-gombokat üres kézzel, triggerrel használhatod. [Indítás, reset és teljes tesztlista](Docs/VR_INTERACTION_TESTS.md).

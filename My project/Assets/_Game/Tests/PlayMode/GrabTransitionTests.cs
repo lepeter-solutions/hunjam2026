@@ -22,6 +22,24 @@ namespace HunJam.Tests
         }
         [TearDown] public void Cleanup()
         { Object.DestroyImmediate(item); Object.DestroyImmediate(first); Object.DestroyImmediate(second); }
+        [Test] public void ExplicitSidesThirdHandAndGripZones()
+        {
+            first.SetActive(false); second.SetActive(false);
+            var left = first.AddComponent<DemoHand>(); left.Configure(true, null, first.transform, null); left.enabled = false;
+            var right = second.AddComponent<DemoHand>(); right.Configure(false, null, second.transform, null); right.enabled = false;
+            first.SetActive(true); second.SetActive(true);
+            grab.ConfigureGrip(Grabbable.GripMode.TwoHands);
+            Assert.IsTrue(grab.Grab(first.transform)); Assert.AreEqual(Grabbable.GrabState.HeldLeft, grab.State);
+            Assert.IsTrue(grab.Grab(second.transform)); Assert.AreEqual(Grabbable.GrabState.HeldBoth, grab.State);
+            var third = new GameObject("Rejected third hand"); third.transform.position = item.transform.position;
+            Assert.IsFalse(grab.Grab(third.transform)); Object.DestroyImmediate(third);
+            grab.Release(first.transform); Assert.AreEqual(Grabbable.GrabState.HeldRight, grab.State);
+            grab.Release(second.transform, false); Assert.AreEqual(Grabbable.GrabState.Free, grab.State);
+            grab.ConfigureGrip(Grabbable.GripMode.TwoHands, item.transform, item.transform, 0.05f);
+            Assert.IsFalse(grab.Grab(first.transform), "Configured region must reject a distant hand");
+            first.transform.position = item.transform.position;
+            Assert.IsTrue(grab.Grab(first.transform));
+        }
         [UnityTest] public IEnumerator TransferBothDirectionsAndReleaseContinuity()
         {
             foreach (bool reverse in new[] { false, true })

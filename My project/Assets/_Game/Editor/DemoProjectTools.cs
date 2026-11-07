@@ -172,7 +172,7 @@ namespace HunJam.Editor
             CreatePlayer();
             CreateWorkshop(world);
             EditorSceneManager.SaveScene(scene, ScenePath);
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            InteractionDemoTools.RegisterScenes();
             AssetDatabase.SaveAssets();
             Debug.Log("HUNJAM: DemoWorld generated.");
         }
@@ -312,11 +312,13 @@ namespace HunJam.Editor
         public static void BuildQuest()
         {
             ConfigureQuest();
+            InteractionDemoTools.RegisterScenes();
             if (Application.isBatchMode && SystemInfo.graphicsDeviceType != GraphicsDeviceType.Null) CapturePreview();
             Directory.CreateDirectory("Builds/Quest");
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
-                scenes = new[] { ScenePath }, locationPathName = "Builds/Quest/HunJam.apk", target = BuildTarget.Android,
+                scenes = Array.ConvertAll(Array.FindAll(EditorBuildSettings.scenes, scene => scene.enabled), scene => scene.path),
+                locationPathName = "Builds/Quest/HunJam.apk", target = BuildTarget.Android,
                 options = BuildOptions.Development
             });
             if (report.summary.result != BuildResult.Succeeded) throw new InvalidOperationException("Quest build failed: " + report.summary.result);

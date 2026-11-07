@@ -44,3 +44,10 @@
 - Dokumentáció: Mechanics/GRABBING.md frissítve az API-val, állapotokkal és korlátokkal.
 - Unity 6000.3.28f1, elkülönített TwoHandValidation másolat: fordítás sikeres; 9/9 PlayMode teszt sikeres (5 meglévő regresszió, 4 új fogáspróba). Helyi bizonyíték: My project/Builds/TwoHandValidation/grab-results.xml és grab-tests.log.
 - Headsetes két szem/kontroller, kézpóz-illeszkedés, haptika, dobásérzet és teljesítmény még ellenőrizendő. A papír-, szúrás- és repülésbővítés következő munkalépés.
+
+## 2026-11-07 — Papírtépés, szúrás és repülőgépes demók
+- Futásidejű síkbeli mesh-felosztás UV-megőrzéssel, külön collideres és Rigidbody-s, kézben maradó papírdarabokkal; feszülési visszajelzés, hang, haptika és reset.
+- Hegyirány-, sebesség- és célfelület-függő szúrás, korlátozott behatolás és kihúzás; egy- vagy kétkezes, korlátozott yoke és valóban mozgó Rigidbody-repülő, üléskalibrációval és újraindítással.
+- A meglévő DemoWorld új asztalt kapott. Új VRInteractionTest és FlightYoke scene, hat tárgyprefab, scene-választó gombok, dokumentáció és korábbi állapotot bemutató képek.
+- A felhasználó build-/teszttiltása ELŐTT elkülönített másolatban: 10/10 EditMode és 17/17 PlayMode teszt sikeres; három scene statikus előnézete elkészült. Bizonyíték: Builds/TwoHandValidation/final-EditMode.xml és release-PlayMode.xml. Ezek a Meta SDK-ra átállás ELŐTTI változat eredményei.
+- A későbbi felhasználói kérés leállítja a buildelést és tesztelést, és Meta XR integrációra módosítja a következő munkalépést. A korábbi eredmények nem igazolják azt. Headsetes ellenőrzés nincs; a jelenlegi Editor-telepítésben nincs Android buildmodul.

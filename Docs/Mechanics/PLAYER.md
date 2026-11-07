@@ -8,5 +8,7 @@ Floor tracking origin kérése; ha nem támogatott, 1,65 m magassági offset. He
 ## Hangolás és kapcsolatok
 A scene kezdőpontja a műhely közepe. A virtuális padló és a valós padló egyezzen. A headset saját játéktérhatárát kell használni, a virtuális fal nem állítja meg a fizikai testet.
 A fallback magasság később kalibrációs beállítás lehet; nincs automatikus visszateleport.
+
+Kizárólag a FlightYoke scene-ben a rig egy Rigidbody-jármű gyermeke. A FlightSeat a padlókövetés kész állapotát (`TrackingReady`) megvárva az üléshez igazítja a gyökeret; utána a valós fej-/kézmozgás marad az egyetlen játékosi mozgásbemenet. A gép mozgása járműfizika, nem új world locomotion. Részletek: [Flight Yoke](FLIGHT_YOKE.md).
 ## Ellenőrzés
 PlayMode: rig pozíció és forgatás változatlan, nincs CharacterController és teleport API. Hardveren külön: stick és A nem mozgat/fordít, fizikai lépés és fejfordítás követése, újracsatlakozás, padlószint. Eredmény: CHANGELOG.
