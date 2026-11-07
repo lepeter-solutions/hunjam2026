@@ -480,7 +480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &113223408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15237,51 +15237,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1127333492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1651460201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1651460202}
-  - component: {fileID: 1651460203}
-  m_Layer: 0
-  m_Name: _STARTING
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1651460202
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651460201}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1651460203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651460201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d503848568449c4b8a8ada257b76277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: HunJam.Runtime::HunJam.StartScript
-  fader: {fileID: 0}
 --- !u!1 &1747263492
 GameObject:
   m_ObjectHideFlags: 0
@@ -16048,7 +16003,6 @@ Transform:
   - {fileID: 4809436511976767766}
   - {fileID: 5171387811323453986}
   - {fileID: 8038264234658369686}
-  - {fileID: 3285811156878699366}
   - {fileID: 8801015155679601974}
   - {fileID: 2072463055}
   - {fileID: 7018545644786014457}
@@ -17352,12 +17306,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5305844669213787331}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11312795, y: 0.9265, z: 4.942743}
-  m_LocalScale: {x: 0.09844872, y: 0.1630781, z: 0.13714881}
+  m_LocalRotation: {x: 0.018630594, y: -0.7068615, z: 0.018630583, w: 0.70686114}
+  m_LocalPosition: {x: 0.126, y: -0.798, z: -0.013}
+  m_LocalScale: {x: 0.4634286, y: 0.7676592, z: 0.645602}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 543450652993965562}
+  m_Father: {fileID: 8801015155679601974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3318422585181254260
 GameObject:
@@ -19618,6 +19572,7 @@ GameObject:
   - component: {fileID: 5431735465002627017}
   - component: {fileID: 1565625628318422052}
   - component: {fileID: 8801015155679601975}
+  - component: {fileID: 8801015155679601976}
   m_Layer: 0
   m_Name: "t\xE1l"
   m_TagString: Untagged
@@ -20226,7 +20181,8 @@ Transform:
   m_LocalPosition: {x: -0.110313416, y: 1.0546519, z: 4.9606476}
   m_LocalScale: {x: 0.21243554, y: 0.21243553, z: 0.21243557}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3285811156878699366}
   m_Father: {fileID: 543450652993965562}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &8801015155679601975
@@ -20251,6 +20207,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2183229517358852597, guid: 0ff7447292dc4da428ea3d5b362dfc2d, type: 3}
+--- !u!114 &8801015155679601976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7513135851368762200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7455ed066885a4f93ba934eb30f472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::BucketBloodFiller
+  liquidPlane: {fileID: 3285811156878699366}
+  maxLocalY: -0.616
+  fillSpeed: 0.01
+  targetParticleSystem: {fileID: 3541994725949501543, guid: 17cab1a44be05db45b8f78c31d25e087, type: 3}
+  bucketRadius: 0.23
+  maxHeightAbove: 0.47
+  minHeightOffset: -0.33
 --- !u!23 &8803154177334744488
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20588,6 +20563,5 @@ SceneRoots:
   - {fileID: 543450652993965562}
   - {fileID: 748446503}
   - {fileID: 141933824}
-  - {fileID: 1651460202}
   - {fileID: 113223411}
   - {fileID: 879434760}
