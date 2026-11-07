@@ -52,6 +52,7 @@ public class PaperWritingDetector : MonoBehaviour
 
     public float CurrentCoverage => currentCoverage;
     public bool IsCompleted => isCompleted;
+    public bool LocksTearing => isCompleted || currentCoverage > 0f;
     public bool CanWrite => !isCompleted && (tearablePaper == null || !tearablePaper.HasStartedTearing);
     public void SetTearablePaper(HunJam.Tearable paper) => tearablePaper = paper;
 

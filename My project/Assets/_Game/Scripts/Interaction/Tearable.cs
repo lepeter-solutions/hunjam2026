@@ -77,7 +77,7 @@ namespace HunJam
             validGrip = false; Tension = EstimatedForce = lastExtension = 0;
             tearAudio.Stop();
             if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
-                || (writingDetector != null && writingDetector.IsCompleted)) return;
+                || (writingDetector != null && writingDetector.LocksTearing)) return;
             firstContact = grab.PrimaryContact; secondContact = grab.SecondaryContact;
             if (Vector2.Distance(firstContact, secondContact) < minimumGripSeparation) return;
             // Once started, a tear keeps its path. Regripping must straddle that existing path.
@@ -94,7 +94,7 @@ namespace HunJam
 
         private void Update()
         {
-            if (IsTorn || (writingDetector != null && writingDetector.IsCompleted)) return;
+            if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
             float advance = 0;
             if (validGrip && first != null && second != null)
             {
@@ -128,6 +128,7 @@ namespace HunJam
 
         private bool BeginTear()
         {
+            if (writingDetector != null && writingDetector.LocksTearing) return false;
             LastCutNormal = ((Vector2)(secondContact - firstContact)).normalized;
             LastCutPoint = (firstContact + secondContact) * 0.5f;
             tangent = new Vector2(-LastCutNormal.y, LastCutNormal.x);
@@ -208,19 +209,24 @@ namespace HunJam
 
         private void CompleteTear()
         {
+            var a = grab.Primary;
+            var b = grab.Secondary;
+            int firstSide = firstPositive ? 1 : 0;
             // The final preview is planar and translated. Preserve that exact pose during handoff.
             for (int i = 0; i < 2; i++) fragments[i] = MakeFragment(cutMeshes[i], offsets[i]);
-            var a = first; var b = second;
             InteractionFeedback.Pulse(grab, 0.3f, 0.06f);
             tearAudio.Stop();
             if (tearSound != null) AudioSource.PlayClipAtPoint(tearSound, transform.TransformPoint(LastCutPoint), tearVolume);
             else InteractionFeedback.Play(transform.TransformPoint(LastCutPoint), true, tearVolume);
             IsTorn = true; validGrip = false;
             grab.Release(false);
-            fragments[firstPositive ? 1 : 0].GetComponent<Grabbable>().Grab(a);
-            fragments[firstPositive ? 0 : 1].GetComponent<Grabbable>().Grab(b);
             foreach (var collider in GetComponents<Collider>()) collider.enabled = false;
             grab.enabled = false; GetComponent<Rigidbody>().isKinematic = true;
+            // Finish all old SDK pointer cleanup before selecting the replacement objects.
+            // Each controller keeps its original side and the shared ownership registry now
+            // points at that fragment until the user's release edge.
+            if (a != null) fragments[firstSide].GetComponent<Grabbable>().Grab(a);
+            if (b != null) fragments[1 - firstSide].GetComponent<Grabbable>().Grab(b);
             ClearPreview();
         }
 

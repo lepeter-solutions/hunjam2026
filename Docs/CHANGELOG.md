@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-08 — Trianon darabok kézben tartása és írási döntés
+- A grip külön felvételi/elengedési küszöböt kapott (65%/10%); új tárgy kizárólag új szorításkor választható. A kézben tartott tollhoz közelített papír nem fogható fel ugyanazzal a szorítással.
+- A tépés menti a tényleges kezeket és oldalaikat; a szülő Meta takarítása a darabok kiválasztása előtt befejeződik. A darabok tulajdonosa a kéz marad a felengedésig.
+- A toll–lap szilárd ütközés kikapcsolva a Trianon adapter indulásakor, az írótriggerek megmaradnak. Az első tintanyom lezárja a tépést, a megkezdett tépés lezárja az írást.
+- Forrás/diff áttekintve; Unity 6000.3.28f1 C# fordítás sikeres. Play mód, teszt, játékbuild és headsetes ellenőrzés nem futott. Két kéz külön elengedése, grip-lazítás, írás közbeni laphelyzet és a két döntés kizárása eszközön ellenőrizendő.
+
 ## 2026-11-08 — Trianon tinta és többszöri tépés javítása
 - Trianonban a tál feltöltve indul, a toll tintával előkészített; a többi scene továbbra is mártást igényel. Az írásrács a tényleges XY érzékelőfelületet használja a régi mesh helyett.
 - Toll és papír közös HunJam/Meta Grabbable fogásnyilvántartásba került; a toll párhuzamos scene-interaktorai kikapcsolva. Egy grip egy legközelebbi, akadály nélkül elérhető tárgyat választ.
