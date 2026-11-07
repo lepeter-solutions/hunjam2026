@@ -2,7 +2,7 @@
 
 Unity **6000.3.28f1**, URP, Meta Quest standalone / OpenXR / Touch kontrollerek.
 
-Meta XR Core + Interaction SDK **207.0.1**, natív Capsense Natural kezek és Meta Grabbable alapú tárgyak. [Bekötés és import](Docs/META_XR.md). A legutóbbi kérés szerint az SDK-átálláshoz nem futtatunk buildet vagy tesztet; az alábbi indítási lépések későbbi kipróbáláshoz szólnak.
+Meta XR Core + Interaction SDK **207.0.1**, Movement SDK **207.0.0**, natív Capsense Natural kezek és Meta Grabbable alapú tárgyak. A Vérszerződés scene-ben a Movement SDK becsült teljes testpózt retargeteli a játékos avatárjára. [Bekötés és import](Docs/META_XR.md).
 
 ![A DemoWorld gyakorlópálya](Docs/Images/DemoWorld.png)
 
@@ -20,6 +20,8 @@ A demó szerkeszthető scene-t, prefabokat és materialokat tartalmaz. A `HunJam
 Munkakezdés: [AGENTS.md](AGENTS.md). Dokumentáció: [Docs/README.md](Docs/README.md). Build és eszközteszt: [Docs/QUEST_SETUP.md](Docs/QUEST_SETUP.md).
 
 Új interakciók: közvetlen kézváltás, kétkezes rúd, dinamikusan téphető szerződés és szúrási próba a kezdőpont mögötti asztalon. A másik grip csatlakozik, az első elengedése átadja a tárgyat. A lapot két oldalt fogva húzd szét. Külön jelenetek: `Assets/_Game/Scenes/VRInteractionTest.unity` és `FlightYoke.unity`; a zöld scene-gombokat üres kézzel, triggerrel használhatod. [Indítás, reset és teljes tesztlista](Docs/VR_INTERACTION_TESTS.md).
+
+A Vérszerződés scene-ben a játékos Movement SDK-val retargetelt testet lát; az első személyű nézetben a fej/arc mesh rejtett, hogy ne takarja a kamerát. A body trackinghez a Quest engedélykérést jóvá kell hagyni. Részletek: [játékos testkövetése](Docs/Mechanics/PLAYER_BODY_TRACKING.md).
 
 ## Manhattan repülőpálya
 Nyisd meg a `My project/Assets/_Game/Scenes/Manhattan.unity` scene-t. A TrainingAircraft prefab pilótaülésében indulsz, Touch kontrollerekkel fogható, rögzített yoke-kal. Részletek: [Manhattan repülőpálya](Docs/Mechanics/MANHATTAN_FLIGHT.md). A merge és javítás után nem futott teszt vagy fordítás a kérésnek megfelelően.

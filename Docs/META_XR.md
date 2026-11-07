@@ -15,6 +15,11 @@ Az átadási szerepek, fogási régiók, kétkezes elsődleges kontaktpont, yoke
 
 A projekt adapterét használd a fogáshoz. Külön SDK GrabInteractor/GrabInteractable pár hozzáadása ehhez a prefabhoz további eseményadaptert igényel; jelenleg a meglévő közelségi kiválasztást tartottuk meg. A Capsense nem tárgygeometriára illesztett IK: a pontos tenyér/markolat és ujjilleszkedés hardveren hangolandó.
 
+## Movement SDK testkövetés
+A Meta XR Movement SDK `207.0.0` Git-csomagként szerepel a manifestben, a feloldott verziót a `packages-lock.json` rögzíti. A `01_Vérszerződés` scene a csomag Body Tracking Samples `RealisticCharacter` prefabját a tracking space origójára helyezi; a `CharacterRetargeter` és `MetaSourceDataProvider` az OVR body tracking pózt a karakter csontvázára viszi át. A globális `OculusRuntimeSettings.bodyTrackingJointSet` FullBody értékű, a projekt `OculusProjectConfig.bodyTrackingSupport` beállítása engedélyezett, a scene `OVRManager` komponense pedig induláskor kéri a body tracking engedélyt.
+
+Az első személyű nézetben a prefab négy arc/head renderer override-ja letiltott, hogy a kamera ne kerüljön a saját fejmesh belsejébe; a test és a kézmesh marad. Ez csak a Vérszerződés scene példányára vonatkozik. A testpóz a headset és kézkövetési adatokból becsült; ehhez nincs joystickos mozgás vagy külön saját rig. Lásd a [játékos testkövetésének leírását](Mechanics/PLAYER_BODY_TRACKING.md).
+
 ## Import és beállítás
 A mentett projektbeállításokban a Meta XR Core OpenXR feature Android és Standalone célon engedélyezett, az OpenXR kézcsontváz és a Capsense-hez szükséges Controllers And Hands támogatás beállított. Újraalkalmazás: `HunJam/Configure Meta XR Hands` (`Editor/MetaXrSetup.cs`). Ez minimum API 32-t is beállít a Meta 207 követelménye szerint; nem buildel, nem indít Play módot és nem futtat tesztet. A menü nem fut automatikusan minden domain reloadkor. Ha az SDK saját „Enable Meta XR Feature Set” ablakot mutatja, a Meta feature engedélyezése szükséges.
 
@@ -30,6 +35,7 @@ Az SDK létrehozott közös Oculus/Resources konfigurációi, AndroidManifestje 
 ## Hivatalos források
 - [Meta: Capsense, természetes kontrolleres kézpózok](https://developers.meta.com/vr/documentation/unity/unity-capsense/)
 - [Meta: Interaction SDK beállítás](https://developers.meta.com/vr/documentation/unity/unity-isdk-setup/)
+- [Meta Movement SDK: body tracking](https://developers.meta.com/vr/documentation/unity/move-body-tracking/)
 - [Meta: Unity Package Manager](https://developers.meta.com/vr/documentation/unity/unity-package-manager/)
 
 A Meta scriptek és runtime kézgeometria a csomagban maradnak, saját licencükkel. A két helyi kézprefab a 207.0.1 OVRHandPrefab komponensbeállításait tárolja; SDK-frissítéskor összevetendők a csomag eredetijével.

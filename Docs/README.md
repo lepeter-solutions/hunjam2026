@@ -5,6 +5,7 @@
 - [Meta XR, Capsense kezek és Grabbable integráció](META_XR.md)
 - [Változásnapló](CHANGELOG.md)
 - [Játékos és mozgás](Mechanics/PLAYER.md)
+- [Movement SDK testkövetés és játékos-avatár](Mechanics/PLAYER_BODY_TRACKING.md)
 - [Tárgyfogás és elengedés](Mechanics/GRABBING.md)
 - [Dinamikus papírtépés](Mechanics/TEARING.md)
 - [Szúrási gyakorlóeszköz](Mechanics/STABBING.md)

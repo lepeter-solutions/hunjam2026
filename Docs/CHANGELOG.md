@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-07 — Movement SDK teljes test a Vérszerződés scene-ben
+- A Meta Movement SDK `RealisticCharacter` prefabja a scene TrackingSpace gyermeke lett; a body tracking runtime-joint set FullBody, a scene induláskor kéri az engedélyt. A meglévő projekt Body Tracking támogatása már engedélyezett volt.
+- Első személyű nézethez a prefab fej/arc rendererei scene-override-ként rejtettek, hogy ne takarják a kamerát. Más scene, kézkövetés és locomotion nem változik.
+- Dokumentáció: új játékos-testkövetési mechanikaleírás, valamint a Meta XR, projekt- és README-leírások frissítve.
+- Unity 6000.3.28f1 batch Editor: C# fordítás sikeres, prefab betöltve, scene és runtime beállítás mentve. A scene GUID- és beállításellenőrzése megtörtént. Android build és Quest headsetes kép/pose/komfort/teljesítményteszt nem futott; valódi eszközön ellenőrizendő.
+
 ## 2026-11-07 — Sikertelen grip újrapróbálása közelítéskor
 - Main frissítve d2fc056-ra; a helyi ProBuilder-módosítás megőrizve. DemoWorld papírprefab, aktív collider, fogáskomponens és scene-override-ok áttekintve.
 - DemoHand: a sikertelen grip nem vész el a lenyomás frame-jében; nyomva tartva 0,05 másodpercenként újrakeres. Sikeres fogás után ugyanaz a szorítás nem szerezhet új tárgyat átadás/reset után.

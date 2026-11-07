@@ -10,6 +10,8 @@ Meta módban OVRManager Stage origin; a saját floor-offset kód ilyenkor nem í
 A scene kezdőpontja a műhely közepe. A virtuális padló és a valós padló egyezzen. A headset saját játéktérhatárát kell használni, a virtuális fal nem állítja meg a fizikai testet.
 A fallback magasság később kalibrációs beállítás lehet; nincs automatikus visszateleport.
 
+A `01_Vérszerződés` scene-ben a Movement SDK egy teljes testpózt retargetel a játékos avatárjára. Ez a test megjelenítése, nem új mozgásrendszer; az avatár a tracking space-hez igazodik. Az első személyű kamera elől a fej/arc rendererei rejtettek. Részletek és ellenőrzési állapot: [Movement SDK testkövetés](PLAYER_BODY_TRACKING.md).
+
 Kizárólag a FlightYoke scene-ben a rig egy Rigidbody-jármű gyermeke. A FlightSeat a padlókövetés kész állapotát (`TrackingReady`) megvárva az üléshez igazítja a gyökeret; utána a valós fej-/kézmozgás marad az egyetlen játékosi mozgásbemenet. A gép mozgása járműfizika, nem új world locomotion. Részletek: [Flight Yoke](FLIGHT_YOKE.md).
 ## Ellenőrzés
 2026-11-07: Quest Link hibajelentésnél az Editor naplója hiányzó Meta prefabreferenciát jelzett, ezért a rig nem indult el. A kézzel szerializált kézvariánsok helyett az SDK eredeti OVRHandPrefab komponenseiből önálló prefabok készültek, valódi 100000 gyökérobjektummal, változatlan asset GUID-dal és bal/jobb OpenXR/Capsense beállításokkal. A hibaüzenet most külön jelzi a kamera/bal/jobb referencia állapotát. Statikus áttekintés történt, futásidejű siker még nem igazolt. Következő kézi ellenőrzés: Manhattan Quest Link Play módban, mindkét kéz látható és követ, yoke/gázkar megfogható, nincs missing-reference hiba.
