@@ -24,6 +24,10 @@ public class PaperWritingDetector : MonoBehaviour
 
     [Tooltip("Minimum movement in meters required to register new ink.")]
     [SerializeField] private float minMoveDistance = 0.001f;
+    [Tooltip("Maximum nib distance from a movable paper's surface, in meters.")]
+    [SerializeField, Min(0.001f)] private float inkContactDistance = 0.005f;
+    [Tooltip("Small lift above the paper mesh to prevent ink depth flicker, in meters.")]
+    [SerializeField, Min(0.0001f)] private float inkSurfaceOffset = 0.0005f;
 
     [Header("Events")]
     public UnityEvent onWritingCompleted;
@@ -44,7 +48,8 @@ public class PaperWritingDetector : MonoBehaviour
 
     private Vector2 _lastUV;
     private bool _hasLastUV;
-    private Vector3 _lastTipWorldPos;
+    private Vector3 _lastTipLocalPos;
+    private float _inkSurfaceCoordinate;
 
     private readonly HashSet<Collider> _touchingQuillColliders = new HashSet<Collider>();
     private Renderer _inkOverlay;
@@ -53,6 +58,7 @@ public class PaperWritingDetector : MonoBehaviour
     public float CurrentCoverage => currentCoverage;
     public bool IsCompleted => isCompleted;
     public bool LocksTearing => isCompleted || currentCoverage > 0f;
+    public bool UsesLocalInk => tearablePaper != null;
     public bool CanWrite => !isCompleted && (tearablePaper == null || !tearablePaper.HasStartedTearing);
     public void SetTearablePaper(HunJam.Tearable paper) => tearablePaper = paper;
 
@@ -68,6 +74,13 @@ public class PaperWritingDetector : MonoBehaviour
         {
             _inkOverlay = transform.Find("Plane")?.GetComponent<MeshRenderer>();
             _inkCamera = GetComponentInChildren<Camera>();
+            // Direct local ink replaces the mismatched camera-to-overlay projection.
+            if (_inkOverlay != null) _inkOverlay.enabled = false;
+            if (_inkCamera != null) _inkCamera.enabled = false;
+            var mesh = tearablePaper.GetComponent<MeshFilter>().sharedMesh;
+            if (mesh != null)
+                _inkSurfaceCoordinate = transform.InverseTransformPoint(
+                    tearablePaper.transform.TransformPoint(mesh.bounds.center)).z;
         }
     }
 
@@ -116,6 +129,19 @@ public class PaperWritingDetector : MonoBehaviour
         if (!CanWrite || quillWriter == null || quillWriter.quillTip == null)
             return;
 
+        if (UsesLocalInk)
+        {
+            isTouchingPaper = quillWriter.IsWritingOn(this);
+            if (isTouchingPaper) timeNotTouching = 0f;
+            else
+            {
+                _hasLastUV = false;
+                timeNotTouching += Time.deltaTime;
+                CompleteIfReady();
+            }
+            return;
+        }
+
         _touchingQuillColliders.RemoveWhere(c => c == null || !c.enabled || !c.gameObject.activeInHierarchy);
 
         // QuillWriter parents the active TrailRenderer to quillTip while writing and unparents it on exit
@@ -141,22 +167,55 @@ public class PaperWritingDetector : MonoBehaviour
         {
             timeNotTouching += Time.deltaTime;
 
-            if (currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
-            {
-                isCompleted = true;
-                onWritingCompleted?.Invoke();
-            }
+            CompleteIfReady();
         }
     }
 
-    private void SampleQuillPosition(Vector3 tipWorldPos)
+    private void CompleteIfReady()
     {
-        if (_hasLastUV && (tipWorldPos - _lastTipWorldPos).sqrMagnitude < minMoveDistance * minMoveDistance)
+        if (CanWrite && currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
+        {
+            isCompleted = true;
+            onWritingCompleted?.Invoke();
+        }
+    }
+
+    public bool TryProjectInkPoint(Vector3 tipWorldPos, out Vector3 localPoint)
+    {
+        localPoint = transform.InverseTransformPoint(tipWorldPos);
+        if (!UsesLocalInk || !CanWrite || !TryGetNormalizedUV(localPoint, out _)) return false;
+        float normalScale = transform.TransformVector(Vector3.forward).magnitude;
+        if (normalScale < 0.0001f ||
+            Mathf.Abs(localPoint.z - _inkSurfaceCoordinate) * normalScale > inkContactDistance) return false;
+        localPoint.z = _inkSurfaceCoordinate + inkSurfaceOffset / normalScale;
+        return true;
+    }
+
+    public void RecordLocalInk(Vector3 localPoint)
+    {
+        if (!UsesLocalInk || !CanWrite) return;
+        isTouchingPaper = true;
+        timeNotTouching = 0f;
+        SampleLocalPosition(localPoint);
+    }
+
+    public void EndLocalInk()
+    {
+        _hasLastUV = false;
+        isTouchingPaper = false;
+    }
+
+    private void SampleQuillPosition(Vector3 tipWorldPos)
+    { SampleLocalPosition(transform.InverseTransformPoint(tipWorldPos)); }
+
+    private void SampleLocalPosition(Vector3 localPos)
+    {
+        if (_hasLastUV && transform.TransformVector(localPos - _lastTipLocalPos).sqrMagnitude < minMoveDistance * minMoveDistance)
             return;
 
-        _lastTipWorldPos = tipWorldPos;
+        _lastTipLocalPos = localPos;
 
-        if (!TryGetNormalizedUV(tipWorldPos, out Vector2 currentUV))
+        if (!TryGetNormalizedUV(localPos, out Vector2 currentUV))
         {
             _hasLastUV = false;
             return;
@@ -184,9 +243,8 @@ public class PaperWritingDetector : MonoBehaviour
         _hasLastUV = true;
     }
 
-    private bool TryGetNormalizedUV(Vector3 worldPos, out Vector2 uv)
+    private bool TryGetNormalizedUV(Vector3 localPos, out Vector2 uv)
     {
-        Vector3 localPos = transform.InverseTransformPoint(worldPos);
         Vector3 min = _localSurfaceBounds.min;
         Vector3 size = _localSurfaceBounds.size;
 

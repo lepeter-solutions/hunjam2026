@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-08 — Papírral együtt mozgó, tollhegyhez igazított írás
+- Trianonban a tinta papírhoz szülőzött, helyi koordinátás LineRenderer-vonásokra váltott a meglévő tintaanyaggal. A kész és aktív vonások a lap mozgatását/forgatását követik.
+- A tényleges tollhegy felületre vetített pontja hajtja a rajzot és a fedettséget. A hibás képarányú tintakamera/vetítési réteg helyett közvetlen rajzolás, 0,5 mm mélységi emeléssel; felemelés és lapszél megszakítja a vonást.
+- A nem téphető Vérszerződés-papír korábbi útvonala megmaradt. Forrás/diff és koordinátaútvonal áttekintve; teszt, Play mód, játékbuild és headsetes ellenőrzés nem futott. Kétkezes lapmozgatás, sarokpont-illesztés és két szem képe eszközön ellenőrizendő.
+
 ## 2026-11-08 — Trianon darabok kézben tartása és írási döntés
 - A grip külön felvételi/elengedési küszöböt kapott (65%/10%); új tárgy kizárólag új szorításkor választható. A kézben tartott tollhoz közelített papír nem fogható fel ugyanazzal a szorítással.
 - A tépés menti a tényleges kezeket és oldalaikat; a szülő Meta takarítása a darabok kiválasztása előtt befejeződik. A darabok tulajdonosa a kéz marad a felengedésig.
