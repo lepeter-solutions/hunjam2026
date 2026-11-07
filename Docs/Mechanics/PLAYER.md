@@ -1,12 +1,15 @@
 # Fizikai mozgás és követés
 ## Cél és források
-QuestPlayer.prefab, DemoWorld.unity, Editor/MetaProjectTools.cs; Meta SDK OVRCameraRig és OVRComprehensiveInteractionRig.
-A Meta XR Core végzi a fej és kontrollerek követését. A játékos csak valós sétával, fordulással és lehajolással mozog.
+`Scripts/Player/DemoPlayer.cs`, `MetaRoomScaleRig.cs`, `Prefabs/QuestPlayer.prefab`, MetaLeftHand/MetaRightHand, mindhárom demóscene.
+A játékos csak a valós térben sétálva, fordulva és lehajolva mozog. A rig gyökere változatlan; XR kapcsolatkor a Meta OVRCameraRig követi a fejet, és letiltja a régi kamerát/TrackedPoseDrivert. A kézpózokat a Meta Capsense Natural állítja elő. [Integráció](../META_XR.md).
 ## Bemenetek és állapot
-Floor Level követési origó. Kontrollervezérelt Meta kézmodellek (ConformingToController).
-Az összes SDK locomotion komponens letiltott: nincs joystickos séta, fordulás vagy teleport. Nincs saját kamerakövető kód.
+Nincs joystickmozgás, snap turn, teleport, WASD vagy egérrel fordulás. Nincs CharacterController vagy gravitációs rigmozgatás.
+Meta módban OVRManager Stage origin; a saját floor-offset kód ilyenkor nem írja a tracking space-t. A Meta nélküli kompatibilitási út floor origint kér, sikertelenségnél 1,65 m offsetet használ. Headset nélkül a kamera álló szerkesztői nézetet ad, a kezek rejtettek.
 ## Hangolás és kapcsolatok
-A kezdőpont (0,0,0), a műhely köré rendezett tárgyakkal. A headset rendszerhatárát kell használni: a virtuális fal nem állítja meg a valós testet.
-Beállítások és csomagverziók: ../META_XR.md.
+A scene kezdőpontja a műhely közepe. A virtuális padló és a valós padló egyezzen. A headset saját játéktérhatárát kell használni, a virtuális fal nem állítja meg a fizikai testet.
+A fallback magasság később kalibrációs beállítás lehet; nincs automatikus visszateleport.
+
+Kizárólag a FlightYoke scene-ben a rig egy Rigidbody-jármű gyermeke. A FlightSeat a padlókövetés kész állapotát (`TrackingReady`) megvárva az üléshez igazítja a gyökeret; utána a valós fej-/kézmozgás marad az egyetlen játékosi mozgásbemenet. A gép mozgása járműfizika, nem új world locomotion. Részletek: [Flight Yoke](FLIGHT_YOKE.md).
 ## Ellenőrzés
-Automatikus teszt: SDK rig, két kéz interaktorai, változatlan rigpozíció és tiltott PlayerLocomotor. Headseten: padlószint, két szem, kontrollerek, visszatérés és a stickek hatástalansága. Tényleges eredmény: CHANGELOG.
+Az SDK-átálláshoz a felhasználó kérésére nem indult teszt vagy build; a korábbi eredmények a Meta előtti rigre vonatkoznak.
+PlayMode: rig pozíció és forgatás változatlan, nincs CharacterController és teleport API. Hardveren külön: stick és A nem mozgat/fordít, fizikai lépés és fejfordítás követése, újracsatlakozás, padlószint. Eredmény: CHANGELOG.

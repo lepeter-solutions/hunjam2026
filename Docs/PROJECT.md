@@ -3,7 +3,7 @@
 ## Cél és hatókör
 Egyjátékos, rövid VR gyakorlópálya Quest Touch kontrollerekhez. A játékos kizárólag fizikailag mozog, eszközöket használ, üt és kijelölt blokkot vág, beszél egy robotkarakterrel, megfog három energiagömböt, és egy gyűjtőállomásba helyezi őket. Ez technikai demó és közös fejlesztési alap, nem a végleges jam-játék.
 
-Kezdeti célhardver: Quest 2/3/3S család; valódi eszközön külön validálandó. Nincs multiplayer, kézkövetés, mentés vagy végleges művészeti asset.
+Kezdeti célhardver: Quest 2/3/3S család; valódi eszközön külön validálandó. A játék kontrolleres; a Meta Capsense biztosítja a kézpózokat. Nincs optikai kézzel történő játékmenet-vezérlés, multiplayer, mentés vagy végleges művészeti asset.
 
 ## Struktúra
 ```
@@ -11,10 +11,12 @@ Assets/_Game/
   Art/Materials/      közös demóanyagok
   Audio/             későbbi saját hangok
   Prefabs/           játékos, robot, energiagömb
-  Scenes/            InteractionSandbox, DemoWorld és a csapat pályái
+  Scenes/            DemoWorld
+                     VRInteractionTest, FlightYoke, Manhattan
   Scripts/
     Core/            játékkör állapota
-    Interaction/     Meta SDK adapterek, eszközhasználat, ütés és vágás
+    Player/          követés és helyváltoztatás
+    Interaction/     kéz, tárgyfogás, interakció
     Characters/      robotkarakter
     World/           gyűjtő és járható felület
   Editor/            scene-generálás, Quest konfiguráció, ellenőrzés
@@ -27,8 +29,6 @@ Docs/Mechanics/      mechanikánkénti leírások
 Egy ember/agent a játékosé, egy a mechanikáké, egy a pályáé lehet; az aktuális feladattábla jelöli a tényleges felelőst. Közös scene és projektbeállítás integrátori terület. A prefabok külön szerkeszthetők. A generátor a kezdeti demó reprodukálására szolgál; kézzel szerkesztett scene-re nem futtatjuk rá automatikusan.
 
 ## Technikai döntések
-Meta XR Core + Interaction SDK + OVR Integration 207.0.1, OpenXR 1.16.1. A Meta SDK kezeli a követést, a kézmodelleket, a közeli fogást és dobást. Saját kód kizárólag a játéklogika és az SDK-események bekötése. Részletek: META_XR.md.
-
-A csapat által hozzáadott környezetek (például 01_Vérszerződés) külön scene-ek. Az InteractionSandbox a továbbépíthető interakciós alap, a DemoWorld a korábbi demó. Az új pályákhoz a közös QuestPlayer, PhysicsCube és PhysicsBall prefab használható. Az aktuális ellenőrzési állapot a CHANGELOG-ban szerepel.
+OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1. Meta XR Core és Interaction SDK 207.0.1, hivatalos registryből. A HunJam.Grabbable a Meta Grabbable leszármazottja, saját közelségi inputadapterrel és az átadás/yoke/szúrás szabályait megtartó ITransformerrel. A kezek Meta Capsense Natural / OVRHandPrefab alapúak. A manhatten merge óta a városassetekkel érkező XRI/Hands minták csomagjai is telepítve vannak; a játékos továbbra is a kétkezes branch Meta runtime-ját használja. Részletek és ellenőrzési korlátok: [Meta XR](META_XR.md).
 
 A világ valódi Unity assetekből áll, nem csak Play módban létrejövő geometriából. A mobil URP profil és egyszerű primitívek csökkentik a kezdeti renderköltséget. A teljesítmény céleszközön mérendő.

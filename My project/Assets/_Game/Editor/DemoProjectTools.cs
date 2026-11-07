@@ -67,6 +67,10 @@ namespace HunJam.Editor
                 if (touch == null) throw new InvalidOperationException("Touch interaction profile missing.");
                 touch.enabled = true;
                 EditorUtility.SetDirty(touch);
+                var meta = settings.GetFeature<Meta.XR.MetaXRFeature>();
+                if (meta == null) throw new InvalidOperationException("Meta XR Core feature missing. Import the pinned Meta packages first.");
+                meta.enabled = true;
+                EditorUtility.SetDirty(meta);
                 if (group == BuildTargetGroup.Android)
                 {
                     var quest = settings.GetFeature<MetaQuestFeature>();
@@ -98,7 +102,6 @@ namespace HunJam.Editor
             mobile.renderScale = 1f;
             mobile.shadowDistance = 20f;
             EditorUtility.SetDirty(mobile);
-            MetaProjectTools.ConfigureMetaFeatures();
             AssetDatabase.SaveAssets();
             Debug.Log("HUNJAM: Quest and PC OpenXR configured.");
         }
@@ -155,8 +158,8 @@ namespace HunJam.Editor
             receiver.AddComponent<EnergyReceiver>().Configure(game);
 
             var orbObject = Shape("Energy Orb", PrimitiveType.Sphere, null, Vector3.zero, Vector3.one * 0.28f, orange);
-            var rb = orbObject.AddComponent<Rigidbody>(); rb.mass = 0.3f; rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            orbObject.AddComponent<EnergyCell>().ConfigureInteraction();
+            var rb = orbObject.AddComponent<Rigidbody>(); rb.mass = 0.3f; rb.interpolation = RigidbodyInterpolation.Interpolate; rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            orbObject.AddComponent<EnergyCell>();
             var orbPrefab = PrefabUtility.SaveAsPrefabAsset(orbObject, Root + "Prefabs/EnergyOrb.prefab");
             UnityEngine.Object.DestroyImmediate(orbObject);
             Vector3[] spots = { new Vector3(-0.85f, 1.1f, -0.1f), new Vector3(-0.85f, 1.1f, -0.5f), new Vector3(-0.85f, 1.1f, -0.9f) };
@@ -172,9 +175,8 @@ namespace HunJam.Editor
             CreateRobot(game);
             CreatePlayer();
             CreateWorkshop(world);
-            MetaProjectTools.ConfigureActions();
             EditorSceneManager.SaveScene(scene, ScenePath);
-            EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
+            InteractionDemoTools.RegisterScenes();
             AssetDatabase.SaveAssets();
             Debug.Log("HUNJAM: DemoWorld generated.");
         }
@@ -197,7 +199,36 @@ namespace HunJam.Editor
             PrefabUtility.RecordPrefabInstancePropertyModifications(instance.GetComponent<GuideRobot>());
         }
 
-        private static void CreatePlayer() => MetaProjectTools.CreateRig();
+        private static void CreatePlayer()
+        {
+            var root = new GameObject("Quest Player"); root.layer = 2;
+
+
+            var player = root.AddComponent<DemoPlayer>();
+            var space = new GameObject("Tracking Space").transform; space.SetParent(root.transform, false);
+            var view = new GameObject("Main Camera").AddComponent<Camera>(); view.tag = "MainCamera";
+            view.transform.SetParent(space, false); view.transform.localPosition = Vector3.up * 1.65f;
+            view.nearClipPlane = 0.05f; view.farClipPlane = 80; view.clearFlags = CameraClearFlags.SolidColor;
+            view.backgroundColor = new Color(0.035f, 0.06f, 0.1f); view.gameObject.AddComponent<AudioListener>();
+            view.GetUniversalAdditionalCameraData().renderPostProcessing = false;
+            DemoHand Hand(bool left)
+            {
+                var obj = new GameObject(left ? "Left Hand" : "Right Hand"); obj.transform.SetParent(space, false);
+                var visual = UnityHandModels.Create(obj.transform, left);
+                var anchor = new GameObject("Hold Anchor").transform; anchor.SetParent(obj.transform, false);
+                var hand = obj.AddComponent<DemoHand>(); hand.Configure(left, player, anchor, visual);
+                return hand;
+            }
+            var leftHand = Hand(true); var rightHand = Hand(false);
+            player.Configure(space, view, leftHand, rightHand);
+            root.AddComponent<MetaRoomScaleRig>().Configure(
+                AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.meta.xr.sdk.core/Prefabs/OVRCameraRig.prefab"),
+                AssetDatabase.LoadAssetAtPath<GameObject>(Root + "Prefabs/MetaLeftHand.prefab"),
+                AssetDatabase.LoadAssetAtPath<GameObject>(Root + "Prefabs/MetaRightHand.prefab"),
+                AssetDatabase.LoadAssetAtPath<Material>(Root + "Art/Materials/MetaHandSkin.mat"));
+            PrefabUtility.SaveAsPrefabAssetAndConnect(root, Root + "Prefabs/QuestPlayer.prefab", InteractionMode.AutomatedAction);
+            root.transform.position = Vector3.zero;
+        }
 
         private static void CreateWorkshop(Transform world)
         {
@@ -232,9 +263,9 @@ namespace HunJam.Editor
                     light = tip.gameObject.AddComponent<Light>(); light.type = LightType.Spot;
                     light.range = 5; light.intensity = 5; light.spotAngle = 60; light.enabled = false;
                 }
-                var body = item.AddComponent<Rigidbody>(); body.mass = 0.5f;
+                var body = item.AddComponent<Rigidbody>(); body.mass = 0.5f; body.interpolation = RigidbodyInterpolation.Interpolate;
                 body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-                var tool = item.AddComponent<Tool>(); tool.Configure(kind, tip, light); tool.ConfigureInteraction();
+                item.AddComponent<Tool>().Configure(kind, tip, light);
                 PrefabUtility.SaveAsPrefabAssetAndConnect(item, Root + "Prefabs/" + name + ".prefab", InteractionMode.AutomatedAction);
             }
             MakeTool("Hammer", Tool.ToolKind.Hammer, new Vector3(0.85f, 0.95f, 0.05f));
@@ -282,7 +313,7 @@ namespace HunJam.Editor
                     if (GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(transform.gameObject) != 0)
                         throw new InvalidOperationException("Missing script: " + transform.name);
             if (UnityEngine.Object.FindObjectsByType<EnergyCell>(FindObjectsSortMode.None).Length != 3) throw new InvalidOperationException("Expected 3 orbs.");
-            if (UnityEngine.Object.FindFirstObjectByType<OVRCameraRig>() == null) throw new InvalidOperationException("Missing player.");
+            if (UnityEngine.Object.FindFirstObjectByType<DemoPlayer>() == null) throw new InvalidOperationException("Missing player.");
             Debug.Log("HUNJAM: Scene validation passed.");
         }
 
@@ -290,11 +321,13 @@ namespace HunJam.Editor
         public static void BuildQuest()
         {
             ConfigureQuest();
+            InteractionDemoTools.RegisterScenes();
             if (Application.isBatchMode && SystemInfo.graphicsDeviceType != GraphicsDeviceType.Null) CapturePreview();
             Directory.CreateDirectory("Builds/Quest");
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
-                scenes = new[] { ScenePath }, locationPathName = "Builds/Quest/HunJam.apk", target = BuildTarget.Android,
+                scenes = Array.ConvertAll(Array.FindAll(EditorBuildSettings.scenes, scene => scene.enabled), scene => scene.path),
+                locationPathName = "Builds/Quest/HunJam.apk", target = BuildTarget.Android,
                 options = BuildOptions.Development
             });
             if (report.summary.result != BuildResult.Succeeded) throw new InvalidOperationException("Quest build failed: " + report.summary.result);

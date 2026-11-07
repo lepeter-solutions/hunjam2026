@@ -1,18 +1,48 @@
 # Változásnapló
 
-## 2026-11-07 — InteractionSandbox scene és fizikai építőelemek
-- Új, önálló InteractionSandbox.unity scene a közös Meta QuestPlayer riggel, kontrollervezérelt kezekkel és a meglévő robot-, energia-, kalapács-, penge-, lámpa- és resetdemóval.
-- Hátulsó fizikai munkapad, négy megfogható/rakható kocka és két megfogható/dobható/gurítható labda. Új PhysicsCube és PhysicsBall prefabok, kész Meta SDK komponensekkel, Rigidbodyval és szilárd colliderrel; új C# kód nélkül.
-- Külön scene-leírás, prefabparaméterek és bővítési útmutató. A korábbi scene-ek megmaradnak.
-- A felhasználó kérésére nem futott Unity-import, fordítás, build vagy teszt. Futás közbeni és headsetes működés nincs ellenőrizve; a scene és a hozzá tartozó assetek közvetlenül kerülnek commitba és GitHub mainre.
+## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
+- Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.
+- Hét Git-ütközés rendezve: három XR Hands mintamappa a main GUID-ját tartja meg; a két material a bejövő, kiegészített URP-mezőket használja. Az OpenXR asset egészében a main konzisztens fileID-hálózatát és újabb HandTracking sémáját tartja meg; a feature-k engedélyezése azonos a két ágon.
+- A main ágban módosított Assets/_Recovery/0.unity megmarad a bejövő törlés helyett. A többi fájl Git automatikus egyesítésével került be, beleértve Manhattan várost, repülést és a main további tartalmait.
+- Csak Git- és szerializált diff-áttekintés történt. Felhasználói kérésre nincs build, teszt vagy Unity-indítás. A szöveges merge sikere nem igazolja a scene-ek, prefabok és runtime-rendszerek együttműködését; ezek később ellenőrizendők.
 
-## 2026-11-07 — Meta XR SDK átállás
-- Meta XR Core, Interaction SDK és OVR Integration 207.0.1. A QuestPlayer és DemoWorld a hivatalos OVRCameraRig / OVRComprehensiveInteractionRig prefabokat használja. A saját követés, kézmodell, ujjanimáció és fogásmozgatás eltávolítva.
-- Kizárólag fizikai mozgás; SDK locomotion, távoli ray és distance grab letiltva. Grip fogás, trigger használat; a játékspecifikus robot, energiakör, kalapács, penge és lámpa megmarad.
-- GameItem és MetaUseAction adapterek kötik a játékot az SDK-hoz. A tárgyak visszaállítása inaktív állapotban is visszaírja a Transformot. Az SDK mozgatásával ütköző Rigidbody interpolation kikapcsolva.
-- A csapat friss main commitjai beépítve, új pályák és importált minták megőrizve. Android minimum API 32; SDK helyi debuggerkonfiguráció kizárva a verziókövetésből.
-- Előzetes Unity-fordítás és scene-validáció sikeres. A korábbi teljes PlayMode futás 2/5 volt; a felismert tesztpozicionálási és reseteltérések javítása után a célzott SDK-kalapácsteszt 1/1 sikeres. A végleges, egyesített projekt teljes ellenőrzése nincs lezárva: a felhasználó kérésére az importot és a hátralévő teszteket leállítottuk, további fordítás nélkül kerül Gitre.
-- Új APK és valódi headsetes ellenőrzés nem készült. A robot-újrakezdés és penge teljes regressziós újrafuttatása még hátravan.
+## 2026-11-07 — Yoke billenés húzáskor és toláskor
+- A yoke ±9 cm-es eltolását arányos, legfeljebb ±10° billenés kíséri: húzáskor a pilóta felé, toláskor előre. A collideres test is követi, a fordítás és visszacentírozás megmarad.
+- `Maximum Push Pull Tilt` Inspector-paraméter (0–25°), a közös prefabban 10°. A repülő vezérlési bemenete változatlan.
+- Forrás/diff áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Headsetes fogás és látvány még ellenőrizendő.
+
+## 2026-11-07 — Határozottabb gázreakció
+- Maximális tolóerő-gyorsulás 3 → 6 m/s², állítható négyzetes gázgörbe (`throttleExponent=2`). A felső kartartomány nagyobb gyorsuláskülönbséget ad, teljes gázon dupla tolóerővel. A közös repülőprefabban is rögzítve.
+- Forrás/diff áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Headsetes sebességérzet és magasabb sebességű repülési hangolás még ellenőrizendő.
+
+## 2026-11-07 — Süllyedési fizika és jobb oldali gázkar
+- Fix sebességszabályozás helyett tolóerő, sebességnégyzetes légellenállás és állásszögfüggő, a sebességre merőleges felhajtóerő. Orrlenyomáskor csökkenő/negatív felhajtóerő engedi a tényleges süllyedést; nagy állásszögnél egyszerűsített felhajtóerő-csökkenés.
+- TrainingAircraft jobb oldalán megfogható, ±35° végállású, elengedve állástartó gázkar, Meta Grabbable adapterrel. Tolóerő 0–100%, reset 70%; V/S és THR műszerkijelzés. A prefab és Editor-generátor is frissült, a meglévő scene-ek öröklik.
+- A cockpit-kezelőszervek kimaradnak a szabad tárgyak Y<-3 resetjéből, így lejjebb helyezett pályán sem áll vissza magától a gázkar.
+- Forrás/diff és prefab-referenciák áttekintve; felhasználói kérésre nincs fordítás, teszt vagy build. Repülési hangolás, kar elérhetősége és headsetes működés ellenőrizetlen.
+
+## 2026-11-07 — Minden automatikus repülő-reset kikapcsolható
+- Az előző változás csak az alsó magassági feltételt tiltotta. Most az `Automatic Reset Enabled` főkapcsoló alapból kikapcsolja az összes automatikus visszaállítást, az ütközéses ágat is.
+- Külön kapcsoló és állítható küszöb az alsó/felső magassághoz, bank/pitch szöghöz, vízszintes távolsághoz és ütközési sebességhez. A kézi RESET / RECENTER független maradt.
+- A ResetFlight hívási helyei és a diff áttekintve. Felhasználói kérésre nem futott fordítás, teszt vagy build; a határátlépések és ütközések headsetes próbája még nyitott.
+
+## 2026-11-07 — Állítható és kikapcsolható alsó resetmagasság
+- FlightVehicle: az eddigi fix Y<8 resetet Inspectorban kapcsolható `Reset Below Altitude` és szabadon, negatívra is állítható `Reset Altitude` váltja. Alapból kikapcsolt, hogy a lejjebb helyezett pályán elindulhasson a gép.
+- A kézi reset és az egyéb automatikus resetfeltételek megmaradnak. A felhasználó scene- és assetmódosításait nem változtattuk meg.
+- Forrás/diff áttekintve; a korábbi kérés szerint nincs fordítás, teszt vagy build. A negatív magasságú indulás és a kapcsoló/küszöb futásidejű próbája még nyitott.
+
+## 2026-11-07 — Yoke fogási felület és mozgáshatárok
+- Felhasználói hibajelzés: az előző rögzítési javítás után a yoke nem fogható. A yoke LateUpdate-je most a kéz lekérdezése előtt fut, és a fogáskeresés szinkronizálja a látható Transformokat a fizikával.
+- A yoke kézkövetésiugrás-védelme cockpit-koordinátákban számol; a repülő haladása nem ad hamis elengedési parancsot. A normál tárgyak világkoordinátás védelme megmarad.
+- A tényleges kormányállás is korlátozott: ±9 cm ki-be mozgás, ±40° fordítás. Gravitáció és szabad eldobás nincs, a kézvezérlés és visszacentírozás megmarad.
+- Ellenőrzés: forrás és diff áttekintése. Felhasználói kérésre nem futott fordítás, teszt vagy build; a fogás és a többperces repülés headsetes visszaellenőrzése nyitott.
+
+## 2026-11-07 — Rögzített yoke és Manhattan integráció
+- A yoke elengedéskor sem vált szabad fizikára. A cockpitből számított kötött pózt fizikában és a repülő interpolált megjelenítése után is felveszi; megmarad a kétkezes fogás, ±40° fordítás, ±9 cm eltolás és centírozás. Prefab és generátor gravitáció nélkül készül.
+- A manhatten branch beolvasztása a codex/vr-two-hand-demos ágba; város, művészeti assetek és hangok átvétele, a meglévő kétkezes Meta runtime megtartásával. Részletes konfliktusfeloldási döntések: Mechanics/MANHATTAN_FLIGHT.md.
+- TrainingAircraft prefab a Manhattan scene-ben (500, 120, -300) kezdőpózzal, pilóta riggel; a régi kamera inaktív, Manhattan az első build-scene.
+- A helyi, eltérő Manhattan scene és editorállapot külön Git stashben és a repo melletti hunjam2026-local-before-flight-merge mappa ZIP-mentéseiben megőrizve, nem commitolva saját munkaként.
+- Ellenőrzés: forrás- és YAML-áttekintés. Felhasználói kérésre nincs fordítás, Play mód, teszt vagy build; többperces repülés, városütközés, Quest követés és teljesítmény ellenőrizetlen.
 
 ## 2026-11-06 — Közös fejlesztési alap és Quest demó
 - Kötelező dokumentációolvasás, mechanikánkénti leírás, változásnapló és commit az AGENTS.md-ben.
@@ -51,3 +81,26 @@
 - Touch kontrolleres követés; gripre ujjhajlítás, triggerre mutatóujj-hajlítás. A közeli fogás, használat, ütés és vágás ugyanazokhoz a kezekhez kapcsolódik. Nincs joystickos mozgás.
 - A QuestPlayer prefab és a demógenerátor is az új modelleket használja. A teljes XR Hands runtime nem szükséges.
 - Unity fordítás és scene-validáció sikeres; 5/5 PlayMode regressziós teszt sikeres. Kontrolleres póz és csuklóillesztés valódi headseten még ellenőrizendő; új APK nem készült.
+
+## 2026-11-07 — Kétkezes fogás és közvetlen átadás
+- A Grabbable kizárólagos fogását közös anchor–tárgy nyilvántartás, elsődleges/másodlagos kéz és explicit állapotok váltják. TransferOnly esetén grip-átfedés, TwoHands esetén kétkezes orientáció. Elengedéskor folyamatos újrabázisolás, tracking/tiltás/megsemmisülés utáni takarítás.
+- DemoHand a közös tulajdonlást használja; az átadás nem ejti el a másik kéz tárgyát. Rövid grip-haptika, nyugodt alapujjtartás és tárgyfüggő zárás. A mozgásbemenetek változatlanok.
+- Dokumentáció: Mechanics/GRABBING.md frissítve az API-val, állapotokkal és korlátokkal.
+- Unity 6000.3.28f1, elkülönített TwoHandValidation másolat: fordítás sikeres; 9/9 PlayMode teszt sikeres (5 meglévő regresszió, 4 új fogáspróba). Helyi bizonyíték: My project/Builds/TwoHandValidation/grab-results.xml és grab-tests.log.
+- Headsetes két szem/kontroller, kézpóz-illeszkedés, haptika, dobásérzet és teljesítmény még ellenőrizendő. A papír-, szúrás- és repülésbővítés következő munkalépés.
+
+## 2026-11-07 — Papírtépés, szúrás és repülőgépes demók
+- Futásidejű síkbeli mesh-felosztás UV-megőrzéssel, külön collideres és Rigidbody-s, kézben maradó papírdarabokkal; feszülési visszajelzés, hang, haptika és reset.
+- Hegyirány-, sebesség- és célfelület-függő szúrás, korlátozott behatolás és kihúzás; egy- vagy kétkezes, korlátozott yoke és valóban mozgó Rigidbody-repülő, üléskalibrációval és újraindítással.
+- A meglévő DemoWorld új asztalt kapott. Új VRInteractionTest és FlightYoke scene, hat tárgyprefab, scene-választó gombok, dokumentáció és korábbi állapotot bemutató képek.
+- A felhasználó build-/teszttiltása ELŐTT elkülönített másolatban: 10/10 EditMode és 17/17 PlayMode teszt sikeres; három scene statikus előnézete elkészült. Bizonyíték: Builds/TwoHandValidation/final-EditMode.xml és release-PlayMode.xml. Ezek a Meta SDK-ra átállás ELŐTTI változat eredményei.
+- A későbbi felhasználói kérés leállítja a buildelést és tesztelést, és Meta XR integrációra módosítja a következő munkalépést. A korábbi eredmények nem igazolják azt. Headsetes ellenőrzés nincs; a jelenlegi Editor-telepítésben nincs Android buildmodul.
+
+## 2026-11-07 — Meta XR, natív kézmodell és Grabbable
+- Felhasználói irányváltás: Meta XR Core + Interaction SDK 207.0.1 a hivatalos Meta registryből. A Unity Package Manager letöltötte a csomagokat és frissítette a packages-lock.json fájlt.
+- QuestPlayer: Meta OVRCameraRig, Capsense Natural, OVRHandPrefab bal/jobb változat, OpenXR kézcsontváz és URP kézanyag. Az eredeti riggyökér és room-scale mozgás megmarad; a Meta szem-/kontrolleranchorok váltják a korábbi pózforrást. Nincs locomotion prefab.
+- HunJam.Grabbable a Meta Grabbable leszármazottja, natív pointer/transformer életciklussal. A saját közelségi inputadapter, átadási állapotok, korlátozott dobás, szúrás és yoke az ITransformer bővítési ponton maradnak; nincs második Rigidbody-mozgató. A papírdarabok is ezt öröklik.
+- Meta OpenXR / kézkonfiguráló Editor-menü, szükséges assembly-hivatkozások, dokumentáció és META_XR.md útmutató. A régi kézassetek GUID-ja megmarad; Meta módban nem aktívak. Az átállás után a konfiguráló menü kézzel futtatható, nem írja át a beállításokat minden újratöltéskor.
+- A Unity-import lezárult; Android és Standalone Meta XR Feature engedélyezett, Controllers And Hands és OpenXR csontváz mentve. Az SDK által készített közös Oculus/Resources konfigurációk, AndroidManifest és UI-tagek bekerülnek. A géphez kötött fejlesztői/publikálási SDK-beállítások gitignore alatt maradnak. Meta 207 miatt minimum Android API 32; az SDK az install location értékét Auto-ra állítja.
+- Áttekintve: hivatalos forrás/API, fájldiff, csomagfeloldás és importüzenetek. A konzol az AndroidPlayer modul hiányát jelzi. A felhasználó tiltása miatt nem indult új build, Test Runner vagy Play mód; headsetes működési siker nincs állítva. A Meta előtti teszt- és képi eredmények ettől elkülönítve szerepelnek.
+- Nyitott: Quest/Link kéz- és markolatilleszkedés, kétkezes mechanikák, scene-váltás, repülési komfort és standalone teljesítmény. A Capsense nem tárgyfüggő IK; általános kinematic fogásnál továbbra is lehetséges falba tolás.
