@@ -1,6 +1,6 @@
 # HunJam 2026 — Quest Playground
 
-Unity **6000.3.28f1**, URP, Meta Quest standalone / OpenXR / Touch kontrollerek.
+Unity **6000.3.28f1**, URP, Meta Quest standalone / Meta XR Interaction SDK 207.0.1 / OpenXR / Touch kontrollerek.
 
 ![A DemoWorld gyakorlópálya](Docs/Images/DemoWorld.png)
 

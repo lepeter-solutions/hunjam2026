@@ -2,6 +2,7 @@
 
 - [Projekt és struktúra](PROJECT.md)
 - [Quest beállítás és ellenőrzés](QUEST_SETUP.md)
+- [Meta XR SDK integráció](META_XR.md)
 - [Változásnapló](CHANGELOG.md)
 - [Játékos és mozgás](Mechanics/PLAYER.md)
 - [Tárgyfogás és elengedés](Mechanics/GRABBING.md)

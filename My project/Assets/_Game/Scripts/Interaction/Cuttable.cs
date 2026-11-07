@@ -24,7 +24,7 @@ namespace HunJam
                 body.mass = 0.15f;
                 body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 body.linearVelocity = Vector3.ClampMagnitude(velocity, 2) + transform.right * side * 0.3f;
-                piece.AddComponent<Grabbable>();
+                piece.AddComponent<GameItem>();
                 pieces[i] = piece;
             }
         }

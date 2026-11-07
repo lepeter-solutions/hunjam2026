@@ -1,6 +1,6 @@
 namespace HunJam
 {
-    public sealed class EnergyCell : Grabbable
+    public sealed class EnergyCell : GameItem
     {
         public void ResetCell() => ResetObject();
     }

@@ -14,8 +14,7 @@ Assets/_Game/
   Scenes/            DemoWorld
   Scripts/
     Core/            játékkör állapota
-    Player/          követés és helyváltoztatás
-    Interaction/     kéz, tárgyfogás, interakció
+    Interaction/     Meta SDK adapterek, eszközhasználat, ütés és vágás
     Characters/      robotkarakter
     World/           gyűjtő és járható felület
   Editor/            scene-generálás, Quest konfiguráció, ellenőrzés
@@ -28,6 +27,8 @@ Docs/Mechanics/      mechanikánkénti leírások
 Egy ember/agent a játékosé, egy a mechanikáké, egy a pályáé lehet; az aktuális feladattábla jelöli a tényleges felelőst. Közös scene és projektbeállítás integrátori terület. A prefabok külön szerkeszthetők. A generátor a kezdeti demó reprodukálására szolgál; kézzel szerkesztett scene-re nem futtatjuk rá automatikusan.
 
 ## Technikai döntések
-OpenXR 1.16.1, XR Management 4.4.0, a meglévő Input System. Kis saját interakciós réteg, XR Interaction Toolkit nélkül; így a demó kevés függőséggel tanulmányozható. Később az interakciós réteg lecserélhető, a játékkör állapota ettől független.
+Meta XR Core + Interaction SDK + OVR Integration 207.0.1, OpenXR 1.16.1. A Meta SDK kezeli a követést, a kézmodelleket, a közeli fogást és dobást. Saját kód kizárólag a játéklogika és az SDK-események bekötése. Részletek: META_XR.md.
+
+A csapat által hozzáadott környezetek (például 01_Vérszerződés) külön scene-ek; az ellenőrzött interakciós referencia a DemoWorld. Az új pályákhoz a közös QuestPlayer prefab használható.
 
 A világ valódi Unity assetekből áll, nem csak Play módban létrejövő geometriából. A mobil URP profil és egyszerű primitívek csökkentik a kezdeti renderköltséget. A teljesítmény céleszközön mérendő.

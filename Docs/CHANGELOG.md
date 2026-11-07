@@ -1,5 +1,13 @@
 # Változásnapló
 
+## 2026-11-07 — Meta XR SDK átállás
+- Meta XR Core, Interaction SDK és OVR Integration 207.0.1. A QuestPlayer és DemoWorld a hivatalos OVRCameraRig / OVRComprehensiveInteractionRig prefabokat használja. A saját követés, kézmodell, ujjanimáció és fogásmozgatás eltávolítva.
+- Kizárólag fizikai mozgás; SDK locomotion, távoli ray és distance grab letiltva. Grip fogás, trigger használat; a játékspecifikus robot, energiakör, kalapács, penge és lámpa megmarad.
+- GameItem és MetaUseAction adapterek kötik a játékot az SDK-hoz. A tárgyak visszaállítása inaktív állapotban is visszaírja a Transformot. Az SDK mozgatásával ütköző Rigidbody interpolation kikapcsolva.
+- A csapat friss main commitjai beépítve, új pályák és importált minták megőrizve. Android minimum API 32; SDK helyi debuggerkonfiguráció kizárva a verziókövetésből.
+- Előzetes Unity-fordítás és scene-validáció sikeres. A korábbi teljes PlayMode futás 2/5 volt; a felismert tesztpozicionálási és reseteltérések javítása után a célzott SDK-kalapácsteszt 1/1 sikeres. A végleges, egyesített projekt teljes ellenőrzése nincs lezárva: a felhasználó kérésére az importot és a hátralévő teszteket leállítottuk, további fordítás nélkül kerül Gitre.
+- Új APK és valódi headsetes ellenőrzés nem készült. A robot-újrakezdés és penge teljes regressziós újrafuttatása még hátravan.
+
 ## 2026-11-06 — Közös fejlesztési alap és Quest demó
 - Kötelező dokumentációolvasás, mechanikánkénti leírás, változásnapló és commit az AGENTS.md-ben.
 - Saját játékstruktúra, szerkeszthető demóvilág, robot, mozgás, tárgyfogás és háromgömbös játékkör.

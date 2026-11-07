@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace HunJam
 {
-    public sealed class Tool : Grabbable
+    public sealed class Tool : GameItem
     {
         public enum ToolKind { Hammer, Blade, Lamp }
         [SerializeField] private ToolKind kind;
@@ -36,7 +36,7 @@ namespace HunJam
                     System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
                     foreach (var hit in hits)
                     {
-                        if (hit.collider.GetComponentInParent<Grabbable>() == this) continue;
+                        if (hit.collider.GetComponentInParent<GameItem>() == this) continue;
                         if (kind == ToolKind.Blade) hit.collider.GetComponentInParent<Cuttable>()?.Cut(travel.normalized * speed);
                         if (kind == ToolKind.Hammer) hit.collider.GetComponentInParent<ImpactTarget>()?.Strike(speed);
                         break;

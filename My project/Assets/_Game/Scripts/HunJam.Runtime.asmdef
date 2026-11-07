@@ -1,6 +1,6 @@
 {
   "name": "HunJam.Runtime",
   "rootNamespace": "HunJam",
-  "references": ["Unity.InputSystem"],
+  "references": ["Oculus.Interaction", "Oculus.Interaction.OVR", "Oculus.VR"],
   "autoReferenced": true
 }

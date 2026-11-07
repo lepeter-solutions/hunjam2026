@@ -26,3 +26,7 @@
 Thumbs.db
 sysinfo.txt
 crashlytics-build.properties
+
+# Meta SDK generates workstation-specific debugger credentials.
+**/Assets/Resources/DevAgentSettings.asset
+**/Assets/Resources/DevAgentSettings.asset.meta

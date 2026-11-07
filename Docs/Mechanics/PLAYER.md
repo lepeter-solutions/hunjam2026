@@ -1,12 +1,12 @@
 # Fizikai mozgás és követés
 ## Cél és források
-`Scripts/Player/DemoPlayer.cs`, `Prefabs/QuestPlayer.prefab`, `Scenes/DemoWorld.unity`.
-A játékos csak a valós térben sétálva, fordulva és lehajolva mozog. A rig gyökere változatlan; az OpenXR TrackedPoseDriver követi a fejet.
+QuestPlayer.prefab, DemoWorld.unity, Editor/MetaProjectTools.cs; Meta SDK OVRCameraRig és OVRComprehensiveInteractionRig.
+A Meta XR Core végzi a fej és kontrollerek követését. A játékos csak valós sétával, fordulással és lehajolással mozog.
 ## Bemenetek és állapot
-Nincs joystickmozgás, snap turn, teleport, WASD vagy egérrel fordulás. Nincs CharacterController vagy gravitációs rigmozgatás.
-Floor tracking origin kérése; ha nem támogatott, 1,65 m magassági offset. Headset nélkül a kamera álló szerkesztői nézetet ad, a kezek rejtettek.
+Floor Level követési origó. Kontrollervezérelt Meta kézmodellek (ConformingToController).
+Az összes SDK locomotion komponens letiltott: nincs joystickos séta, fordulás vagy teleport. Nincs saját kamerakövető kód.
 ## Hangolás és kapcsolatok
-A scene kezdőpontja a műhely közepe. A virtuális padló és a valós padló egyezzen. A headset saját játéktérhatárát kell használni, a virtuális fal nem állítja meg a fizikai testet.
-A fallback magasság később kalibrációs beállítás lehet; nincs automatikus visszateleport.
+A kezdőpont (0,0,0), a műhely köré rendezett tárgyakkal. A headset rendszerhatárát kell használni: a virtuális fal nem állítja meg a valós testet.
+Beállítások és csomagverziók: ../META_XR.md.
 ## Ellenőrzés
-PlayMode: rig pozíció és forgatás változatlan, nincs CharacterController és teleport API. Hardveren külön: stick és A nem mozgat/fordít, fizikai lépés és fejfordítás követése, újracsatlakozás, padlószint. Eredmény: CHANGELOG.
+Automatikus teszt: SDK rig, két kéz interaktorai, változatlan rigpozíció és tiltott PlayerLocomotor. Headseten: padlószint, két szem, kontrollerek, visszatérés és a stickek hatástalansága. Tényleges eredmény: CHANGELOG.

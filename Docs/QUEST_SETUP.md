@@ -2,8 +2,8 @@
 
 ## Rögzített környezet
 - Unity 6000.3.28f1, Android Build Support + SDK/NDK + OpenJDK modulok.
-- OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1.
-- Android: OpenXR loader, Meta Quest Support és Oculus Touch Controller Profile; Initialize XR on Startup.
+- Meta XR Core / Interaction SDK / OVR Integration 207.0.1; OpenXR 1.16.1, XR Management 4.4.0. Részletek: META_XR.md.
+- Android és Standalone: OpenXR loader, Meta XR feature és Oculus Touch Controller Profile; Initialize XR on Startup.
 - ARM64, IL2CPP, Vulkan, Linear, minimum Android API 29; target SDK az installált SDK szerint automatikus. Ez fejlesztői APK-konfiguráció, nem Store-leadás.
 - Single Pass Instanced; mobil URP profil, HDR kikapcsolva, 4× MSAA.
 - Standalone OpenXR profil is beállítva Quest Linkhez; headset nélkül álló előnézet.
@@ -17,7 +17,7 @@
 
 ## Kézi elfogadási lista
 - Hidegindításkor valódi sztereó kép és megfelelő padlómagasság.
-- Bal/jobb kontroller követése, alapkéz, grip és trigger működik.
+- Bal/jobb kontroller követése, Meta kontrollervezérelt kéz, grip és trigger működik.
 - Fizikai lépés és fordulás követése; a stickek és A gomb nem mozgatnak és nem fordítanak.
 - Kalapács lendítése számolja az ütést; penge lendítése kettévágja a blokkot; lámpa triggerre kapcsol; RESET visszaállítja az eszközöket.
 - Robot indítja a kört; három gömb megfogható, elengedhető, kézbesíthető; pontszám és újrakezdés helyes.
@@ -33,7 +33,7 @@ Parancssori ellenőrzés az adott Unity.exe-vel: `-batchmode -projectPath <máso
 Android build: `-batchmode -quit -projectPath <másolat> -buildTarget Android -executeMethod HunJam.Editor.DemoProjectTools.BuildQuest -logFile <napló>`. Grafikus batch környezetben `Builds/DemoWorld-preview.png` előnézetet is készít; ezt nem menti bele a scene-be.
 
 ## Jelenlegi validációs figyelmeztetések
-Az OpenXR opcionális PoseControl/StickControl és input polling ajánlásokat jelez. Ezek csomagszintű beállítások; változtatásuk után újra kell ellenőrizni a kontrollerbemeneteket. Az SSAO-ajánlás az összes konfigurált render pipeline-t, így a sablon PC-profilt is vizsgálja. A Questhez rendelt `Mobile_Renderer` feature-listája üres, azon nincs SSAO. A figyelmeztetések nem helyettesítik a tényleges Quest-profilozást.
+Az OpenXR és a Meta Project Setup Tool ajánlásait az aktuális SDK szerint ellenőrizd. A megváltozott XR beállítások után hardverteszt szükséges. Ezek csomagszintű beállítások; változtatásuk után újra kell ellenőrizni a kontrollerbemeneteket. Az SSAO-ajánlás az összes konfigurált render pipeline-t, így a sablon PC-profilt is vizsgálja. A Questhez rendelt `Mobile_Renderer` feature-listája üres, azon nincs SSAO. A figyelmeztetések nem helyettesítik a tényleges Quest-profilozást.
 
 ## Források
 - [Unity: Meta Quest fejlesztési folyamat](https://docs.unity.com/en-us/engine/6000.0/manual/xr/configuring-project-for/meta-quest-develop)
