@@ -4,6 +4,10 @@
 - A codex/progressive-paper-tearing ág (6e215ce) beolvasztva a friss mainbe (46f2536), a cockpit- és egyéb main-változások megtartásával.
 - Egyetlen szöveges ütközés a változásnaplóban: mindkét ág bejegyzése megmaradt. Git/diff áttekintés; kérésre nincs build, fordítás vagy teszt.
 
+## 2026-11-07 — Friss cockpit-módosítások mainbe
+- A felhasználó ccfe3af (Add better cockpit) commitja beolvasztva: Manhattan scene, cockpitanyagok, repülőhang és ProBuilder-beállítások.
+- Automatikus, ütközésmentes Git-merge; a változáslista áttekintve. Kérésre nem futott fordítás, teszt vagy build; headsetes működés ellenőrizetlen.
+
 ## 2026-11-07 — Cockpit integráció mainbe
 - A cockpit branch repülőmodellje, PilotPivot ülésrögzítése és függőleges sebességhez kötött hangmagassága beolvasztva a friss mainbe. A recovery metaütközéseknél a main azonosítói maradtak.
 - Helyi commitolatlan módosítások érintetlenek; külön worktree-ben készült. Konfliktusok statikusan áttekintve, felhasználói kérésre nincs fordítás vagy teszt.
