@@ -11,6 +11,7 @@ namespace HunJam
         public UnityEvent events;
         public void CheckConditions()
         {
+            Debug.Log("Checking conditions for pill detection...");
             if (zoneInteractable.isSnappedToCenter)
             {
                 WaitForSeconds(3);
