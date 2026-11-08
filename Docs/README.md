@@ -1,7 +1,8 @@
 # Dokumentációs index
 
-- [Döntési fa bekötése lépésről lépésre: Vérszerződés → Hitler, példák és kérdések](DONTESI_FA_PELDA.md)
-- [VR történetátvezetés: 16 státusz, képek, UnityEvent-bekötés és EndScene](Mechanics/VR_STORY_TRANSITIONS.md)
+- [Döntési fa: négy pálya, 0/1 értékek és scene kilépők](DONTESI_FA_PELDA.md)
+- [Hitler: fegyver, ciánkapszula és D3 döntés](Mechanics/HITLER_DECISIONS.md)
+- [VR átvezetés, aránytartó térképek és EndScene](Mechanics/VR_STORY_TRANSITIONS.md)
 
 - [Projekt és struktúra](PROJECT.md)
 - [Quest beállítás és ellenőrzés](QUEST_SETUP.md)

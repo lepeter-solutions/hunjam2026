@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-08 — Térképek, döntési kilépők és Hitler befejezések
+- A térképfelület megőrzi a képarányt, az első követett nézethez igazodik és utána a szobában rögzül. Manhattan után az EndScene ugyanazt a választott térképet tartja láthatóan.
+- A Hitler-jelenet fegyvere távolság szerint vizsgálja a találatokat, figyelmen kívül hagyja a saját fegyver/kéz interakciós triggereit, és a falat lövést blokkoló akadályként kezeli. A ciánkapszula a követett játékos szájánál egyszer aktiválja az önhalál döntést.
+- Mind a négy story stage döntésszáma, exitje, eseményértéke és képágainak referenciái statikusan ellenőrizve. Unity, fordítás és headsetteszt nem futott; az eszközös ellenőrzés nyitott.
+
 ## 2026-11-08 — Döntési fa: példa és kérdések
 - Külön Inspector-útmutató készült a Vérszerződés–Hitler példával, az ágankénti képekkel, eseménybekötéssel és C# alternatívával. A függvény- és eseményneveket összevetettük a projekttel. Csak dokumentáció változott.
 
