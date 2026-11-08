@@ -93,14 +93,6 @@ for tz in range(4):
                 indices.extend((k,k+cells+1,k+1,k+1,k+cells+1,k+cells+2))
         if indices: meshes.append(mesh(f'Coast_{tx}_{tz}',vertices,indices))
 
-# One continuous disk replaces the visible square water tiles; no runtime tessellation.
-vertices=[((400,SEA,-50),(0,1,0),(.1,.15,.2))]; indices=[]
-for i in range(256):
-    a=i*math.tau/256
-    vertices.append(((400+18000*math.cos(a),SEA,-50+18000*math.sin(a)),(0,1,0),(.1,.15,.2)))
-for i in range(256): indices.extend((0,(i+1)%256+1,i+1))
-water=mesh('HarborWater',vertices,indices)
-
 # Baked low-rise neighbourhoods beyond the water, with roof height/footprint variation.
 rng=random.Random(20261108); vertices=[]; indices=[]; buildings=0
 def box(x,y,z,w,h,d,color):
@@ -120,7 +112,7 @@ for z in range(-950,1500,65):
         box(x,height(x,z1)-1,z1,rng.uniform(18,33),h,rng.uniform(22,40),(shade,shade*.94,shade*.86));buildings+=1
 meshes.append(mesh('DistantNeighbourhoods',vertices,indices))
 
-for shader in ('ManhattanLandscape','ManhattanHarbor'):
+for shader in ('ManhattanLandscape',):
     path=GAME/'Art/Materials'/(shader+'.shader'); meta(path)
     mat=OUT/(shader+'.mat')
     props='    - _HazeDistance: 2400\n' if shader.endswith('Landscape') else '    - _Unused: 0\n'
@@ -156,32 +148,22 @@ scene=re.sub(r'--- !u!\d+ &88001108\d+\n.*?(?=--- !u!|\Z)','',scene,flags=re.S)
 scene=re.sub(r'  - \{fileID: 88001108\d+\}\n','',scene)
 def header(typ,ident,kind):
     return f'--- !u!{typ} &{ident}\n{kind}:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {{fileID: 0}}\n  m_PrefabInstance: {{fileID: 0}}\n  m_PrefabAsset: {{fileID: 0}}\n'
-def obj(ident,name,components,parent,children=()):
+def obj(ident,name,components,parent,children=(),z=0):
     s=header(1,ident,'GameObject')+'  serializedVersion: 6\n  m_Component:\n'
     s+=''.join(f'  - component: {{fileID: {c}}}\n' for c in [ident+1]+components)
     s+=f'  m_Layer: 0\n  m_Name: {name}\n  m_TagString: Untagged\n  m_IsActive: 1\n'
-    s+=header(4,ident+1,'Transform')+f'  m_GameObject: {{fileID: {ident}}}\n  serializedVersion: 2\n  m_LocalRotation: {{x: 0, y: 0, z: 0, w: 1}}\n  m_LocalPosition: {{x: 0, y: 0, z: 0}}\n  m_LocalScale: {{x: 1, y: 1, z: 1}}\n'
+    s+=header(4,ident+1,'Transform')+f'  m_GameObject: {{fileID: {ident}}}\n  serializedVersion: 2\n  m_LocalRotation: {{x: 0, y: 0, z: 0, w: 1}}\n  m_LocalPosition: {{x: 0, y: 0, z: {z}}}\n  m_LocalScale: {{x: 1, y: 1, z: 1}}\n'
     s+='  m_Children:'+ ('\n'+''.join(f'  - {{fileID: {c}}}\n' for c in children) if children else ' []\n')
     return s+f'  m_Father: {{fileID: {parent}}}\n'
-allmeshes=meshes+[water]
-chunks=obj(base,'Manhattan Surroundings',[base+2],0,[base+11+i*10 for i in range(len(allmeshes))])
-chunks+=header(114,base+2,'MonoBehaviour')+f'  m_GameObject: {{fileID: {base}}}\n  m_Enabled: 1\n  m_Script: {{fileID: 11500000, guid: {guid(script.name)}, type: 3}}\n  m_EditorClassIdentifier: HunJam.Runtime::HunJam.ManhattanBackdrop\n  viewDistance: 6000\n'
-for i,(name,meshguid,_) in enumerate(allmeshes):
+chunks=obj(base,'Manhattan Surroundings',[base+2],0,[base+11+i*10 for i in range(len(meshes))],z=4500)
+chunks+=header(114,base+2,'MonoBehaviour')+f'  m_GameObject: {{fileID: {base}}}\n  m_Enabled: 1\n  m_Script: {{fileID: 11500000, guid: {guid(script.name)}, type: 3}}\n  m_EditorClassIdentifier: HunJam.Runtime::HunJam.ManhattanBackdrop\n  viewDistance: 9000\n'
+for i,(name,meshguid,_) in enumerate(meshes):
     ident=base+10+i*10
-    matguid=guid('ManhattanHarbor.mat' if name=='HarborWater' else 'ManhattanLandscape.mat')
+    matguid=guid('ManhattanLandscape.mat')
     chunks+=obj(ident,name,[ident+2,ident+3],base+1)
     chunks+=header(33,ident+2,'MeshFilter')+f'  m_GameObject: {{fileID: {ident}}}\n  m_Mesh: {{fileID: 4300000, guid: {meshguid}, type: 2}}\n'
     chunks+=header(23,ident+3,'MeshRenderer')+f'  m_GameObject: {{fileID: {ident}}}\n  m_Enabled: 1\n  m_CastShadows: 0\n  m_ReceiveShadows: 0\n  m_DynamicOccludee: 0\n  m_LightProbeUsage: 0\n  m_ReflectionProbeUsage: 0\n  m_RenderingLayerMask: 1\n  m_Materials:\n  - {{fileID: 2100000, guid: {matguid}, type: 2}}\n  m_SortingOrder: 0\n'
-# The old water is preserved as inactive instances, not deleted from the scene.
-def disable_water(match):
-    block=match[0]
-    if not re.search(r'propertyPath: m_Name\n      value: WaterBlock_50m',block): return block
-    target=re.search(r'- target: (\{fileID: \d+, guid: [a-f0-9]+, type: 3\})\n      propertyPath: m_Name',block)[1]
-    entry=f'    - target: {target}\n      propertyPath: m_IsActive\n      value: 0\n      objectReference: {{fileID: 0}}\n'
-    if entry not in block: block=block.replace('    m_Modifications:\n','    m_Modifications:\n'+entry,1)
-    return block
-scene=re.sub(r'--- !u!1001 &\d+\n.*?(?=--- !u!|\Z)',disable_water,scene,flags=re.S)
 scene=scene.replace('--- !u!1660057539 &9223372036854775807',chunks+'--- !u!1660057539 &9223372036854775807')
 scene=scene.replace('  m_Roots:\n',f'  m_Roots:\n  - {{fileID: {base+1}}}\n')
 write(SCENE,scene)
-print(f'Generated {len(allmeshes)} static meshes, {sum(m[2] for m in allmeshes)} triangles, {buildings} distant buildings.')
+print(f'Generated {len(meshes)} static meshes, {sum(m[2] for m in meshes)} triangles, {buildings} distant buildings.')

@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-08 — Manhattan víz, távoli part és köd
+- A kilenc eredeti vízcsempe újra aktív, a generált vízkorong kikerült a jelenetből. A korábbi Exp2 ködsűrűség ismét 0,006.
+- A part és az épületsziluett együtt 4500 méterrel hátrébb került (+Z), a scene látótávja 9000 m. A generátor ezt az elrendezést tartja meg.
+- A scene-diff és a korábbi víz- és ködbeállítások áttekintve. Build és teszt nem futott; a cockpitből látható horizont és a Quest teljesítmény még ellenőrizendő.
+
 ## 2026-11-08 — Helyi javítások és Manhattan környezet publikálása
 - Felhasználói kérésre a tinta/tollfogás, cockpit indulás, yoke-kézrögzítés, köd és távoli környezet javításai commitba kerülnek mainre. A korábbi „nem commitolt” bejegyzések az akkori munkafázist jelölik.
 - Origin/main frissítve; nem érkezett új távoli commit. A felhasználó külön helyi cockpit-pozíció/sebesség-hangolása és projektbeállításai nem kerülnek ebbe a javításcommitba, a munkapéldányban megmaradnak. Git-diff ellenőrizve; nincs fordítás vagy futtatott teszt.
