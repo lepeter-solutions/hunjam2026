@@ -17,7 +17,7 @@ Unity 6000.3.28f1, OpenXR 1.16.1, XR Management 4.4.0, Input System 1.20.1, Meta
 3. Rúd: mindkét kezdési sorrend; másodlagos és elsődleges elengedés külön; az elsődleges elengedésekor a másik tartsa meg. A második kéz irányítsa a forgatást; méret ne változzon.
 4. Majdnem egyidejű grip és elengedés, gyors újrafogás, közel egybeeső kezek, távoli második kéz; két külön tárgy ne cseréljen birtokost magától.
 5. Dobás, földre ejtés, tárgyreset, kontroller követésvesztése, alkalmazásfókusz elvesztése/visszatérése. Ne maradjon foglalt anchor.
-6. Papír: egy kéz és gyenge húzás ne tépjen. Két különböző, ellentétes oldali pontból húzva más szakadásgeometria keletkezzen. Mindkét darab saját kézben maradjon, külön elengedhető és átadható legyen. RESET állítsa vissza az eredeti lapot. Kocka/rúd nem téphető.
+6. Papír: egy kéz és gyenge húzás ne tépjen. Lassú húzásra a széltől haladó rés nyíljon, megállásra álljon meg; elengedés és újrafogás után folytatható legyen. Mindkét darab saját kézben maradjon, külön elengedhető, átadható és tovább téphető legyen. Próbáld legalább három generáción át, a mérethatárig; RESET törölje az összes utódot. Külön loop- és végső hangslot, üres slotok és 0 hangerő próbája. Részletes esetek: Mechanics/TEARING.md. A régi automatikus papírtesztek az azonnali split viselkedését várják, később frissítendők. Kocka/rúd nem téphető.
 7. Szúrás: csak heggyel, megfelelő sebességgel a kijelölt habba; oldalsó érintés és lassú mozdulat ne aktiválja. Nyomás mélysége korlátozott, kihúzás működik. Fogás közbeni átadás és reset se hagyjon tiltott colliderkapcsolatot.
 8. Régi lámpa trigger, kalapácsütés, penge-vágás, energiakör és robot működjön tovább.
 9. Mindhárom scene külön nyitható, a gombok mindkét irányban működjenek az APK-ban is.

@@ -23,3 +23,6 @@ Munkakezdés: [AGENTS.md](AGENTS.md). Dokumentáció: [Docs/README.md](Docs/READ
 
 ## Manhattan repülőpálya
 Nyisd meg a `My project/Assets/_Game/Scenes/Manhattan.unity` scene-t. A TrainingAircraft prefab pilótaülésében indulsz, Touch kontrollerekkel fogható, rögzített yoke-kal. Részletek: [Manhattan repülőpálya](Docs/Mechanics/MANHATTAN_FLIGHT.md). A merge és javítás után nem futott teszt vagy fordítás a kérésnek megfelelően.
+
+## Trianon szerződés
+Nyisd meg az `Assets/_Game/Scenes/03_Trianon.unity` scene-t. A Vérszerződés VR játékosa előtt az asztalon toll, tintás tál és széttéphető szerződés van. A lap aláírható vagy két kézzel széttéphető; a két döntés kizárja egymást. [Működés és ellenőrzés](Docs/Mechanics/TRIANON_CONTRACT.md).

@@ -1,5 +1,96 @@
 # Változásnapló
 
+## 2026-11-08 — Manhattan víz, távoli part és köd
+- A kilenc eredeti vízcsempe újra aktív, a generált vízkorong kikerült a jelenetből. A korábbi Exp2 ködsűrűség ismét 0,006.
+- A part és az épületsziluett együtt 4500 méterrel hátrébb került (+Z), a scene látótávja 9000 m. A generátor ezt az elrendezést tartja meg.
+- A scene-diff és a korábbi víz- és ködbeállítások áttekintve. Build és teszt nem futott; a cockpitből látható horizont és a Quest teljesítmény még ellenőrizendő.
+
+## 2026-11-08 — Helyi javítások és Manhattan környezet publikálása
+- Felhasználói kérésre a tinta/tollfogás, cockpit indulás, yoke-kézrögzítés, köd és távoli környezet javításai commitba kerülnek mainre. A korábbi „nem commitolt” bejegyzések az akkori munkafázist jelölik.
+- Origin/main frissítve; nem érkezett új távoli commit. A felhasználó külön helyi cockpit-pozíció/sebesség-hangolása és projektbeállításai nem kerülnek ebbe a javításcommitba, a munkapéldányban megmaradnak. Git-diff ellenőrizve; nincs fordítás vagy futtatott teszt.
+
+## 2026-11-08 — Manhattan kikötői környezet és távoli táj (nem commitolt)
+- Új Manhattan Surroundings scene-gyökér: összefüggő víz, szabálytalan partvidék/sziget, alacsony domborzat és 301 távoli épület. 18 statikus mesh, összesen 42 148 háromszög; a külső szárazföld is szabálytalanul fut a vízbe.
+- Két könnyű, stereo-kompatibilis URP shader távolsági párával, napfénnyel és vízcsillanással. A korábbi kilenc vízblokk inaktívan megmaradt; skybox és gameplay-köd változatlan. Scene-szintű, kameraátadást kezelő 6000 m látótáv.
+- Reprodukálható Python assetgenerátor, saját geometriával, külső letöltés/csomag nélkül. Más helyi változtatások megőrizve. Forrás és diff áttekintve; kérésre nincs fordítás, teszt vagy Unity-indítás. Headsetes látvány és teljesítmény még ellenőrizendő.
+
+## 2026-11-08 — Első cockpit spawn, yoke-kézrögzítés és Trianon tollfogás (nem commitolt)
+- A VR ülésirány csak friss Meta anchorfrissítésből, 0,25 s érvényes követés után kalibrálható. Tracking-origin változás és recenter újrakalibrál; az első indításkor túl korán használt kamera/póz útvonala lezárva. PilotPivot forgatása változatlan.
+- A meglévő Meta kézmodell yoke-fogás közben a kormányhoz rögzül; a valódi kontrolleranchor és az irányítás változatlan. Elengedve visszatér a követéshez.
+- Trianon tollán visszaállítva a Vérszerződés natív Meta Grabbable komponense és mindkét eredeti kézpózága. A papíradapter és az SDK kölcsönös kiválasztásszűrése megakadályozza a toll és papír egy kézzel egyidejű fogását. A korábbi tintajavítás megmaradt.
+- Forrás, telepített SDK API-k és scene-diff áttekintve. Kérésre nincs fordítás, teszt vagy Unity-indítás; headsetes működés/látvány ellenőrizendő. Minden módosítás commitolatlan, más helyi munkák megőrizve.
+
+## 2026-11-08 — Manhattan ködsűrűség felezése
+- Fog Density 0,006 → 0,003 a Manhattan jelenetben. A többi helyi scene-módosítás megmaradt. Szerializált érték áttekintve; nincs fordítás vagy teszt. A változtatás commitolatlan.
+
+## 2026-11-08 — Trianon közvetlen tinta láthatóságjavítása (nem commitolt)
+- A helyi LineRenderer külön, explicit scene-referenciás PaperStrokeInk anyagot használ: URP Unlit, opaque, kétoldalas, papír után rajzolva, megtartott mélységvizsgálattal. A korábbi tintakamera anyagának újrafelhasználása megszűnik ebben a scene-ben.
+- Trianon vonalvastagság 2 → 3 mm; a régi scene-ek TrailRenderer útvonala változatlan. Forrás/diff áttekintve, fordítás/teszt nem futott. Headsetes eredmény még ellenőrizendő; kérésre nincs commit/push.
+
+## 2026-11-08 — Papírral együtt mozgó, tollhegyhez igazított írás
+- Trianonban a tinta papírhoz szülőzött, helyi koordinátás LineRenderer-vonásokra váltott a meglévő tintaanyaggal. A kész és aktív vonások a lap mozgatását/forgatását követik.
+- A tényleges tollhegy felületre vetített pontja hajtja a rajzot és a fedettséget. A hibás képarányú tintakamera/vetítési réteg helyett közvetlen rajzolás, 0,5 mm mélységi emeléssel; felemelés és lapszél megszakítja a vonást.
+- A nem téphető Vérszerződés-papír korábbi útvonala megmaradt. Forrás/diff és koordinátaútvonal áttekintve; teszt, Play mód, játékbuild és headsetes ellenőrzés nem futott. Kétkezes lapmozgatás, sarokpont-illesztés és két szem képe eszközön ellenőrizendő.
+
+## 2026-11-08 — Trianon darabok kézben tartása és írási döntés
+- A grip külön felvételi/elengedési küszöböt kapott (65%/10%); új tárgy kizárólag új szorításkor választható. A kézben tartott tollhoz közelített papír nem fogható fel ugyanazzal a szorítással.
+- A tépés menti a tényleges kezeket és oldalaikat; a szülő Meta takarítása a darabok kiválasztása előtt befejeződik. A darabok tulajdonosa a kéz marad a felengedésig.
+- A toll–lap szilárd ütközés kikapcsolva a Trianon adapter indulásakor, az írótriggerek megmaradnak. Az első tintanyom lezárja a tépést, a megkezdett tépés lezárja az írást.
+- Forrás/diff áttekintve; Unity 6000.3.28f1 C# fordítás sikeres. Play mód, teszt, játékbuild és headsetes ellenőrzés nem futott. Két kéz külön elengedése, grip-lazítás, írás közbeni laphelyzet és a két döntés kizárása eszközön ellenőrizendő.
+
+## 2026-11-08 — Trianon tinta és többszöri tépés javítása
+- Trianonban a tál feltöltve indul, a toll tintával előkészített; a többi scene továbbra is mártást igényel. Az írásrács a tényleges XY érzékelőfelületet használja a régi mesh helyett.
+- Toll és papír közös HunJam/Meta Grabbable fogásnyilvántartásba került; a toll párhuzamos scene-interaktorai kikapcsolva. Egy grip egy legközelebbi, akadály nélkül elérhető tárgyat választ.
+- A keletkező papírdarabok is kereshetők, és a nyilvántartás ténylegesen kézben tartott darabját engedi el az adapter. Újrafogás és további tépés a meglévő mérethatárokig támogatott.
+- Forrás és scene-hivatkozások áttekintve; Unity 6000.3.28f1 C# fordítás sikeres. Play mód, teszt, játékbuild és headsetes ellenőrzés nem futott. A fogás, tintanyom, többgenerációs tépés és komfort headseten visszaellenőrizendő.
+
+## 2026-11-07 — Trianon szerződéses választás
+- A Trianon scene a Vérszerződés VR játékosát, asztali környezetét, tollát és tintás tálját kapta; az eredeti írófelület a DemoWorld téphető szerződéséhez kapcsolódik.
+- A Touch grip a meglévő Grabbable papírt fogja. Az aláírás teljesítése kizárja a tépést, a megkezdett szakadás kizárja az aláírás teljesítését.
+- Editor scene-mentés és C# fordítás történt. Play mód, teszt, Android build és headsetes ellenőrzés nem futott; a két interakció és a VR élmény valódi eszközön ellenőrizendő.
+
+## 2026-11-07 — Helyi Manhattan munka publikálása mainre
+- Új felhasználói kérés alapján a korábban commitolatlan javítások és a felhasználó helyi scene/audio/beállítás módosításai mentve (79a16c2), majd a friss origin/main (f695a21) beolvasztva. A korábbi „nem commitolt” bejegyzések az akkori munkafázist jelölik.
+- Animation mappa metaütközésénél a main GUID-ja marad (külső assethivatkozás nincs); ProBuilder beállítások azonos értékei egyszer szerepelnek, a main sorrendjében. Scene-ek automatikusan egyesítve.
+- Git konfliktusok és változáslista áttekintve; kérésre nincs fordítás, teszt vagy build. VR-futásidejű ellenőrzések továbbra is nyitottak.
+
+## 2026-11-07 — Yoke/gázkar fogás scene-reload után (nem commitolt)
+- DemoHand tracking és grip Button actionök kezdeti állapotellenőrzése engedélyezve. Újratöltéskor a továbbra is követett kontrollerek állapota az első inputfrissítésnél beolvasódik, nem kell követésvesztés az új isTracked action aktiválásához.
+- A trigger új lenyomást igényel; a fogási távolság és Meta transformer változatlan. Telepített Input System forrás és diff áttekintve; kérésre nincs fordítás vagy teszt. Többszörös headsetes reload és mindkét kéz ellenőrizendő. Nincs commit/push.
+
+## 2026-11-07 — Teljes látómezős fade és cockpit iránykorrekció (nem commitolt)
+- A négyzetként látszó UI-panel helyett URP clip-space overlay, stereo instancing támogatással és mélységtől független rajzolással. Alpha=1 már létrehozáskor; követésre várakozás, 0.5 s teljes fekete, majd a meglévő fadeDuration szerinti áttűnés. Game-over ugyanennek az overlaynek ad teljes feketét.
+- A korábban hozzáadott PilotPivot +90° forgatás visszavonva a jobbra nézési hibajelentés alapján; Y=0°, a kameraátadás utáni kalibrálás megtartva.
+- Forrás/diff áttekintés; nincs Unity-indítás, fordítás vagy teszt. Mindkét szem teljes lefedése, első képkocka, cockpit kezdőirány és ütközés utáni fekete headseten ellenőrizendő. Kérésre minden commitolatlan marad.
+
+## 2026-11-07 — Ütközéses game-over és VR kezdőfade javítása (nem commitolt)
+- A felhasználó helyi FlightVehicle/TerroristAi munkájának folytatása: a küldetéses ütközés különválasztva a kikapcsolt gyakorló-reset kapcsolóktól; aircraft felismerés komponens/ős alapján. Egyszeri game-over, startup fade leállítása, gépek megállítása, nullbiztos audio és aktív scene név szerinti újratöltése. Opcionálisan konfigurálható epilógus.
+- Kezdés teljes feketével, követésre várakozó 10 másodperces alapfade; meglévő Canvas újrakötése a tényleges Meta szemkamerára. A halálkori fekete szín visszaíródik az Image-re.
+- 39 üres MeshCollider azonosítva a scene-ben. Runtime statikus épületcolliderek a meshgyerekeken; enemy dinamikus Rigidbody/FixedUpdate sebesség és szükség esetén meshhatárokhoz illesztett primitív hitbox. Folytonos ütközésdetektálás a gépeken.
+- Forrás és sceneadatok áttekintve; kérésre nincs fordítás, teszt vagy build. Headsetes fade, kontaktusok, colliderilleszkedés és runtime mesh-cooking teljesítmény ellenőrizetlen. A felhasználó kifejezetten kérte, hogy minden maradjon commitolatlan; nincs commit vagy push. Részletek: Mechanics/FLIGHT_MISSION.md.
+
+## 2026-11-07 — Sikertelen grip újrapróbálása közelítéskor
+- Main frissítve d2fc056-ra; a helyi ProBuilder-módosítás megőrizve. DemoWorld papírprefab, aktív collider, fogáskomponens és scene-override-ok áttekintve.
+- DemoHand: a sikertelen grip nem vész el a lenyomás frame-jében; nyomva tartva 0,05 másodpercenként újrakeres. Sikeres fogás után ugyanaz a szorítás nem szerezhet új tárgyat átadás/reset után.
+- A hatótáv, akadályvizsgálat és Meta Grabbable útvonal változatlan. Forrás/diff áttekintés; nincs build, fordítás vagy teszt. A felhasználói hibajelzés teljes headsetes reprodukciója és a javítás visszaellenőrzése még nyitott.
+
+## 2026-11-07 — Manhattan kezdőirány 90°-os korrekciója
+- A felhasználó visszajelzése szerint a kameraátadás javítása után is 90°-kal balra nézett a játékos. A scene PilotPivotja helyi Y=0° helyett +90°: induláskor és RECENTER-kor jobbra korrigált célirány.
+- Kizárólag a pivot forgatása változott, a szemhelyzet és a fejkövetés változatlan. Diff áttekintve; kérésre nincs fordítás vagy teszt. A headsetes eredmény ellenőrizendő.
+
+## 2026-11-07 — Pilóta kezdőiránya Meta kameraátadáskor
+- FlightSeat újrakalibrál, amikor a startup kamerát a Meta szemkamera váltja, így a régi kamerához számolt forgatás nem marad végleges. Érvényes Meta követés után a PilotPivot +Z irányát használja; a későbbi fejforgatás szabad.
+- Függőleges nézésnél az iránykalibráció újrapróbálkozik, nem jelöl hamis sikert. Forrás/diff áttekintve; kérésre nincs fordítás, teszt vagy build. Quest Linkes kezdőirány még ellenőrizendő.
+
+## 2026-11-07 — Meta kézprefabok referenciajavítása
+- A Quest Link naplóban hiányzó prefabreferencia miatt leállt Meta rig inicializálás. A kézvariánsokat a Meta SDK 207.0.1 eredeti kézkomponenseit használó önálló prefabok váltják, explicit gyökér-fileID-val; GUID, Capsense, OpenXR oldal és anyag megmarad.
+- A hiányzó referenciák diagnosztikája külön megnevezi a kamera, bal és jobb kéz állapotát. Nincs saját kézmodell vagy ujjanimáció.
+- Statikus prefab/diff áttekintés; kérésre nincs fordítás, teszt, Play mód vagy build. A Linkes megjelenés még headseten ellenőrizendő. Más helyi projektbeállítások nem részei a javításnak.
+
+## 2026-11-07 — Papírtépés integrációja mainbe
+- A codex/progressive-paper-tearing ág (6e215ce) beolvasztva a friss mainbe (46f2536), a cockpit- és egyéb main-változások megtartásával.
+- Egyetlen szöveges ütközés a változásnaplóban: mindkét ág bejegyzése megmaradt. Git/diff áttekintés; kérésre nincs build, fordítás vagy teszt.
+
 ## 2026-11-07 — Friss cockpit-módosítások mainbe
 - A felhasználó ccfe3af (Add better cockpit) commitja beolvasztva: Manhattan scene, cockpitanyagok, repülőhang és ProBuilder-beállítások.
 - Automatikus, ütközésmentes Git-merge; a változáslista áttekintve. Kérésre nem futott fordítás, teszt vagy build; headsetes működés ellenőrizetlen.
@@ -17,6 +108,12 @@
 - Munka előtt origin/cockpit pull (720c54e). A felhasználó helyi Manhattan-módosításából kizárólag a kért PilotPivot objektum átvéve, eredeti azonosítókkal és pozícióval; a többi helyi cockpit-átrendezés nem része ennek a commitnak.
 - FlightSeat: explicit PilotPivot szemhelyzet/indulási irány és scene-szintű helyzetzár. Meta anchorfrissítés után és renderelés előtt korrigált közös rig; fejforgatás és kézvezérlés megmarad, kisétálás nincs. A többi scene room-scale marad.
 - Dokumentáció és szabály frissítve a felhasználó által kért kivétellel. Forrás/prefab-override áttekintés történt; kérésre nincs fordítás, Play mód vagy teszt. Headsetes rögzítés és komfort ellenőrizendő.
+
+## 2026-11-07 — Fokozatos, továbbtéphető papír
+- A hirtelen split helyett kéztávolság-változással hajtott, megállítható szakadásfront, sűrített vizuális mesh, nyíló rés és szélfelhajlás. Újrafogáskor a megkezdett vonal folytatható.
+- A darabok öröklik a kétkezes Meta Grabbable fogást, a téphetőséget és hangbeállításokat; terület- és mélységhatár, területarányos tömeg, teljes darabfa-reset és runtime-mesh takarítás.
+- TearableContract prefabban külön húzás közbeni loop- és végső szakadás-hanghely, sebességfüggő térbeli hang és haptika. A közös prefab révén DemoWorld és VRInteractionTest is megkapja, scene-újragenerálás nélkül.
+- Forrás/prefab/diff áttekintve. Felhasználói kérésre nincs build, fordítás, Play mód vagy teszt. Headsetes látvány, kézillesztés, audio és Quest teljesítmény ellenőrizetlen; a korábbi azonnali splitre írt PlayMode papírtesztek későbbi frissítést igényelnek. Részletek: Mechanics/TEARING.md.
 
 ## 2026-11-07 — Working-Manhattan összeolvasztása a main ággal
 - Forrás: origin/Working-Manhattan (bc9f99e); célalap: origin/main (695d98b). Külön worktree-ben végzett helyi merge, az eredeti munkapéldány és staging megőrzésével.

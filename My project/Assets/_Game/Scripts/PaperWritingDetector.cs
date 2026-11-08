@@ -73,6 +73,8 @@ public class PaperWritingDetector : MonoBehaviour
     private bool _isTwoHandGrabbed;
 
     private readonly HashSet<Collider> _touchingQuillColliders = new HashSet<Collider>();
+    private Renderer _inkOverlay;
+    private Camera _inkCamera;
 
     public float CurrentCoverage => currentCoverage;
     public float CurrentTension => currentTension;
@@ -94,6 +96,18 @@ public class PaperWritingDetector : MonoBehaviour
             paperRigidbody = GetComponent<Rigidbody>();
 
         InitializeSurfaceGrid();
+        if (tearablePaper != null)
+        {
+            _inkOverlay = transform.Find("Plane")?.GetComponent<MeshRenderer>();
+            _inkCamera = GetComponentInChildren<Camera>();
+            // Direct local ink replaces the mismatched camera-to-overlay projection.
+            if (_inkOverlay != null) _inkOverlay.enabled = false;
+            if (_inkCamera != null) _inkCamera.enabled = false;
+            var mesh = tearablePaper.GetComponent<MeshFilter>().sharedMesh;
+            if (mesh != null)
+                _inkSurfaceCoordinate = transform.InverseTransformPoint(
+                    tearablePaper.transform.TransformPoint(mesh.bounds.center)).z;
+        }
     }
 
     private void OnEnable()
@@ -418,7 +432,44 @@ public class PaperWritingDetector : MonoBehaviour
         else { _axisU = 0; _axisV = 1; }                                           // XY plane
     }
 
+    private void CompleteIfReady()
+    {
+        if (CanWrite && currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
+        {
+            isCompleted = true;
+            onWritingCompleted?.Invoke();
+        }
+    }
+
+    public bool TryProjectInkPoint(Vector3 tipWorldPos, out Vector3 localPoint)
+    {
+        localPoint = transform.InverseTransformPoint(tipWorldPos);
+        if (!UsesLocalInk || !CanWrite || !TryGetNormalizedUV(localPoint, out _)) return false;
+        float normalScale = transform.TransformVector(Vector3.forward).magnitude;
+        if (normalScale < 0.0001f ||
+            Mathf.Abs(localPoint.z - _inkSurfaceCoordinate) * normalScale > inkContactDistance) return false;
+        localPoint.z = _inkSurfaceCoordinate + inkSurfaceOffset / normalScale;
+        return true;
+    }
+
+    public void RecordLocalInk(Vector3 localPoint)
+    {
+        if (!UsesLocalInk || !CanWrite) return;
+        isTouchingPaper = true;
+        timeNotTouching = 0f;
+        SampleLocalPosition(localPoint);
+    }
+
+    public void EndLocalInk()
+    {
+        _hasLastUV = false;
+        isTouchingPaper = false;
+    }
+
     private void SampleQuillPosition(Vector3 tipWorldPos)
+    { SampleLocalPosition(transform.InverseTransformPoint(tipWorldPos)); }
+
+    private void SampleLocalPosition(Vector3 localPos)
     {
         SampleLocalPosition(transform.InverseTransformPoint(tipWorldPos));
     }
