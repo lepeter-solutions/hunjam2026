@@ -10,6 +10,10 @@ namespace HunJam
         [Serializable] public struct Branch
         {
             public Picture ifFalse, ifTrue;
+            [Tooltip("Optional panorama for this history and a false decision; overrides the A/B preset.")]
+            public Texture2D falsePanorama;
+            [Tooltip("Optional panorama for this history and a true decision; overrides the A/B preset.")]
+            public Texture2D truePanorama;
         }
         [Serializable] public sealed class Stage
         {
@@ -29,7 +33,10 @@ namespace HunJam
                     return null;
                 }
                 var branch = branches[node];
-                var picture = (status & bit) == 0 ? branch.ifFalse : branch.ifTrue;
+                bool choice = (status & bit) != 0;
+                var panorama = choice ? branch.truePanorama : branch.falsePanorama;
+                if (panorama != null) return panorama;
+                var picture = choice ? branch.ifTrue : branch.ifFalse;
                 return picture == Picture.A ? imageA : imageB;
             }
         }

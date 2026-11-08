@@ -1,5 +1,8 @@
 # Változásnapló
 
+## 2026-11-08 — Képenként beköthető döntési ágak
+- A Branches minden előzményéhez saját False Panorama és True Panorama húzható; üresen a pálya meglévő A/B képei maradnak. Konkrét Vérszerződés–Hitler Inspector-példa a mechanikaleírásban. Az eseménynevek és az ágválasztás statikusan áttekintve; Unity nem futott.
+
 ## 2026-11-08 — Előzményfüggő kétágú döntési fa
 - Pályánként továbbra is csak A és B kép rendelhető hozzá. Az előző döntések választják a csomópontot, az aktuális döntés annak két ágából választ. Az 1/2/4/8 csomópont mintakiosztását és mind a 16 teljes történetet statikusan ellenőriztük; Unity-próba nem futott.
 
