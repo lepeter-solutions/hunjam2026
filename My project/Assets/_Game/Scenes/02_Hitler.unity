@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 173821799}
   - component: {fileID: 173821797}
   - component: {fileID: 173821798}
+  - component: {fileID: 2000000101}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -18722,7 +18723,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6909313486476864506}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f9053563c1cba1408ae1d41027398e9, type: 3}
   m_Name: 
@@ -18772,18 +18773,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8760247502305087774}
-        m_TargetAssemblyTypeName: HunJam.PillDetectInMouth, HunJam.Runtime
-        m_MethodName: CheckConditions
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
   _whenHover:
     m_PersistentCalls:
       m_Calls: []
@@ -18817,18 +18806,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8760247502305087774}
-        m_TargetAssemblyTypeName: HunJam.PillDetectInMouth, HunJam.Runtime
-        m_MethodName: CheckConditions
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
       m_Calls: []
@@ -18849,14 +18826,18 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76e71b97081b9cf42a3bfcbafe8f9921, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.PillDetectInMouth
   zoneInteractable: {fileID: 8760247502305087772}
+  playerHead: {fileID: 173821800}
+  mouthOffset: {x: 0, y: -0.07, z: 0.04}
+  mouthRadius: 0.09
+  holdTime: 0.35
   events:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1288777966}
         m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: SetDecision
+        m_MethodName: CompleteWithDecision
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18864,19 +18845,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1288777966}
-        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: CompleteLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &8817898888676430407
 GameObject:
@@ -19288,9 +19257,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a56cf3e191ebae8459965a510af60709, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: HunJam.Runtime::VRGun
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.VRGun
   muzzleTransform: {fileID: 291357998}
-  playerCollider: {fileID: 1125884475}
+  playerCollider: {fileID: 2000000101}
+  enemyRoot: {fileID: 543450652295966983}
+  playerRig: {fileID: 1524708034}
   muzzleFlash: {fileID: 8177224508447015375, guid: e0d0faa47eec56040ab22305bd153bf7, type: 3}
   enemyTag: enemy
   maxDistance: 50
@@ -19307,20 +19278,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288777966}
         m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: SetDecision
+        m_MethodName: CompleteWithDecision
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1288777966}
-        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: CompleteLevel
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19334,20 +19293,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1288777966}
         m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: SetDecision
+        m_MethodName: CompleteWithDecision
         m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1288777966}
-        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: CompleteLevel
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19374,7 +19321,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8929312596487128224}
-        m_TargetAssemblyTypeName: VRGun, HunJam.Runtime
+        m_TargetAssemblyTypeName: HunJam.VRGun, HunJam.Runtime
         m_MethodName: OnRelease
         m_Mode: 1
         m_Arguments:
@@ -19395,7 +19342,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8929312596487128224}
-        m_TargetAssemblyTypeName: VRGun, HunJam.Runtime
+        m_TargetAssemblyTypeName: HunJam.VRGun, HunJam.Runtime
         m_MethodName: OnGrab
         m_Mode: 1
         m_Arguments:
@@ -19736,6 +19683,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2544483622853030335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2000000101
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173821796}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: -0.04}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
