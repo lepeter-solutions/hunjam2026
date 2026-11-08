@@ -1,37 +1,59 @@
+using Oculus.Interaction;
+using Oculus.Interaction.HandGrab;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider), typeof(Rigidbody), typeof(Grabbable))]
 public class PaperWritingDetector : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Reference to your QuillWriter in the scene (auto-found if left empty).")]
     [SerializeField] private QuillWriter quillWriter;
+    [SerializeField] private Grabbable grabbable;
+    [SerializeField] private Rigidbody paperRigidbody;
+
+    [Header("Tearing Settings")]
+    [Tooltip("Extra distance (in meters) the two grab poses must pull apart after a two-handed grab to tear the paper.")]
+    [SerializeField, Min(0.01f)] private float tearStretchThreshold = 0.12f;
+    [Tooltip("Optional: Pre-made torn piece GameObjects to activate and detach when torn.")]
+    [SerializeField] private GameObject[] tornPieces;
+    [Tooltip("Hide this paper's visuals and colliders when torn.")]
+    [SerializeField] private bool hideOriginalOnTear = true;
 
     [Header("Completion Requirements")]
     [Tooltip("Required fraction of the paper covered (0.1 = 10%).")]
     [Range(0.01f, 1f)]
     [SerializeField] private float requiredCoverage = 0.10f;
-
     [Tooltip("Seconds the quill must not touch the paper after reaching required coverage.")]
     [SerializeField] private float requiredIdleSeconds = 3.0f;
 
-    [Header("Surface Grid Settings")]
+    [Header("Surface Grid & Ink Settings")]
     [Tooltip("Grid resolution across the paper surface (25 = 25x25 cells).")]
     [SerializeField] private int gridResolution = 25;
-
     [Tooltip("Minimum movement in meters required to register new ink.")]
     [SerializeField] private float minMoveDistance = 0.001f;
+    [Tooltip("Enable if QuillWriter should draw local LineRenderer strokes instead of world TrailRenderers.")]
+    [SerializeField] private bool useLocalInk = false;
+    [Tooltip("Maximum nib distance from the paper's surface when using local ink, in meters.")]
+    [SerializeField, Min(0.001f)] private float inkContactDistance = 0.005f;
+    [Tooltip("Small lift above the paper mesh to prevent ink depth flicker, in meters.")]
+    [SerializeField, Min(0.0001f)] private float inkSurfaceOffset = 0.0005f;
 
     [Header("Events")]
+    public UnityEvent onQuillDipped;
     public UnityEvent onWritingCompleted;
+    public UnityEvent onPaperTorn;
 
     [Header("Debug (Read-Only)")]
     [SerializeField] private float currentCoverage;
     [SerializeField] private float timeNotTouching;
     [SerializeField] private bool isTouchingPaper;
     [SerializeField] private bool isCompleted;
+    [SerializeField] private bool hasBeenGrabbed;
+    [SerializeField] private bool isTorn;
+    [SerializeField] private float currentTension;
 
     private bool[,] _visitedCells;
     private int _filledCellCount;
@@ -40,24 +62,326 @@ public class PaperWritingDetector : MonoBehaviour
     private Bounds _localSurfaceBounds;
     private int _axisU;
     private int _axisV;
+    private float _inkSurfaceCoordinate;
 
     private Vector2 _lastUV;
     private bool _hasLastUV;
-    private Vector3 _lastTipWorldPos;
+    private Vector3 _lastTipLocalPos;
+    private bool _dipCalled;
+
+    private float _initialTwoHandDistance;
+    private bool _isTwoHandGrabbed;
 
     private readonly HashSet<Collider> _touchingQuillColliders = new HashSet<Collider>();
 
     public float CurrentCoverage => currentCoverage;
+    public float CurrentTension => currentTension;
     public bool IsCompleted => isCompleted;
+    public bool HasBeenGrabbed => hasBeenGrabbed;
+    public bool IsTorn => isTorn;
+    public bool UsesLocalInk => useLocalInk;
+    public bool CanWrite => !isCompleted && !hasBeenGrabbed && !isTorn;
 
     private void Awake()
     {
         if (quillWriter == null)
-        {
             quillWriter = FindFirstObjectByType<QuillWriter>();
-        }
+
+        if (grabbable == null)
+            grabbable = GetComponent<Grabbable>();
+
+        if (paperRigidbody == null)
+            paperRigidbody = GetComponent<Rigidbody>();
 
         InitializeSurfaceGrid();
+    }
+
+    private void OnEnable()
+    {
+        if (grabbable != null)
+            grabbable.WhenPointerEventRaised += HandlePointerEvent;
+    }
+
+    private void OnDisable()
+    {
+        if (grabbable != null)
+            grabbable.WhenPointerEventRaised -= HandlePointerEvent;
+    }
+
+    private void HandlePointerEvent(PointerEvent evt)
+    {
+        if (isTorn) return;
+
+        int grabCount = grabbable.GrabPoints.Count;
+
+        if (evt.Type == PointerEventType.Select)
+        {
+            if (grabCount >= 1 && !hasBeenGrabbed)
+            {
+                hasBeenGrabbed = true;
+                _hasLastUV = false;
+                isTouchingPaper = false;
+
+                paperRigidbody.isKinematic = false;
+                paperRigidbody.useGravity = true;
+            }
+
+            if (grabCount >= 2)
+            {
+                _initialTwoHandDistance = Vector3.Distance(
+                    grabbable.GrabPoints[0].position,
+                    grabbable.GrabPoints[1].position
+                );
+                _isTwoHandGrabbed = true;
+            }
+        }
+        else if (evt.Type == PointerEventType.Unselect || evt.Type == PointerEventType.Cancel)
+        {
+            if (grabCount < 2)
+            {
+                _isTwoHandGrabbed = false;
+                currentTension = 0f;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (isTorn) return;
+
+        if (_isTwoHandGrabbed)
+        {
+            UpdateTearing();
+            if (isTorn) return;
+        }
+
+        if (CanWrite && !_dipCalled)
+        {
+            onQuillDipped?.Invoke();
+            _dipCalled = true;
+        }
+
+        if (!CanWrite || quillWriter == null || quillWriter.quillTip == null)
+            return;
+
+        if (UsesLocalInk)
+        {
+            isTouchingPaper = quillWriter.IsWritingOn(this);
+            if (isTouchingPaper)
+            {
+                timeNotTouching = 0f;
+            }
+            else
+            {
+                _hasLastUV = false;
+                timeNotTouching += Time.deltaTime;
+                CompleteIfReady();
+            }
+            return;
+        }
+
+        _touchingQuillColliders.RemoveWhere(c => c == null || !c.enabled || !c.gameObject.activeInHierarchy);
+
+        TrailRenderer activeTrail = quillWriter.quillTip.GetComponentInChildren<TrailRenderer>();
+        bool isActivelyWriting = activeTrail != null && activeTrail.emitting;
+
+        isTouchingPaper = isActivelyWriting || _touchingQuillColliders.Count > 0;
+
+        if (isActivelyWriting)
+        {
+            SampleQuillPosition(quillWriter.quillTip.position);
+        }
+        else
+        {
+            _hasLastUV = false;
+        }
+
+        if (isTouchingPaper)
+        {
+            timeNotTouching = 0f;
+        }
+        else
+        {
+            timeNotTouching += Time.deltaTime;
+            CompleteIfReady();
+        }
+    }
+
+    private void UpdateTearing()
+    {
+        IList<Pose> grabPoints = grabbable.GrabPoints;
+        if (grabPoints.Count < 2)
+        {
+            _isTwoHandGrabbed = false;
+            currentTension = 0f;
+            return;
+        }
+
+        float currentDistance = Vector3.Distance(grabPoints[0].position, grabPoints[1].position);
+        float stretch = Mathf.Max(0f, currentDistance - _initialTwoHandDistance);
+        currentTension = Mathf.Clamp01(stretch / tearStretchThreshold);
+
+        if (stretch >= tearStretchThreshold)
+        {
+            TearPaper();
+        }
+    }
+
+    private void TearPaper()
+    {
+        if (isTorn) return;
+        StartCoroutine(TearRoutine());
+    }
+
+    private IEnumerator TearRoutine()
+    {
+        isTorn = true;
+        _isTwoHandGrabbed = false;
+        currentTension = 1f;
+
+        // 1. Record current interactors before releasing the main paper
+        var activeHandInteractors = new List<HandGrabInteractor>();
+        foreach (var interactable in GetComponentsInChildren<HandGrabInteractable>())
+            activeHandInteractors.AddRange(interactable.SelectingInteractors);
+
+        var activeControllerInteractors = new List<GrabInteractor>();
+        foreach (var interactable in GetComponentsInChildren<GrabInteractable>())
+            activeControllerInteractors.AddRange(interactable.SelectingInteractors);
+
+        // 2. Release the original paper cleanly
+        foreach (var hand in activeHandInteractors) hand.ForceRelease();
+        foreach (var ctrl in activeControllerInteractors) ctrl.ForceRelease();
+
+        // 3. Activate pieces (keep kinematic for 1 frame so they don't fall before grab)
+        if (tornPieces != null)
+        {
+            foreach (GameObject piece in tornPieces)
+            {
+                if (piece == null) continue;
+                piece.transform.SetParent(null, true);
+                if (piece.TryGetComponent(out Rigidbody pieceRb))
+                    pieceRb.isKinematic = true;
+
+                piece.SetActive(true);
+            }
+        }
+
+        // 4. Hide and disable the original paper
+        if (hideOriginalOnTear)
+        {
+            if (TryGetComponent(out MeshRenderer meshRenderer))
+                meshRenderer.enabled = false;
+
+            foreach (LineRenderer stroke in GetComponentsInChildren<LineRenderer>())
+                stroke.enabled = false;
+
+            foreach (Collider col in GetComponents<Collider>())
+                col.enabled = false;
+
+            paperRigidbody.isKinematic = true;
+            grabbable.enabled = false;
+        }
+
+        // 5. Wait 1 frame so Meta XR initializes Start() on the newly enabled pieces
+        yield return null;
+
+        // 6. Enable physics on the pieces and force-select them into the hands
+        if (tornPieces != null && tornPieces.Length > 0)
+        {
+            foreach (GameObject piece in tornPieces)
+            {
+                if (piece == null) continue;
+                if (piece.TryGetComponent(out Rigidbody pieceRb))
+                {
+                    pieceRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                    pieceRb.isKinematic = false;
+                    pieceRb.useGravity = true;
+                }
+            }
+
+            var usedPieces = new HashSet<GameObject>();
+
+            foreach (var handInteractor in activeHandInteractors)
+            {
+                GameObject closest = GetClosestPiece(handInteractor.transform.position, usedPieces);
+                if (closest != null)
+                {
+                    usedPieces.Add(closest);
+                    var targetInteractable = closest.GetComponentInChildren<HandGrabInteractable>();
+                    if (targetInteractable != null)
+                        handInteractor.ForceSelect(targetInteractable, allowManualRelease: true); //
+                }
+            }
+
+            foreach (var grabInteractor in activeControllerInteractors)
+            {
+                GameObject closest = GetClosestPiece(grabInteractor.transform.position, usedPieces);
+                if (closest != null)
+                {
+                    usedPieces.Add(closest);
+                    var targetInteractable = closest.GetComponentInChildren<GrabInteractable>();
+                    if (targetInteractable != null)
+                        grabInteractor.ForceSelect(targetInteractable); //
+                }
+            }
+        }
+
+        onPaperTorn?.Invoke();
+    }
+
+    private GameObject GetClosestPiece(Vector3 interactorPos, HashSet<GameObject> excluded)
+    {
+        GameObject best = null;
+        float minDist = float.MaxValue;
+
+        foreach (GameObject piece in tornPieces)
+        {
+            if (piece == null || excluded.Contains(piece)) continue;
+            float dist = (piece.transform.position - interactorPos).sqrMagnitude;
+            if (dist < minDist)
+            {
+                minDist = dist;
+                best = piece;
+            }
+        }
+        return best;
+    }
+
+    private void CompleteIfReady()
+    {
+        if (CanWrite && currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
+        {
+            isCompleted = true;
+            onWritingCompleted?.Invoke();
+        }
+    }
+
+    public bool TryProjectInkPoint(Vector3 tipWorldPos, out Vector3 localPoint)
+    {
+        localPoint = transform.InverseTransformPoint(tipWorldPos);
+        if (!UsesLocalInk || !CanWrite || !TryGetNormalizedUV(localPoint, out _)) return false;
+
+        float normalScale = transform.TransformVector(Vector3.forward).magnitude;
+        if (normalScale < 0.0001f ||
+            Mathf.Abs(localPoint.z - _inkSurfaceCoordinate) * normalScale > inkContactDistance)
+            return false;
+
+        localPoint.z = _inkSurfaceCoordinate + inkSurfaceOffset / normalScale;
+        return true;
+    }
+
+    public void RecordLocalInk(Vector3 localPoint)
+    {
+        if (!UsesLocalInk || !CanWrite) return;
+        isTouchingPaper = true;
+        timeNotTouching = 0f;
+        SampleLocalPosition(localPoint);
+    }
+
+    public void EndLocalInk()
+    {
+        _hasLastUV = false;
+        isTouchingPaper = false;
     }
 
     private void InitializeSurfaceGrid()
@@ -80,62 +404,33 @@ public class PaperWritingDetector : MonoBehaviour
             Collider col = GetComponent<Collider>();
             Vector3 localCenter = transform.InverseTransformPoint(col.bounds.center);
             Vector3 localSize = transform.InverseTransformVector(col.bounds.size);
-            _localSurfaceBounds = new Bounds(localCenter, new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z)));
+            _localSurfaceBounds = new Bounds(
+                localCenter,
+                new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z))
+            );
         }
 
-        // Automatically pick the 2 largest local axes as the flat writing plane (supports Planes, Quads, and custom meshes)
+        _inkSurfaceCoordinate = _localSurfaceBounds.center.z;
+
         Vector3 size = _localSurfaceBounds.size;
         if (size.x <= size.y && size.x <= size.z) { _axisU = 1; _axisV = 2; }      // YZ plane
         else if (size.y <= size.x && size.y <= size.z) { _axisU = 0; _axisV = 2; } // XZ plane
         else { _axisU = 0; _axisV = 1; }                                           // XY plane
     }
 
-    private void Update()
-    {
-        if (isCompleted || quillWriter == null || quillWriter.quillTip == null)
-            return;
-
-        _touchingQuillColliders.RemoveWhere(c => c == null || !c.enabled || !c.gameObject.activeInHierarchy);
-
-        // QuillWriter parents the active TrailRenderer to quillTip while writing and unparents it on exit
-        TrailRenderer activeTrail = quillWriter.quillTip.GetComponentInChildren<TrailRenderer>();
-        bool isActivelyWriting = activeTrail != null && activeTrail.emitting;
-
-        isTouchingPaper = isActivelyWriting || _touchingQuillColliders.Count > 0;
-
-        if (isActivelyWriting)
-        {
-            SampleQuillPosition(quillWriter.quillTip.position);
-        }
-        else
-        {
-            _hasLastUV = false;
-        }
-
-        if (isTouchingPaper)
-        {
-            timeNotTouching = 0f;
-        }
-        else
-        {
-            timeNotTouching += Time.deltaTime;
-
-            if (currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
-            {
-                isCompleted = true;
-                onWritingCompleted?.Invoke();
-            }
-        }
-    }
-
     private void SampleQuillPosition(Vector3 tipWorldPos)
     {
-        if (_hasLastUV && (tipWorldPos - _lastTipWorldPos).sqrMagnitude < minMoveDistance * minMoveDistance)
+        SampleLocalPosition(transform.InverseTransformPoint(tipWorldPos));
+    }
+
+    private void SampleLocalPosition(Vector3 localPos)
+    {
+        if (_hasLastUV && transform.TransformVector(localPos - _lastTipLocalPos).sqrMagnitude < minMoveDistance * minMoveDistance)
             return;
 
-        _lastTipWorldPos = tipWorldPos;
+        _lastTipLocalPos = localPos;
 
-        if (!TryGetNormalizedUV(tipWorldPos, out Vector2 currentUV))
+        if (!TryGetNormalizedUV(localPos, out Vector2 currentUV))
         {
             _hasLastUV = false;
             return;
@@ -143,7 +438,6 @@ public class PaperWritingDetector : MonoBehaviour
 
         if (_hasLastUV)
         {
-            // Interpolate between last frame and current frame so fast VR strokes don't skip grid cells
             float cellStep = 0.5f / gridResolution;
             float dist = Vector2.Distance(_lastUV, currentUV);
             int steps = Mathf.CeilToInt(dist / cellStep);
@@ -163,9 +457,8 @@ public class PaperWritingDetector : MonoBehaviour
         _hasLastUV = true;
     }
 
-    private bool TryGetNormalizedUV(Vector3 worldPos, out Vector2 uv)
+    private bool TryGetNormalizedUV(Vector3 localPos, out Vector2 uv)
     {
-        Vector3 localPos = transform.InverseTransformPoint(worldPos);
         Vector3 min = _localSurfaceBounds.min;
         Vector3 size = _localSurfaceBounds.size;
 
@@ -192,17 +485,12 @@ public class PaperWritingDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (IsQuillCollider(other))
-        {
             _touchingQuillColliders.Add(other);
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (_touchingQuillColliders.Contains(other))
-        {
-            _touchingQuillColliders.Remove(other);
-        }
+        _touchingQuillColliders.Remove(other);
     }
 
     private bool IsQuillCollider(Collider col)

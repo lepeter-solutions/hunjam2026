@@ -45,7 +45,9 @@ namespace HunJam
         {
             first = grab.Primary; second = grab.Secondary;
             validGrip = false; Tension = EstimatedForce = lastExtension = 0;
-            if (first == null || second == null || IsTorn || original == null) { RestoreSurface(); return; }
+            tearAudio.Stop();
+            //if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
+                //|| (writingDetector != null && writingDetector.LocksTearing)) return;
             firstContact = grab.PrimaryContact; secondContact = grab.SecondaryContact;
             bool InRegion(Vector3 p) => Mathf.Abs(p.x) <= gripHalfExtents.x && Mathf.Abs(p.y) <= gripHalfExtents.y && Mathf.Abs(p.z) <= 0.12f;
             validGrip = InRegion(firstContact) && InRegion(secondContact)
@@ -55,29 +57,42 @@ namespace HunJam
         }
         private void FixedUpdate()
         {
-            if (!validGrip || IsTorn || first == null || second == null) return;
-            float extension = Mathf.Max(0, Vector3.Distance(first.position, second.position) - initialDistance);
-            float speed = (extension - lastExtension) / Time.fixedDeltaTime; lastExtension = extension;
-            EstimatedForce = extension * springStiffness;
-            Tension = Mathf.Clamp01(extension / extensionThreshold);
-            var vertices = deformedVertices;
-            for (int i = 0; i < vertices.Length; i++)
+            //if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
+            float advance = 0;
+            if (validGrip && first != null && second != null)
             {
-                vertices[i] = restVertices[i];
-                vertices[i].z += Mathf.Sin((vertices[i].x / gripHalfExtents.x + 1) * Mathf.PI) * Tension * 0.008f;
+                float extension = Mathf.Max(0, Vector3.Distance(first.position, second.position) - initialDistance);
+                float delta = Mathf.Max(0, extension - lastExtension);
+                float speed = delta / Mathf.Max(Time.deltaTime, 0.0001f);
+                EstimatedForce = extension * springStiffness;
+                Tension = Mathf.Clamp01(extension / Mathf.Max(extensionThreshold, 0.005f));
+                if (cutMeshes[0] == null && extension >= extensionThreshold && EstimatedForce >= forceThreshold && speed >= minimumPullSpeed)
+                {
+                    if (!BeginTear()) validGrip = false;
+                    // Starting the crack consumes the preload; a single tracking jump cannot split a sheet.
+                    delta = 0;
+                }
+                if (cutMeshes[0] != null && extension >= extensionThreshold)
+                {
+                    float before = TearProgress;
+                    float travel = Mathf.Max(0.04f, tearTravel * Mathf.Sqrt(paperArea / 0.126f));
+                    TearProgress = Mathf.Min(1, TearProgress + Mathf.Min(delta / travel, Time.deltaTime * 2.5f));
+                    advance = TearProgress - before;
+                }
+                lastExtension = extension;
             }
-            deforming.vertices = vertices; deforming.RecalculateNormals(); deforming.RecalculateBounds();
-            if (Tension > 0.2f && Time.time >= nextPulse)
-            { InteractionFeedback.Pulse(grab, Tension * 0.12f, 0.025f); nextPulse = Time.time + 0.12f; }
-            if (extension >= extensionThreshold && EstimatedForce >= forceThreshold && speed >= minimumPullSpeed) Split();
+            UpdateSound(advance / Mathf.Max(Time.deltaTime, 0.0001f));
+            if (advance > 0 && Time.time >= nextPulse)
+            {
+                InteractionFeedback.Pulse(grab, 0.08f + Tension * 0.12f, 0.025f);
+                nextPulse = Time.time + 0.07f;
+            }
         }
-        private void Split()
+
+        private bool BeginTear()
         {
-            Vector2 baseline = ((Vector2)(secondContact - firstContact)).normalized;
-            Vector2 pull = (Vector2)transform.InverseTransformDirection(second.position - first.position);
-            if (pull.sqrMagnitude < 0.0001f) return;
-            pull.Normalize(); if (Vector2.Dot(pull, baseline) < 0) pull = -pull;
-            LastCutNormal = (baseline + pull).normalized;
+            //if (writingDetector != null && writingDetector.LocksTearing) return false;
+            LastCutNormal = ((Vector2)(secondContact - firstContact)).normalized;
             LastCutPoint = (firstContact + secondContact) * 0.5f;
             var negative = PaperMesh.Clip(original, LastCutPoint, LastCutNormal, false);
             var positive = PaperMesh.Clip(original, LastCutPoint, LastCutNormal, true);
