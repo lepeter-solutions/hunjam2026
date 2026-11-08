@@ -23,7 +23,7 @@ namespace HunJam
         [Tooltip("One-shot when the last paper bridge breaks; empty uses the demo rip sound.")]
         [SerializeField] private AudioClip tearSound;
         [SerializeField, Range(0, 1)] private float tearVolume = 0.4f;
-        [SerializeField] private PaperWritingDetector writingDetector;
+        [SerializeField] private PaperWritingDetector_lencses writingDetector;
 
         private Grabbable grab;
         private Mesh original;
@@ -49,7 +49,7 @@ namespace HunJam
         public Vector2 LastCutPoint { get; private set; }
         public Vector2 LastCutNormal { get; private set; }
         public GameObject[] Fragments => (GameObject[])fragments.Clone();
-        public void SetWritingDetector(PaperWritingDetector detector) => writingDetector = detector;
+        public void SetWritingDetector(PaperWritingDetector_lencses detector) => writingDetector = detector;
 
         private void Awake()
         {
@@ -63,22 +63,19 @@ namespace HunJam
             tearAudio.minDistance = 0.15f; tearAudio.maxDistance = 4;
             tearAudio.rolloffMode = AudioRolloffMode.Linear;
         }
-
-        private void OnEnable() { grab.GripChanged += CaptureGrips; }
         private void OnDisable()
         {
             if (grab != null) grab.GripChanged -= CaptureGrips;
             if (tearAudio != null) tearAudio.Stop();
         }
-        /*private void OnEnable() { if (grab != null) grab.GripChanged += CaptureGrips; }
-        private void OnDisable() { if (grab != null) grab.GripChanged -= CaptureGrips; }
+        private void OnEnable() { if (grab != null) grab.GripChanged += CaptureGrips; }
         private void CaptureGrips(Grabbable item)
         {
             first = grab.Primary; second = grab.Secondary;
             validGrip = false; Tension = EstimatedForce = lastExtension = 0;
             tearAudio.Stop();
-            //if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
-                //|| (writingDetector != null && writingDetector.LocksTearing)) return;
+            if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
+                || (writingDetector != null && writingDetector.LocksTearing)) return;
             firstContact = grab.PrimaryContact; secondContact = grab.SecondaryContact;
             if (Vector2.Distance(firstContact, secondContact) < minimumGripSeparation) return;
             // Once started, a tear keeps its path. Regripping must straddle that existing path.
@@ -95,7 +92,7 @@ namespace HunJam
 
         private void Update()
         {
-            //if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
+            if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
             float advance = 0;
             if (validGrip && first != null && second != null)
             {
@@ -129,7 +126,7 @@ namespace HunJam
 
         private bool BeginTear()
         {
-            //if (writingDetector != null && writingDetector.LocksTearing) return false;
+            if (writingDetector != null && writingDetector.LocksTearing) return false;
             LastCutNormal = ((Vector2)(secondContact - firstContact)).normalized;
             LastCutPoint = (firstContact + secondContact) * 0.5f;
             tangent = new Vector2(-LastCutNormal.y, LastCutNormal.x);
@@ -285,7 +282,7 @@ namespace HunJam
         public void ResetPaper()
         {
             foreach (var fragment in fragments) if (fragment != null) Destroy(fragment);
-            if (deforming != null) Destroy(deforming);
-        }*/
+            //if (deforming != null) Destroy(deforming);
+        }
     }
 }
