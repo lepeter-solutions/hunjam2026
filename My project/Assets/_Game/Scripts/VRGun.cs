@@ -13,7 +13,7 @@ public class VRGun : MonoBehaviour
 
     [Header("Settings")]
     public string enemyTag = "enemy";
-    public float maxDistance = 50f;
+    public float maxDistance = 500f;
     public LayerMask hitLayers = ~0;
 
     [Header("Controller Trigger Input")]
@@ -49,16 +49,10 @@ public class VRGun : MonoBehaviour
 
         Instantiate(muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
 
-        if (Physics.Raycast(
-            muzzleTransform.position,
-            muzzleTransform.forward,
-            out RaycastHit hit,
-            maxDistance,
-            hitLayers,
-            QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(muzzleTransform.position, muzzleTransform.forward, out RaycastHit hit, maxDistance, hitLayers, QueryTriggerInteraction.Collide))
         {
-            Debug.Log(hit.collider.CompareTag("Player"));
-            if (hit.collider == playerCollider)
+            Debug.Log("Hit: " + hit.collider.name);
+            if (hit.collider.CompareTag("Player"))
             {
                 onShotSelf?.Invoke();
             }
