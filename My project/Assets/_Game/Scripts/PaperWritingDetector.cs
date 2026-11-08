@@ -14,6 +14,10 @@ public class PaperWritingDetector : MonoBehaviour
     [SerializeField] private Grabbable grabbable;
     [SerializeField] private Rigidbody paperRigidbody;
 
+    [Header("Snap Back Settings")]
+    [Tooltip("Maximum distance (in meters) from the original position to snap back upon release.")]
+    [SerializeField, Min(0.01f)] private float snapBackDistance = 0.25f;
+
     [Header("Tearing Settings")]
     [Tooltip("Extra distance (in meters) the two grab poses must pull apart after a two-handed grab to tear the paper.")]
     [SerializeField, Min(0.01f)] private float tearStretchThreshold = 0.12f;
@@ -45,13 +49,15 @@ public class PaperWritingDetector : MonoBehaviour
     public UnityEvent onQuillDipped;
     public UnityEvent onWritingCompleted;
     public UnityEvent onPaperTorn;
+    public UnityEvent onPaperSnappedBack;
 
     [Header("Debug (Read-Only)")]
     [SerializeField] private float currentCoverage;
     [SerializeField] private float timeNotTouching;
     [SerializeField] private bool isTouchingPaper;
     [SerializeField] private bool isCompleted;
-    [SerializeField] private bool hasBeenGrabbed;
+    [SerializeField] private bool isGrabbed;
+    [SerializeField] private bool isAtOriginalPosition = true;
     [SerializeField] private bool isTorn;
     [SerializeField] private float currentTension;
 
@@ -72,15 +78,20 @@ public class PaperWritingDetector : MonoBehaviour
     private float _initialTwoHandDistance;
     private bool _isTwoHandGrabbed;
 
+    private Vector3 _originalPosition;
+    private Quaternion _originalRotation;
+
     private readonly HashSet<Collider> _touchingQuillColliders = new HashSet<Collider>();
 
     public float CurrentCoverage => currentCoverage;
     public float CurrentTension => currentTension;
     public bool IsCompleted => isCompleted;
-    public bool HasBeenGrabbed => hasBeenGrabbed;
+    public bool IsGrabbed => isGrabbed;
+    public bool HasBeenGrabbed => isGrabbed;
+    public bool IsAtOriginalPosition => isAtOriginalPosition;
     public bool IsTorn => isTorn;
     public bool UsesLocalInk => useLocalInk;
-    public bool CanWrite => !isCompleted && !hasBeenGrabbed && !isTorn;
+    public bool CanWrite => !isCompleted && !isGrabbed && !isTorn;
 
     private void Awake()
     {
@@ -92,6 +103,9 @@ public class PaperWritingDetector : MonoBehaviour
 
         if (paperRigidbody == null)
             paperRigidbody = GetComponent<Rigidbody>();
+
+        _originalPosition = transform.position;
+        _originalRotation = transform.rotation;
 
         InitializeSurfaceGrid();
     }
@@ -116,9 +130,10 @@ public class PaperWritingDetector : MonoBehaviour
 
         if (evt.Type == PointerEventType.Select)
         {
-            if (grabCount >= 1 && !hasBeenGrabbed)
+            if (grabCount >= 1)
             {
-                hasBeenGrabbed = true;
+                isGrabbed = true;
+                isAtOriginalPosition = false;
                 _hasLastUV = false;
                 isTouchingPaper = false;
 
@@ -142,6 +157,34 @@ public class PaperWritingDetector : MonoBehaviour
                 _isTwoHandGrabbed = false;
                 currentTension = 0f;
             }
+
+            if (grabCount == 0)
+            {
+                isGrabbed = false;
+                TrySnapToOriginalPosition();
+            }
+        }
+    }
+
+    private void TrySnapToOriginalPosition()
+    {
+        if (isTorn) return;
+
+        float sqrDist = (transform.position - _originalPosition).sqrMagnitude;
+        if (sqrDist <= snapBackDistance * snapBackDistance)
+        {
+            if (!paperRigidbody.isKinematic)
+            {
+                paperRigidbody.linearVelocity = Vector3.zero;
+                paperRigidbody.angularVelocity = Vector3.zero;
+            }
+
+            paperRigidbody.useGravity = false;
+            paperRigidbody.isKinematic = true;
+
+            transform.SetPositionAndRotation(_originalPosition, _originalRotation);
+            isAtOriginalPosition = true;
+            onPaperSnappedBack?.Invoke();
         }
     }
 
@@ -236,6 +279,7 @@ public class PaperWritingDetector : MonoBehaviour
     private IEnumerator TearRoutine()
     {
         isTorn = true;
+        isGrabbed = false;
         _isTwoHandGrabbed = false;
         currentTension = 1f;
 
@@ -309,7 +353,7 @@ public class PaperWritingDetector : MonoBehaviour
                     usedPieces.Add(closest);
                     var targetInteractable = closest.GetComponentInChildren<HandGrabInteractable>();
                     if (targetInteractable != null)
-                        handInteractor.ForceSelect(targetInteractable, allowManualRelease: true); //
+                        handInteractor.ForceSelect(targetInteractable, allowManualRelease: true);
                 }
             }
 
@@ -321,7 +365,7 @@ public class PaperWritingDetector : MonoBehaviour
                     usedPieces.Add(closest);
                     var targetInteractable = closest.GetComponentInChildren<GrabInteractable>();
                     if (targetInteractable != null)
-                        grabInteractor.ForceSelect(targetInteractable); //
+                        grabInteractor.ForceSelect(targetInteractable);
                 }
             }
         }

@@ -39,7 +39,7 @@ namespace HunJam
                 deformedVertices = new Vector3[restVertices.Length]; surface.sharedMesh = deforming;
             }
         }
-        private void OnEnable() { if (grab != null) grab.GripChanged += CaptureGrips; }
+        /*private void OnEnable() { if (grab != null) grab.GripChanged += CaptureGrips; }
         private void OnDisable() { if (grab != null) grab.GripChanged -= CaptureGrips; }
         private void CaptureGrips(Grabbable item)
         {
@@ -142,6 +142,6 @@ namespace HunJam
         {
             foreach (var fragment in fragments) if (fragment != null) Destroy(fragment);
             if (deforming != null) Destroy(deforming);
-        }
+        }*/
     }
 }
