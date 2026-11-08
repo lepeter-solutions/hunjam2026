@@ -16697,7 +16697,7 @@ Transform:
   m_GameObject: {fileID: 6052252231323076961}
   serializedVersion: 2
   m_LocalRotation: {x: -0.41887906, y: -0.6562279, z: 0.53663355, w: -0.32546866}
-  m_LocalPosition: {x: -0.4331, y: 0.5092626, z: -0.051}
+  m_LocalPosition: {x: -0.4314, y: 0.5821, z: -0.0352}
   m_LocalScale: {x: 0.1381203, y: 0.13812028, z: 0.1381203}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19291,7 +19291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: HunJam.Runtime::VRGun
   muzzleTransform: {fileID: 291357998}
   playerCollider: {fileID: 1125884475}
-  muzzleFlash: {fileID: 4151584073163436862, guid: e0d0faa47eec56040ab22305bd153bf7, type: 3}
+  muzzleFlash: {fileID: 8177224508447015375, guid: e0d0faa47eec56040ab22305bd153bf7, type: 3}
   enemyTag: enemy
   maxDistance: 50
   hitLayers:
