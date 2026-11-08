@@ -1,5 +1,8 @@
 # Változásnapló
 
+## 2026-11-08 — Döntési fa: példa és kérdések
+- Külön Inspector-útmutató készült a Vérszerződés–Hitler példával, az ágankénti képekkel, eseménybekötéssel és C# alternatívával. A függvény- és eseményneveket összevetettük a projekttel. Csak dokumentáció változott.
+
 ## 2026-11-08 — Képenként beköthető döntési ágak
 - A Branches minden előzményéhez saját False Panorama és True Panorama húzható; üresen a pálya meglévő A/B képei maradnak. Konkrét Vérszerződés–Hitler Inspector-példa a mechanikaleírásban. Az eseménynevek és az ágválasztás statikusan áttekintve; Unity nem futott.
 
