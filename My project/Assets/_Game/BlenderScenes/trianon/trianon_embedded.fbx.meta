@@ -1,0 +1,241 @@
+fileFormatVersion: 2
+guid: 713f07f09b8d1a04e9285b6840b7a42f
+ModelImporter:
+  serializedVersion: 24300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Alci_Duvar_Color
+    second: {fileID: 2800000, guid: 3a66a16ae9010c34396cdb757026dbf2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ates_Color
+    second: {fileID: 2800000, guid: 00318b96a5593204589f7b86cfcca039, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cam_P1_Albedo-Cam_P1_Opacity
+    second: {fileID: 2800000, guid: f964942537e86c84aacd4129b354057e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Cicekler_Color_P1-Cicekler_Opacity_P1
+    second: {fileID: 2800000, guid: e2f05017c00178148bc6aee63bba145c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Dolap_P1_Albedo
+    second: {fileID: 2800000, guid: e5fde70b948d60944824a3a02bb44653, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ethnographic_map_of_hungary_1910_by_teleki_carte_rouge
+    second: {fileID: 2800000, guid: e9fe0b84432a53741990b70274eed1f4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Hali_Color
+    second: {fileID: 2800000, guid: 6b1b2a30a5ac7bc40b8524020b3a0c54, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kitaplik_P1_Albedo
+    second: {fileID: 2800000, guid: 15157f7b9f8d58a41a1407b0a76893f6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Koltuk_P1_Albedo
+    second: {fileID: 2800000, guid: db9d2dd38e1d5a04e96b690c57d9e81a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Koltuk_P1_Normal
+    second: {fileID: 2800000, guid: 5975f372e2d505e4d907dfb160c79d0e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Masa_Takimi_P1_Albedo
+    second: {fileID: 2800000, guid: 56742c967435ad7488fae3cff4d7fd47, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: O_Lambader_Color
+    second: {fileID: 2800000, guid: cbb351da7df04644ba1fa1374ded47ce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: O_lambader_emission
+    second: {fileID: 2800000, guid: 40ffee9ff366947458a2e78d724a1cd0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Orta_Sehpa_P1_Albedo
+    second: {fileID: 2800000, guid: 5c3ffd6386877174aa2fab0fe13c1fff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sandalye_Albedo
+    second: {fileID: 2800000, guid: c80316e67e1427b42bf3568886023467, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Sandalye_Normal
+    second: {fileID: 2800000, guid: d5752f70cc410874d867e541ba7b4a1f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Somine_Albedo
+    second: {fileID: 2800000, guid: ac7d64b02c60aa84ab495508db22e507, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tablo_P1_Albedo
+    second: {fileID: 2800000, guid: 05e0535beb38aed4c883ef7544682a2c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wood067_2K-JPG_Color
+    second: {fileID: 2800000, guid: 33ff0ce2e56ffd24280858f222f7b4f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WoodFloor057_1K-JPG_Color
+    second: {fileID: 2800000, guid: 2358b04bb74d13542ad88a7876be389c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: avize_Albedo
+    second: {fileID: 2800000, guid: ccb316d835669b54291437b9edf2441b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: avize_Normal
+    second: {fileID: 2800000, guid: 5cb30b95a2106a647bd98cfab16adcae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: cevirmeli_telefon_Color
+    second: {fileID: 2800000, guid: dbbb5161bcd4a264fb1f1f291e7e545a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: kalorifer_Albedo
+    second: {fileID: 2800000, guid: c07ec7761a4003b48b451c3f1b181628, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: orta_sehpa_1_Albedo
+    second: {fileID: 2800000, guid: ecbfd4ad662d67143a9b3301ee97b721, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: orta_sehpa_1_Normal
+    second: {fileID: 2800000, guid: 6c7ed20c061973d4b99466809231d082, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+    searchTexturesGlobally: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
