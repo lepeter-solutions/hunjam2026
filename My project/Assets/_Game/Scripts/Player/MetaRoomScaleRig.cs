@@ -49,21 +49,24 @@ namespace HunJam
             oldView.tag = "Untagged";
             player.UseMetaTracking(rig, camera);
 
-            CreateHand(leftHandPrefab, rig.leftHandOnControllerAnchor);
-            CreateHand(rightHandPrefab, rig.rightHandOnControllerAnchor);
+            var leftVisual = CreateHand(leftHandPrefab, rig.leftHandOnControllerAnchor);
+            var rightVisual = CreateHand(rightHandPrefab, rig.rightHandOnControllerAnchor);
             foreach (var hand in GetComponentsInChildren<DemoHand>())
             {
                 hand.transform.SetParent(rig.trackingSpace, false);
                 hand.UseMetaTracking(hand.IsLeft ? rig.leftControllerAnchor : rig.rightControllerAnchor);
+                var visual = hand.IsLeft ? leftVisual : rightVisual;
+                visual.AddComponent<YokeHandAttachment>().Configure(hand);
             }
         }
 
-        private void CreateHand(GameObject prefab, Transform parent)
+        private GameObject CreateHand(GameObject prefab, Transform parent)
         {
             var hand = Instantiate(prefab, parent, false);
             foreach (var node in hand.GetComponentsInChildren<Transform>(true)) node.gameObject.layer = 2;
             if (handMaterial != null)
                 foreach (var renderer in hand.GetComponentsInChildren<SkinnedMeshRenderer>(true)) renderer.sharedMaterial = handMaterial;
+            return hand;
         }
     }
 }

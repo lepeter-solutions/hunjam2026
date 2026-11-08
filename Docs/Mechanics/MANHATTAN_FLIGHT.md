@@ -4,6 +4,9 @@
 A `manhatten` branch városa a `Assets/_Game/Scenes/Manhattan.unity` scene-ben, a közös `Prefabs/TrainingAircraft.prefab` egy példányával. A gép (500, 120, -300) világpozícióból, +Z irányban, 16 m/s sebességgel indul. A prefab tartalmazza a pilótaülést, QuestPlayer/Meta riget, yoke-ot, műszereket és reset gombot. A korábbi külön Main Camera inaktív. Manhattan az első engedélyezett build-scene; a régi demók továbbra is elérhetők.
 
 ## Bemenetek, állapotok és hangolás
+2026-11-08: a négyszögletes vízblokkok helyett a jelenet `Manhattan Surroundings` gyökere összefüggő vizet, szabálytalan partokat, távoli várossziluettet és lankás domborzatot ad. A korábbi vízpéldányok inaktívan megmaradnak. A scene kamera látótávolsága 6000 m; [részletes hangolás és ellenőrzési korlátok](MANHATTAN_SURROUNDINGS.md).
+
+Köd: a jelenet RenderSettings exponenciális négyzetes ködöt használ; Fog Density 0,003 (2026-11-08: a korábbi 0,006 fele). A szín és a ködmód változatlan. A szerializált érték ellenőrizve, futásidejű látvány nem tesztelt.
 Cockpit branch, felhasználói kérésre: a Training Aircraft alatti PilotPivot a rögzített szemhelyzet és indulási előreirány. A FlightSeat scene-override-jában `pilotPivot` erre mutat, `lockToPilotPivot=1`. Így nincs fizikai kisétálás/lehajolás miatti helyváltoztatás; fejforgatás és kézvezérlés megmarad. Ez felülírja az alábbi régebbi room-scale leírást kizárólag ebben a scene-ben. [Részletes működés és ellenőrzés](PILOT_SEAT.md).
 Touch grip: egy- vagy kétkezes yoke-fogás. Fordítás: bedöntés; húzás/tolás: emelkedés/süllyedés. Bal zöld gomb üres kézzel és triggerrel: gép reset és üléskalibráció. Jobb gomb: DemoWorld. Részletek és végállások: [FLIGHT_YOKE.md](FLIGHT_YOKE.md). A játékos saját mozgása room-scale; a jármű szállítja a riget. Nincs joystickos locomotion.
 

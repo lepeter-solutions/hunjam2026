@@ -15,6 +15,7 @@
 - [PilotPivot és rögzített pilótaülés](Mechanics/PILOT_SEAT.md)
 - [Jobb oldali gázkar és tolóerő](Mechanics/FLIGHT_THROTTLE.md)
 - [Manhattan repülőpálya és branch-integráció](Mechanics/MANHATTAN_FLIGHT.md)
+- [Manhattan partvidék, távoli domborzat és víz](Mechanics/MANHATTAN_SURROUNDINGS.md)
 - [Interakciós tesztlista és három scene](VR_INTERACTION_TESTS.md)
 - [VR-bővítés: fájl- és dokumentációs leltár](VR_IMPLEMENTATION_REPORT.md)
 - [Robotkarakter](Mechanics/CHARACTER.md)

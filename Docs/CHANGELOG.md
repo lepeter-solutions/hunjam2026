@@ -1,5 +1,27 @@
 # Változásnapló
 
+## 2026-11-08 — Helyi javítások és Manhattan környezet publikálása
+- Felhasználói kérésre a tinta/tollfogás, cockpit indulás, yoke-kézrögzítés, köd és távoli környezet javításai commitba kerülnek mainre. A korábbi „nem commitolt” bejegyzések az akkori munkafázist jelölik.
+- Origin/main frissítve; nem érkezett új távoli commit. A felhasználó külön helyi cockpit-pozíció/sebesség-hangolása és projektbeállításai nem kerülnek ebbe a javításcommitba, a munkapéldányban megmaradnak. Git-diff ellenőrizve; nincs fordítás vagy futtatott teszt.
+
+## 2026-11-08 — Manhattan kikötői környezet és távoli táj (nem commitolt)
+- Új Manhattan Surroundings scene-gyökér: összefüggő víz, szabálytalan partvidék/sziget, alacsony domborzat és 301 távoli épület. 18 statikus mesh, összesen 42 148 háromszög; a külső szárazföld is szabálytalanul fut a vízbe.
+- Két könnyű, stereo-kompatibilis URP shader távolsági párával, napfénnyel és vízcsillanással. A korábbi kilenc vízblokk inaktívan megmaradt; skybox és gameplay-köd változatlan. Scene-szintű, kameraátadást kezelő 6000 m látótáv.
+- Reprodukálható Python assetgenerátor, saját geometriával, külső letöltés/csomag nélkül. Más helyi változtatások megőrizve. Forrás és diff áttekintve; kérésre nincs fordítás, teszt vagy Unity-indítás. Headsetes látvány és teljesítmény még ellenőrizendő.
+
+## 2026-11-08 — Első cockpit spawn, yoke-kézrögzítés és Trianon tollfogás (nem commitolt)
+- A VR ülésirány csak friss Meta anchorfrissítésből, 0,25 s érvényes követés után kalibrálható. Tracking-origin változás és recenter újrakalibrál; az első indításkor túl korán használt kamera/póz útvonala lezárva. PilotPivot forgatása változatlan.
+- A meglévő Meta kézmodell yoke-fogás közben a kormányhoz rögzül; a valódi kontrolleranchor és az irányítás változatlan. Elengedve visszatér a követéshez.
+- Trianon tollán visszaállítva a Vérszerződés natív Meta Grabbable komponense és mindkét eredeti kézpózága. A papíradapter és az SDK kölcsönös kiválasztásszűrése megakadályozza a toll és papír egy kézzel egyidejű fogását. A korábbi tintajavítás megmaradt.
+- Forrás, telepített SDK API-k és scene-diff áttekintve. Kérésre nincs fordítás, teszt vagy Unity-indítás; headsetes működés/látvány ellenőrizendő. Minden módosítás commitolatlan, más helyi munkák megőrizve.
+
+## 2026-11-08 — Manhattan ködsűrűség felezése
+- Fog Density 0,006 → 0,003 a Manhattan jelenetben. A többi helyi scene-módosítás megmaradt. Szerializált érték áttekintve; nincs fordítás vagy teszt. A változtatás commitolatlan.
+
+## 2026-11-08 — Trianon közvetlen tinta láthatóságjavítása (nem commitolt)
+- A helyi LineRenderer külön, explicit scene-referenciás PaperStrokeInk anyagot használ: URP Unlit, opaque, kétoldalas, papír után rajzolva, megtartott mélységvizsgálattal. A korábbi tintakamera anyagának újrafelhasználása megszűnik ebben a scene-ben.
+- Trianon vonalvastagság 2 → 3 mm; a régi scene-ek TrailRenderer útvonala változatlan. Forrás/diff áttekintve, fordítás/teszt nem futott. Headsetes eredmény még ellenőrizendő; kérésre nincs commit/push.
+
 ## 2026-11-08 — Papírral együtt mozgó, tollhegyhez igazított írás
 - Trianonban a tinta papírhoz szülőzött, helyi koordinátás LineRenderer-vonásokra váltott a meglévő tintaanyaggal. A kész és aktív vonások a lap mozgatását/forgatását követik.
 - A tényleges tollhegy felületre vetített pontja hajtja a rajzot és a fedettséget. A hibás képarányú tintakamera/vetítési réteg helyett közvetlen rajzolás, 0,5 mm mélységi emeléssel; felemelés és lapszél megszakítja a vonást.

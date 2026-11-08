@@ -16,24 +16,37 @@ namespace HunJam
         public void Configure(DemoPlayer rig, Transform eye) { player = rig; seatEye = eye; }
         private void OnEnable()
         {
-            if (player != null) player.TrackingUpdated += UpdateSeat;
+            if (player != null)
+            {
+                player.TrackingUpdated += UpdateTrackedSeat;
+                player.TrackingOriginChanged += Recenter;
+            }
             Application.onBeforeRender += UpdateSeat;
         }
         private void OnDisable()
         {
-            if (player != null) player.TrackingUpdated -= UpdateSeat;
+            if (player != null)
+            {
+                player.TrackingUpdated -= UpdateTrackedSeat;
+                player.TrackingOriginChanged -= Recenter;
+            }
             Application.onBeforeRender -= UpdateSeat;
             calibrated = calibratedForVR = false;
             calibratedView = null;
         }
         private void LateUpdate() => UpdateSeat();
-        private void UpdateSeat()
+        private void UpdateSeat() => UpdateSeat(false);
+        private void UpdateTrackedSeat() => UpdateSeat(true);
+        private void UpdateSeat(bool freshMetaAnchors)
         {
             Transform target = pilotPivot != null ? pilotPivot : seatEye;
             if (player == null || player.View == null || target == null) return;
             // Meta replaces the startup camera after XR connects. Its tracking-space yaw
             // can differ from the old camera, so it needs its own seat calibration.
             bool needsCalibration = !calibrated || calibratedView != player.View || (player.IsVR && !calibratedForVR);
+            // Only the SDK's post-anchor callback can finalize Meta yaw calibration.
+            // LateUpdate/onBeforeRender may run before the SDK replaces its cached pose.
+            if (needsCalibration && player.IsVR && (!player.UsesMetaTracking || !freshMetaAnchors)) return;
             if (!lockToPilotPivot && !needsCalibration) return;
             if (player.IsVR)
             {

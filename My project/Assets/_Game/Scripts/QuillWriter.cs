@@ -13,6 +13,8 @@ public class QuillWriter : MonoBehaviour
     public Color bloodColor = new Color(0.6f, 0f, 0f);
     [Tooltip("Start with ink already on the tip (Trianon); other scenes can still require dipping.")]
     [SerializeField] private bool startsWithInk;
+    [Tooltip("Opaque, double-sided URP material for direct strokes on movable paper.")]
+    [SerializeField] private Material paperInkMaterial;
     [SerializeField, Min(0.0005f)] private float paperStrokeWidth = 0.002f;
     [SerializeField, Min(0.0002f)] private float paperPointSpacing = 0.001f;
 
@@ -56,13 +58,14 @@ public class QuillWriter : MonoBehaviour
         if (localStroke == null)
         {
             var template = inkStrokePrefab != null ? inkStrokePrefab.GetComponent<TrailRenderer>() : null;
-            if (template == null) return;
+            if (paperInkMaterial == null && template == null) return;
             var stroke = new GameObject("Paper ink stroke") { layer = localSurface.gameObject.layer };
             stroke.transform.SetParent(localSurface.transform, false);
             localStroke = stroke.AddComponent<LineRenderer>();
             localStroke.useWorldSpace = false;
             localStroke.alignment = LineAlignment.TransformZ;
-            localStroke.sharedMaterials = template.sharedMaterials;
+            if (paperInkMaterial != null) localStroke.sharedMaterial = paperInkMaterial;
+            else localStroke.sharedMaterials = template.sharedMaterials;
             localStroke.widthMultiplier = paperStrokeWidth;
             localStroke.numCapVertices = 4;
             localStroke.numCornerVertices = 4;
