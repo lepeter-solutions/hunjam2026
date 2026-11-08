@@ -7,7 +7,7 @@ namespace HunJam
     {
         [Range(1,4)] public int decisionNumber=1;
         public void SetDecision(bool value) => GameManager.Instance.SetDecision(decisionNumber,value);
-        public void CompleteLevel() => TransitionManager.StartTransition();
+        public void CompleteLevel() { Debug.Log("triggered");  TransitionManager.StartTransition(); }
         public void ResetStory() => GameManager.Instance.ResetStory();
     }
 }
