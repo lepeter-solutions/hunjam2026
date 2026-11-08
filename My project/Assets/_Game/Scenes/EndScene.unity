@@ -246,6 +246,9 @@ MonoBehaviour:
   height: 3
   centreHeight: 1.6
   yaw: 0
+  maximumArcDegrees: 100
+  alignToInitialView: 1
+  trackedPoseSettleTime: 0.2
   segments: 96
   previewStage: "Manhattan"
   previewStatus: 0
