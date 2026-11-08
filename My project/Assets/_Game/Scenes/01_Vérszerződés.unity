@@ -19010,7 +19010,7 @@ GameObject:
   - component: {fileID: 1305037034502768843}
   - component: {fileID: 4931218026696101419}
   - component: {fileID: 4931218026696101414}
-  - component: {fileID: 4931218026696101415}
+  - component: {fileID: 4931218026696101420}
   - component: {fileID: 4931218026696101416}
   - component: {fileID: 4931218026696101417}
   - component: {fileID: 4931218026696101418}
@@ -20204,102 +20204,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1653967, y: 0.5, z: 1.4942676}
   m_Center: {x: -0.000015230241, y: -0.1, z: -2.7733763e-20}
---- !u!114 &4931218026696101415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2193423313762318187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04bb5758529c09a4fa3c6f97b3b54f23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: HunJam.Runtime::PaperWritingDetector
-  quillWriter: {fileID: 7022402391249498829}
-  grabbable: {fileID: 4931218026696101417}
-  paperRigidbody: {fileID: 4931218026696101416}
-  snapBackDistance: 0.25
-  tearStretchThreshold: 0.12
-  tornPieces:
-  - {fileID: 5148817235640096112}
-  - {fileID: 6507901978518242658}
-  hideOriginalOnTear: 1
-  requiredCoverage: 0.1
-  requiredIdleSeconds: 0.5
-  gridResolution: 25
-  minMoveDistance: 0.001
-  useLocalInk: 0
-  inkContactDistance: 0.005
-  inkSurfaceOffset: 0.0005
-  onQuillDipped:
-    m_PersistentCalls:
-      m_Calls: []
-  onWritingCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1118236456}
-        m_TargetAssemblyTypeName: HunJam.GameManagerFader, HunJam.Runtime
-        m_MethodName: WaitSwitcherToTrianon
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onPaperTorn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2118906023}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1118236456}
-        m_TargetAssemblyTypeName: HunJam.GameManagerFader, HunJam.Runtime
-        m_MethodName: WaitSwitcherToTrianon
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1807559751}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPaperSnappedBack:
-    m_PersistentCalls:
-      m_Calls: []
-  currentCoverage: 0
-  timeNotTouching: 0
-  isTouchingPaper: 0
-  isCompleted: 0
-  isGrabbed: 0
-  isAtOriginalPosition: 1
-  isTorn: 0
-  currentTension: 0
 --- !u!54 &4931218026696101416
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20441,6 +20345,102 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1653953, y: 0.01, z: 1.4942608}
   m_Center: {x: 0, y: -0.01, z: 0}
+--- !u!114 &4931218026696101420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193423313762318187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5040d5858e39f44c97f652e0adc1652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::PaperWritingDetector
+  quillWriter: {fileID: 7022402391249498829}
+  grabbable: {fileID: 4931218026696101417}
+  paperRigidbody: {fileID: 4931218026696101416}
+  snapBackDistance: 0.25
+  tearStretchThreshold: 0.05
+  tornPieces:
+  - {fileID: 5148817235640096112}
+  - {fileID: 6507901978518242658}
+  hideOriginalOnTear: 1
+  requiredCoverage: 0.1
+  requiredIdleSeconds: 0.5
+  gridResolution: 25
+  minMoveDistance: 0.001
+  useLocalInk: 0
+  inkContactDistance: 0.005
+  inkSurfaceOffset: 0.0005
+  onQuillDipped:
+    m_PersistentCalls:
+      m_Calls: []
+  onWritingCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1118236456}
+        m_TargetAssemblyTypeName: HunJam.GameManagerFader, HunJam.Runtime
+        m_MethodName: WaitSwitcherToTrianon
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onPaperTorn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1807559751}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1118236456}
+        m_TargetAssemblyTypeName: HunJam.GameManagerFader, HunJam.Runtime
+        m_MethodName: WaitSwitcherToTrianon
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2118906023}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPaperSnappedBack:
+    m_PersistentCalls:
+      m_Calls: []
+  currentCoverage: 0
+  timeNotTouching: 0
+  isTouchingPaper: 0
+  isCompleted: 0
+  isGrabbed: 0
+  isAtOriginalPosition: 1
+  isTorn: 0
+  currentTension: 0
 --- !u!1 &5050422055230729137
 GameObject:
   m_ObjectHideFlags: 0
