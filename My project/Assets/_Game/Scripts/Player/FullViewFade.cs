@@ -34,6 +34,14 @@ namespace HunJam
             SetAlpha(1f);
         }
 
+        public void ConfigureWhite()
+        {
+            if (material == null) return;
+            material.SetColor("_FadeColor", Color.white);
+            material.renderQueue = 5000;
+            overlayRenderer.sortingOrder = short.MaxValue;
+        }
+
         public void SetAlpha(float alpha)
         {
             if (material == null) return;

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/_Game/Scenes/01_V\xE9rszerz\u0151d\xE9s.unity"
     guid: 5a42a7ed0dbe8ee4fb9afbe7f6522d1e
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Scenes/Manhattan.unity
     guid: 885c348a41ef6dd4cb5a6cbf621d5f5f
   - enabled: 0
@@ -20,6 +20,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Game/Scenes/FlightYoke.unity
     guid: 9a6f2ebb967bbf248b4453be807db7a7
+  - enabled: 1
+    path: Assets/_Game/Scenes/02_Hitler.unity
+    guid: 6db2b3e7f00782b4a8a955c7e6b07a96
+  - enabled: 1
+    path: Assets/_Game/Scenes/03_Trianon.unity
+    guid: 8cbd485a74a4c4e48aa9e6205d3a833d
+  - enabled: 1
+    path: Assets/_Game/Scenes/VR_Transition.unity
+    guid: 3d6d1d439e894dcba72fc5c6f5afccba
+  - enabled: 1
+    path: Assets/_Game/Scenes/EndScene.unity
+    guid: 113fe131e45d4ee0b0ebc6c2a8ae80f2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 79f32c30fcf8a3a43ba4d5ac95495272, type: 2}

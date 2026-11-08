@@ -1,5 +1,7 @@
 # Dokumentációs index
 
+- [VR történetátvezetés: 16 státusz, képek, UnityEvent-bekötés és EndScene](Mechanics/VR_STORY_TRANSITIONS.md)
+
 - [Projekt és struktúra](PROJECT.md)
 - [Quest beállítás és ellenőrzés](QUEST_SETUP.md)
 - [Meta XR, Capsense kezek és Grabbable integráció](META_XR.md)

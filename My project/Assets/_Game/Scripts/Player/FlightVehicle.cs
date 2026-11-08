@@ -90,7 +90,9 @@ namespace HunJam
         }
         private void Start()
         {
-            if (fade != null) startupFade = StartCoroutine(FadeInRoutine());
+            if (fade == null) return;
+            if (TransitionManager.IsRevealing(gameObject.scene.name)) fadeAlpha = 0f;
+            else startupFade = StartCoroutine(FadeInRoutine());
         }
         private void LateUpdate() => BindFadeCamera();
         private void BindFadeCamera()

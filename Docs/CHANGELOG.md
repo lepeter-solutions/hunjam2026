@@ -1,5 +1,10 @@
 # Változásnapló
 
+## 2026-11-08 — VR történetátvezetés és EndScene
+- Rögzített pályasorrend, négy döntés, pályánkénti 16 képes konfiguráció és UnityEvent-adapter. Az eseményeket a pályák készítője köti be.
+- Egy fehér panorámajelenet, teljes nézetű fehér áttűnés, aszinkron betöltés, az utolsó képhez tartós EndScene. Két új scene, közös unlit anyag és 16 cserélhető PNG-minta. Build-lista és dokumentáció frissítve.
+- Statikus ellenőrzés; fordítás és headsetes validáció nem történt. Részletek: Mechanics/VR_STORY_TRANSITIONS.md.
+
 ## 2026-11-08 — Manhattan víz, távoli part és köd
 - A kilenc eredeti vízcsempe újra aktív, a generált vízkorong kikerült a jelenetből. A korábbi Exp2 ködsűrűség ismét 0,006.
 - A part és az épületsziluett együtt 4500 méterrel hátrébb került (+Z), a scene látótávja 9000 m. A generátor ezt az elrendezést tartja meg.

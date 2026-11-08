@@ -1,6 +1,7 @@
 Shader "HunJam/FullViewFade"
 {
-    Properties { _Alpha ("Opacity", Range(0, 1)) = 1 }
+    Properties { _Alpha ("Opacity", Range(0, 1)) = 1
+                 _FadeColor ("Color", Color) = (0,0,0,1) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "Queue"="Overlay" "RenderType"="Transparent" }
@@ -17,6 +18,7 @@ Shader "HunJam/FullViewFade"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             CBUFFER_START(UnityPerMaterial)
                 float _Alpha;
+                half4 _FadeColor;
             CBUFFER_END
             struct Attributes
             {
@@ -39,7 +41,7 @@ Shader "HunJam/FullViewFade"
             half4 Frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                return half4(0, 0, 0, saturate(_Alpha));
+                return half4(_FadeColor.rgb, saturate(_Alpha));
             }
             ENDHLSL
         }
