@@ -15589,7 +15589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d42fcb1a6aca51428507cf7b3d9702b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.GameManagerFader
-  TrianonLevel: "01_V\xE9rszerz\u0151d\xE9s"
+  TrianonLevel: 04_Trianon
   good_waitTime: 0
   bad_waitTime: 3
   good_endingEvents_i:
