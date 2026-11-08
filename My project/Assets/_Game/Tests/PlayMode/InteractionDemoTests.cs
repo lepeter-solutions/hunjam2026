@@ -36,7 +36,7 @@ namespace HunJam.Tests
             Assert.IsNull(left.GetComponent<Tearable>()); Assert.IsNull(right.GetComponent<Tearable>());
             Assert.IsFalse(grab.enabled); Assert.IsFalse(paper.GetComponent<Collider>().enabled);
             left.Release(a); Assert.IsFalse(left.GetComponent<Rigidbody>().isKinematic); Assert.IsTrue(right.IsHeld);
-            paper.ResetPaper(); yield return null;
+            //paper.ResetPaper(); yield return null;
             Assert.IsFalse(paper.IsTorn); Assert.IsTrue(grab.enabled); Assert.IsNull(Grabbable.HeldBy(b));
             Object.Destroy(a.gameObject); Object.Destroy(b.gameObject);
             LogAssert.NoUnexpectedReceived();

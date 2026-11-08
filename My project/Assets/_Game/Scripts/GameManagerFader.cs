@@ -9,30 +9,38 @@ namespace HunJam
 {
     public class GameManagerFader : MonoBehaviour
     {
-        [Category("01")]
+        [Header("01")]
         [SerializeField]
         private string TrianonLevel = "03_Trianon";
         [SerializeField]
-        private UnityEvent endingEvents_i;
+        private int good_waitTime = 0;
+        [SerializeField]
+        private int bad_waitTime = 3;
+        [SerializeField]
+        private UnityEvent good_endingEvents_i;
+        [SerializeField]
+        private UnityEvent bad_endingEvents_i;
 
 
 
         [SerializeField] private OVRScreenFade screenFade;
-        public void WaitSwitcherToTrianon()
+        public void WaitSwitcherToTrianon(bool goodEnding)
         {
             Debug.Log("Starting ienumerator");
-            StartCoroutine(LoadSceneAfterFade(TrianonLevel));
+            var waitTime = goodEnding ? good_waitTime : bad_waitTime;
+            StartCoroutine(LoadSceneAfterFade(TrianonLevel, goodEnding, waitTime));
         }
 
-        private IEnumerator LoadSceneAfterFade(string sceneName)
+        private IEnumerator LoadSceneAfterFade(string sceneName, bool goodEnding, int waitTime)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(waitTime);
             screenFade.FadeOut();
             yield return new WaitForSeconds(screenFade.fadeTime);
-            endingEvents_i?.Invoke();
+            if(goodEnding) good_endingEvents_i?.Invoke();
+            else bad_endingEvents_i?.Invoke();
             yield return new WaitForSeconds(6);
-            //SceneManager.LoadScene(sceneName);
-            Debug.Log("scene will load...");
+            if (goodEnding) SceneManager.LoadScene(sceneName);
+            else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

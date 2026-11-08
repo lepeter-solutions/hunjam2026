@@ -70,7 +70,8 @@ namespace HunJam
             if (grab != null) grab.GripChanged -= CaptureGrips;
             if (tearAudio != null) tearAudio.Stop();
         }
-
+        /*private void OnEnable() { if (grab != null) grab.GripChanged += CaptureGrips; }
+        private void OnDisable() { if (grab != null) grab.GripChanged -= CaptureGrips; }
         private void CaptureGrips(Grabbable item)
         {
             first = grab.Primary; second = grab.Secondary;
@@ -283,13 +284,8 @@ namespace HunJam
 
         public void ResetPaper()
         {
-            ClearFragments(); ClearPreview(); tearAudio.Stop();
-            IsTorn = false; validGrip = false; TearProgress = Tension = EstimatedForce = 0;
-            grab.enabled = true; grab.ResetObject();
-            foreach (var collider in GetComponents<Collider>()) collider.enabled = true;
-            paperRenderer.enabled = true;
-        }
-
-        private void OnDestroy() { ClearFragments(); ClearPreview(); }
+            foreach (var fragment in fragments) if (fragment != null) Destroy(fragment);
+            if (deforming != null) Destroy(deforming);
+        }*/
     }
 }

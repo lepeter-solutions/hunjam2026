@@ -28,6 +28,11 @@ TagManager:
   - QDSUIToggleThumbnail
   - Blood
   - Paper
+  - Locomotion
+  - PassThroughButton
+  - LocoButton
+  - LocoText
+  - PassThrough
   layers:
   - Default
   - TransparentFX
@@ -40,8 +45,8 @@ TagManager:
   - NPCFace
   - NPCObjectsGrab
   - Ink
-  - 
-  - 
+  - Pen
+  - Paper
   - 
   - 
   - 
