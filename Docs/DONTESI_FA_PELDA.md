@@ -10,16 +10,16 @@ A StoryFlow-ban a sor (**Element**) az előző döntések kombinációja; a soro
 
 | Element | False kimenet | True kimenet |
 |---:|---|---|
-| 0 | False | True |
+| 0 | `nagy_hun.png` | `no_hun.png` |
 
-A jelenlegi bekötésben aláírás = **False**, tépés = **True**. Ez az utoljára feltöltött képkiosztást követi.
+A chart jelölése szerint aláírás = **True**, tépés = **False**. A False kimenet `nagy_hun.png`, a True kimenet `no_hun.png`.
 
 ### D2 — 04_Trianon, 2 branch sor
 
 | Element | D1 | False kimenet | True kimenet |
 |---:|---|---|---|
-| 0 | False | False | True |
-| 1 | True | False | True |
+| 0 | False | `kis_hun.png` | `nagy_hun.png` |
+| 1 | True | `pici_rom.png` | `nagy_rom.png` |
 
 D2 scene exit száma 2. Aláírás = False, tépés = True.
 
@@ -27,10 +27,10 @@ D2 scene exit száma 2. Aláírás = False, tépés = True.
 
 | Element | D1 | D2 | False kimenet | True kimenet |
 |---:|---|---|---|---|
-| 0 | False | False | False | True |
-| 1 | True | False | False | True |
-| 2 | False | True | False | True |
-| 3 | True | True | False | True |
+| 0 | False | False | `kis_hun.png` | `becsi_hun.png` |
+| 1 | True | False | `kis_nemet.png` | `nemet_bir.png` |
+| 2 | False | True | `europa_hun.png` | `nemet_bir.png` |
+| 3 | True | True | `nagy_rom.png` | `pici_rom.png` |
 
 D3 scene exit száma 3. A legfrissebb térképbeállítás szerint Hitler lelövése = **False**; a játékos saját lelövése vagy a ciánkapszula = **True**. A fegyver és a kapszula ugyanazt a D3 kilépőt hívja.
 
@@ -38,16 +38,16 @@ D3 scene exit száma 3. A legfrissebb térképbeállítás szerint Hitler lelöv
 
 | Element | D1 | D2 | D3 | False kimenet | True kimenet |
 |---:|---|---|---|---|---|
-| 0 | False | False | False | False | True |
-| 1 | True | False | False | False | True |
-| 2 | False | True | False | False | True |
-| 3 | True | True | False | False | True |
-| 4 | False | False | True | False | True |
-| 5 | True | False | True | False | True |
-| 6 | False | True | True | False | True |
-| 7 | True | True | True | False | True |
+| 0 | False | False | False | `kis_hun.png` | `nagy_hun.png` |
+| 1 | True | False | False | `pici_nemet.png` | `nemet_bir.png` |
+| 2 | False | True | False | `arab_vilag.png` | `magyar_vilag.png` |
+| 3 | True | True | False | `pici_rom.png` | `roman_europa.png` |
+| 4 | False | False | True | `kis_hun.png` | `nagy_hun.png` |
+| 5 | True | False | True | `ceausescu_allamok.png` | `pici_rom.png` |
+| 6 | False | True | True | `no_usa.png` | `tomcat_land.png` |
+| 7 | True | True | True | `no_hun.png` | `nagy_rom.png` |
 
-D4 scene exit száma 4. A Manhattan `TerroristAi` befejezési eseménye rögzíti a választott ágat. Ezután az EndScene a Manhattanből kiválasztott térképet tartja láthatóan.
+D4 scene exit száma 4. A chart `Kiiktatás` kimenete True, a `Betelepülés` kimenete False. A chart 8. sorának `no_rom` térképe a felhasználó kérése szerint `no_hun.png`-t használja. A Manhattan `TerroristAi` befejezési eseménye rögzíti a választott ágat. Ezután az EndScene a Manhattanből kiválasztott térképet tartja láthatóan.
 
 ## Inspector: döntés és továbbmenet
 
@@ -59,4 +59,4 @@ A Hitler-jelenet három befejezése: Hitler lelövése (False), saját lelövés
 
 ## Ellenőrzés
 
-A StoryFlow 1/2/4/8 ágszáma, a képreferenciák GUID-jai, a négy scene döntésszáma, scene exitjei, eseményértékei és a Build Settings scene listája statikusan áttekintve. A 04_Trianon scene frissen pullolva. Unity, fordítás, Play mód és headsetes próba nem futott; a VR fegyver, kapszula, döntések és végső térkép eszközön ellenőrizendő.
+A charttal egyeztetve a D1 aláírás True, tépés False; D2 aláírás False, tépés True. A D4 3. sorának False képe `pici_rom.png`; a 8. sor `no_rom` felirata a felhasználó kérésére `no_hun.png`-re mutat. A StoryFlow 1/2/4/8 ágszáma, aktív térképreferenciák GUID-jai, a négy scene döntésszáma és a Build Settings scene listája statikusan áttekintve. Unity, fordítás, Play mód és headsetes próba nem futott.

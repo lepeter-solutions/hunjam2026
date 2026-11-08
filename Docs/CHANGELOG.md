@@ -1,5 +1,11 @@
 # Változásnapló
 
+## 2026-11-08 — Döntési fa egyeztetése a story charttal
+- A Vérszerződés chartjának megfelelően az aláírás D1 True, a tépés False kimenetet rögzít; a Trianon D2 értékei változatlanul aláírás False, tépés True.
+- A Manhattan D4 4. branch-sorának False panorámája `pici_nemet.png` helyett `pici_rom.png`. A 8. sor `no_rom` kimenete a felhasználó kérésére `no_hun.png`-t használja.
+- A döntési fa útmutató és VR átvezetési leírás frissítve a konkrét képfájlokkal és az új bool-bekötéssel.
+- Ellenőrzés: scene UnityEventek, StoryFlow GUID-ok, branch-sorrend és Build Settings statikusan összevetve. Unity, fordítás, Play mód és headsetes próba nem futott; valós működés headseten még ellenőrizendő.
+
 ## 2026-11-08 — Térképek, döntési kilépők és Hitler befejezések
 - A térképfelület megőrzi a képarányt, az első követett nézethez igazodik és utána a szobában rögzül. Manhattan után az EndScene ugyanazt a választott térképet tartja láthatóan.
 - A Hitler-jelenet fegyvere távolság szerint vizsgálja a találatokat, figyelmen kívül hagyja a saját fegyver/kéz interakciós triggereit, és a falat lövést blokkoló akadályként kezeli. A ciánkapszula a követett játékos szájánál egyszer aktiválja az önhalál döntést.

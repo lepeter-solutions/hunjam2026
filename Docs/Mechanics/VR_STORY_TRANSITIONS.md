@@ -14,7 +14,7 @@ A sorrend a `My project/Assets/_Game/Resources/StoryFlow.asset` **Stages** list�
 
 **A jelenlegi sorrend:** Vérszerződés → 04_Trianon → 02_Hitler → Manhattan. A Branches False/True panorámáit a StoryFlow asset már az előzménykombinációkhoz rendeli; a pályák UnityEventjei rögzítik a döntéseket.
 
-1. Vérszerződés: `StoryExit.decisionNumber=1`; aláírás esemény `SetDecision(false)`, tépés `SetDecision(true)`. Mindkettő után `CompleteLevel()`.
+1. Vérszerződés: `StoryExit.decisionNumber=1`; aláírás esemény `SetDecision(true)`, tépés `SetDecision(false)`. Mindkettő után `CompleteLevel()`.
 2. 04_Trianon: `decisionNumber=2`; aláírás `false`, tépés `true`, majd `CompleteLevel()`.
 3. 02_Hitler: `decisionNumber=3`; a friss térképbeállítás szerint Hitler lelövése `false`, a játékos saját lelövése vagy a ciánkapszula `true`. A jelenet fegyvere és kapszulája a `CompleteWithDecision(bool)` hívással ment és vált egyszerre.
 4. Manhattan: `decisionNumber=4`; a `TerroristAi` a 4. döntési kilépőt használja, és a pálya game-over eseményén hívja a döntésrögzítést. Ne állíts be scene reloadot vagy közvetlen scene-betöltést a story eseménnyel párhuzamosan.
@@ -41,4 +41,4 @@ A négy döntés rendre az 1, 2, 4, 8 súlyú bit. Csak D3 igaz → index 4; min
 
 Statikus ellenőrzés: konfigurált jelenetek, státuszindexek, kép-/material-/prefabreferenciák, a henger UV-iránya és a projektben elérhető Meta API-k. A fehér réteg vágótérben fedi a teljes képet, sztereó makrókkal; a manager nem a lecserélt szemkamera gyermeke. Aszinkron betöltés és érvényes képkocka előtt nem indul felfedés. XR-ben fejkövetésre is vár: levett vagy nem követett headsetnél az áttűnés várakozhat. A textúrák közvetlen assetreferenciák: nagyméretű, különböző végleges készleteknél a Quest textúramemóriáját mérni kell.
 
-Statikus ellenőrzés: scene-sorrend, 1/2/4/8 branch méretek, map asset GUID-ok és EndScene Manhattan stage képének kiválasztása. Unity-indítás és headsetes próba nem futott. Questen ellenőrizendő a kezdeti fejirány, képarány, fehér átmenet, mind a négy pálya kimenete, valamint hogy a Manhattan után a szobában a térkép időkorlát nélkül látható marad.
+Statikus ellenőrzés: scene-sorrend, 1/2/4/8 branch méretek, map asset GUID-ok és EndScene Manhattan stage képének kiválasztása. A Vérszerződés aláírása True, tépése False. A Manhattan D4 3. sorában False=`pici_rom.png`, True=`roman_europa.png`; a 8. sorban False=`no_hun.png` (a diagram `no_rom` feliratának kért helyettesítése), True=`nagy_rom.png`. Unity-indítás és headsetes próba nem futott. Questen ellenőrizendő a kezdeti fejirány, képarány, fehér átmenet, mind a négy pálya kimenete, valamint hogy a Manhattan után a szobában a térkép időkorlát nélkül látható marad.

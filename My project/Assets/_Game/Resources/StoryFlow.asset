@@ -81,7 +81,7 @@ MonoBehaviour:
       truePanorama: {fileID: 2800000, guid: 53a139b1017e5864ab36853db694ae30, type: 3}
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: d9cd43c2953633b4c96d2e2a91f6e062, type: 3}
+      falsePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
       truePanorama: {fileID: 2800000, guid: 19a0f40b50d997d44943377a91b59d74, type: 3}
     - ifFalse: 1
       ifTrue: 0
