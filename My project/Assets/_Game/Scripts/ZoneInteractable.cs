@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,24 +14,35 @@ public class ZoneInteractable : MonoBehaviour
     [Tooltip("If true, the item snaps exactly to the target's center. If false, it freezes wherever it entered the radius, but still follows the animation.")]
     public bool snapToCenter = true;
 
-    private Rigidbody rb;
+    [Header("State")]
     public bool isGrabbed = false;
+    public bool isSnappedToCenter = false;
+
+    private Rigidbody rb;
+    private bool mouthIsGrabbed;
     private bool wasInZone = false;
 
     // Used to remember where the object was relative to the bone if snapToCenter is false
     private Vector3 relativeOffsetPos;
     private Quaternion relativeOffsetRot;
 
+    public void v_mouthIsGrabbed() => mouthIsGrabbed = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        mouthIsGrabbed = false;
+        isSnappedToCenter = false;
     }
 
     void LateUpdate()
     {
         // LateUpdate ensures we calculate this AFTER the character's animation moves the bone for this frame
         if (targetBone == null || isGrabbed)
+        {
+            isSnappedToCenter = false;
             return;
+        }
 
         float distance = Vector3.Distance(transform.position, targetBone.position);
 
@@ -40,11 +52,12 @@ public class ZoneInteractable : MonoBehaviour
             rb.isKinematic = true;
             rb.useGravity = false;
 
-            if (snapToCenter)
+            if (snapToCenter && mouthIsGrabbed)
             {
                 // Lock the object perfectly to the target
                 transform.position = targetBone.position;
                 transform.rotation = targetBone.rotation;
+                isSnappedToCenter = true;
             }
             else
             {
@@ -58,6 +71,7 @@ public class ZoneInteractable : MonoBehaviour
 
                 transform.position = targetBone.TransformPoint(relativeOffsetPos);
                 transform.rotation = targetBone.rotation * relativeOffsetRot;
+                isSnappedToCenter = false;
             }
         }
         else
@@ -66,6 +80,7 @@ public class ZoneInteractable : MonoBehaviour
             rb.isKinematic = false;
             rb.useGravity = true;
             wasInZone = false;
+            isSnappedToCenter = false;
         }
     }
 
@@ -74,6 +89,7 @@ public class ZoneInteractable : MonoBehaviour
     {
         isGrabbed = true;
         wasInZone = false; // Reset offset logic for the next drop
+        isSnappedToCenter = false;
     }
 
     public void OnRelease()

@@ -3,10 +3,15 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea36356928d44ccdbcae4838bf953999, type: 3}
   m_Name: StoryFlow
+  m_EditorClassIdentifier: 
   transitionScene: VR_Transition
   endScene: EndScene
   fadeIn: 0.8
@@ -14,56 +19,86 @@ MonoBehaviour:
   fadeOut: 0.8
   debugLogging: 0
   stages:
-  - scene: "01_V\u00e9rszerz\u0151d\u00e9s"
+  - scene: "01_V\xE9rszerz\u0151d\xE9s"
     decisionNumber: 1
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
     imageB: {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
     branches:
     - ifFalse: 0
       ifTrue: 1
-  - scene: "02_Hitler"
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
+  - scene: 04_Trianon
     decisionNumber: 2
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
     imageB: {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
     branches:
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
-  - scene: "03_Trianon"
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
+  - scene: 02_Hitler
     decisionNumber: 3
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
     imageB: {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
     branches:
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 0
       ifTrue: 1
-  - scene: "Manhattan"
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
+  - scene: Manhattan
     decisionNumber: 4
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
     imageB: {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
     branches:
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
     - ifFalse: 1
       ifTrue: 0
+      falsePanorama: {fileID: 0}
+      truePanorama: {fileID: 0}
   endings:
   - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
   - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
