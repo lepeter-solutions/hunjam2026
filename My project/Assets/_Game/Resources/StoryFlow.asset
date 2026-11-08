@@ -16,20 +16,54 @@ MonoBehaviour:
   stages:
   - scene: "01_V\u00e9rszerz\u0151d\u00e9s"
     decisionNumber: 1
-    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    trueImage: {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
+    imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    imageB: {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
+    branches:
+    - ifFalse: 0
+      ifTrue: 1
   - scene: "02_Hitler"
     decisionNumber: 2
-    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    trueImage: {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
+    imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    imageB: {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
+    branches:
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 1
+      ifTrue: 0
   - scene: "03_Trianon"
     decisionNumber: 3
-    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    trueImage: {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
+    imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    imageB: {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
+    branches:
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 1
+      ifTrue: 0
+    - ifFalse: 1
+      ifTrue: 0
+    - ifFalse: 0
+      ifTrue: 1
   - scene: "Manhattan"
     decisionNumber: 4
-    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    trueImage: {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
+    imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    imageB: {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
+    branches:
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 1
+      ifTrue: 0
+    - ifFalse: 1
+      ifTrue: 0
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 1
+      ifTrue: 0
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 0
+      ifTrue: 1
+    - ifFalse: 1
+      ifTrue: 0
   endings:
   - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
   - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}

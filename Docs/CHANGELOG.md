@@ -1,5 +1,8 @@
 # Változásnapló
 
+## 2026-11-08 — Előzményfüggő kétágú döntési fa
+- Pályánként továbbra is csak A és B kép rendelhető hozzá. Az előző döntések választják a csomópontot, az aktuális döntés annak két ágából választ. Az 1/2/4/8 csomópont mintakiosztását és mind a 16 teljes történetet statikusan ellenőriztük; Unity-próba nem futott.
+
 ## 2026-11-08 — Két átvezetőkép pályánként
 - A négy pálya saját 0/1 döntése választ két kép közül; kizárólag az EndScene használja a 16 összesített végképet. A konfiguráció átvezetve, a pályasorrend változatlan. Statikus ellenőrzés; Unity és headsetes próba nem futott.
 
