@@ -20202,7 +20202,7 @@ MonoBehaviour:
   - {fileID: 5148817235640096112}
   - {fileID: 6507901978518242658}
   hideOriginalOnTear: 1
-  requiredCoverage: 0.12
+  requiredCoverage: 0.1
   requiredIdleSeconds: 0.5
   gridResolution: 25
   minMoveDistance: 0.001
@@ -21389,6 +21389,7 @@ GameObject:
   - component: {fileID: 7022402391249498829}
   - component: {fileID: 7022402391249498830}
   - component: {fileID: 7022402391249498831}
+  - component: {fileID: 7022402391249498832}
   m_Layer: 11
   m_Name: toll
   m_TagString: Untagged
@@ -21881,6 +21882,50 @@ MonoBehaviour:
   maxDistanceFromOrigin: 2
   killHeight: -1
   checkInterval: 2
+--- !u!114 &7022402391249498832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427681322480960594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5626a0b1dc955a43be59ce7ea116678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.PointableCanvasUnityEventWrapper
+  _pointableCanvas: {fileID: 0}
+  _suppressWhileDragging: 1
+  _whenSelectedEmpty:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 498497904}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenUnselectedEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenBeginHighlightWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenEndHighlightWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelectedHoveredWithObject:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnselectedHoveredWithObject:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!33 &7042687609858605313
 MeshFilter:
   m_ObjectHideFlags: 0

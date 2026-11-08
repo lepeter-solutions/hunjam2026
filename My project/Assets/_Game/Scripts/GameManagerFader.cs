@@ -39,7 +39,8 @@ namespace HunJam
             if(goodEnding) good_endingEvents_i?.Invoke();
             else bad_endingEvents_i?.Invoke();
             yield return new WaitForSeconds(6);
-            SceneManager.LoadScene(sceneName);
+            if (goodEnding) SceneManager.LoadScene(sceneName);
+            else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
