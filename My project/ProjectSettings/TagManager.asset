@@ -33,6 +33,7 @@ TagManager:
   - LocoButton
   - LocoText
   - PassThrough
+  - enemy
   layers:
   - Default
   - TransparentFX

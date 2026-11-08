@@ -8,6 +8,8 @@ namespace HunJam
     [RequireComponent(typeof(Rigidbody))]
     public class TerroristAi : MonoBehaviour
     {
+        public StoryLevelExit sle;
+
         [SerializeField]
         private float speed = 2;
 
@@ -142,12 +144,22 @@ namespace HunJam
 
         public void BeginGameOver(bool win)
         {
-            if (!gameOver) StartCoroutine(GameOver(win));
+            if (!gameOver) GameOver(win);
         }
 
-        public IEnumerator GameOver(bool win)
+        public void GameOver(bool win)
         {
-            if (gameOver) yield break;
+
+            playerAudioSource.Stop();
+            playerAudioSource.pitch = 1;
+            playerAudioSource.clip = deathAudioClip;
+            playerAudioSource.loop = false;
+            if (deathAudioClip != null) playerAudioSource.Play();
+
+            sle.SetDecision(win);
+            sle.CompleteLevel();
+
+            /*if (gameOver) yield break;
             gameOver = true;
             body.linearVelocity = body.angularVelocity = Vector3.zero;
             body.isKinematic = true;
@@ -181,7 +193,7 @@ namespace HunJam
             else
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+            }*/
         }
     }
 }

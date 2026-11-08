@@ -722,6 +722,7 @@ Transform:
   m_Children:
   - {fileID: 928315490}
   - {fileID: 2140849953}
+  - {fileID: 1386571705}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178491453
@@ -13719,6 +13720,8 @@ MonoBehaviour:
   leftAnchor: {fileID: 867001622}
   rightAnchor: {fileID: 699637215}
   reach: 0.12
+  grabThreshold: 0.65
+  releaseThreshold: 0.1
 --- !u!1 &754284100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14141,17 +14144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb6cd4ed22243c7a2b9f987cd615bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.Tearable
---- !u!114 &922971654 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2358679048490894070, guid: f20568bbf5bc82743b3d912fb44fe3c5, type: 3}
-  m_PrefabInstance: {fileID: 922971652}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4676172ff584a048ad2e79692b96b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: HunJam.Runtime::HunJam.Grabbable
 --- !u!4 &922971655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 97185263172872468, guid: f20568bbf5bc82743b3d912fb44fe3c5, type: 3}
@@ -15203,6 +15195,72 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!1001 &1386571704
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 141933824}
+    m_Modifications:
+    - target: {fileID: 2466835170591183968, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: a62308888c1370645a0f4ac7cd275c5d, type: 3}
+    - target: {fileID: 2517196406347416918, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_Name
+      value: MusicManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 485.274
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -99.84026
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -325.7708
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+--- !u!4 &1386571705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+  m_PrefabInstance: {fileID: 1386571704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1417785184
 GameObject:
   m_ObjectHideFlags: 0
@@ -18103,12 +18161,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04bb5758529c09a4fa3c6f97b3b54f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::PaperWritingDetector
-  quillWriter: {fileID: 7022402391249498829}
+  quillWriter: {fileID: 0}
   tearablePaper: {fileID: 922971653}
   requiredCoverage: 0.2
   requiredIdleSeconds: 3
   gridResolution: 25
   minMoveDistance: 0.001
+  inkContactDistance: 0.005
+  inkSurfaceOffset: 0.0005
   onWritingCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -19375,6 +19435,7 @@ MonoBehaviour:
   startsWithInk: 1
   paperInkMaterial: {fileID: 2100000, guid: aaf76c415f56487ca5aaf526d47b9ece, type: 2}
   paperStrokeWidth: 0.003
+  paperPointSpacing: 0.001
 --- !u!135 &7022402391249498830
 SphereCollider:
   m_ObjectHideFlags: 0
