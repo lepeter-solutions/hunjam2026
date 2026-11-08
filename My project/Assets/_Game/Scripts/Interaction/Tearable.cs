@@ -76,8 +76,8 @@ namespace HunJam
             first = grab.Primary; second = grab.Secondary;
             validGrip = false; Tension = EstimatedForce = lastExtension = 0;
             tearAudio.Stop();
-            if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
-                || (writingDetector != null && writingDetector.LocksTearing)) return;
+            //if (first == null || second == null || IsTorn || original == null || depth >= maximumTearDepth
+                //|| (writingDetector != null && writingDetector.LocksTearing)) return;
             firstContact = grab.PrimaryContact; secondContact = grab.SecondaryContact;
             if (Vector2.Distance(firstContact, secondContact) < minimumGripSeparation) return;
             // Once started, a tear keeps its path. Regripping must straddle that existing path.
@@ -94,7 +94,7 @@ namespace HunJam
 
         private void Update()
         {
-            if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
+            //if (IsTorn || (writingDetector != null && writingDetector.LocksTearing)) return;
             float advance = 0;
             if (validGrip && first != null && second != null)
             {
@@ -128,7 +128,7 @@ namespace HunJam
 
         private bool BeginTear()
         {
-            if (writingDetector != null && writingDetector.LocksTearing) return false;
+            //if (writingDetector != null && writingDetector.LocksTearing) return false;
             LastCutNormal = ((Vector2)(secondContact - firstContact)).normalized;
             LastCutPoint = (firstContact + secondContact) * 0.5f;
             tangent = new Vector2(-LastCutNormal.y, LastCutNormal.x);
