@@ -9,6 +9,8 @@ public class VRGun : MonoBehaviour
     [Tooltip("The player's own head/body collider.")]
     public Collider playerCollider;
 
+    public ParticleSystem muzzleFlash;
+
     [Header("Settings")]
     public string enemyTag = "enemy";
     public float maxDistance = 50f;
@@ -44,6 +46,8 @@ public class VRGun : MonoBehaviour
     public void Fire()
     {
         onFired?.Invoke();
+
+        Instantiate(muzzleFlash, muzzleTransform.position, muzzleTransform.rotation);
 
         if (Physics.Raycast(
             muzzleTransform.position,
