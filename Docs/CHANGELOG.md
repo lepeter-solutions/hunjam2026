@@ -1,5 +1,8 @@
 # Változásnapló
 
+## 2026-11-08 — Két átvezetőkép pályánként
+- A négy pálya saját 0/1 döntése választ két kép közül; kizárólag az EndScene használja a 16 összesített végképet. A konfiguráció átvezetve, a pályasorrend változatlan. Statikus ellenőrzés; Unity és headsetes próba nem futott.
+
 ## 2026-11-08 — VR történetátvezetés és EndScene
 - Rögzített pályasorrend, négy döntés, pályánkénti 16 képes konfiguráció és UnityEvent-adapter. Az eseményeket a pályák készítője köti be.
 - Egy fehér panorámajelenet, teljes nézetű fehér áttűnés, aszinkron betöltés, az utolsó képhez tartós EndScene. Két új scene, közös unlit anyag és 16 cserélhető PNG-minta. Build-lista és dokumentáció frissítve.

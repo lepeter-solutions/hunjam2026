@@ -39,7 +39,8 @@ namespace HunJam
             var state=GameManager.Instance;
             int stage=flow ? flow.IndexOf(state.CompletedScene ?? previewStage) : -1;
             int status=state.CompletedScene!=null ? state.SavedStatus : previewStatus;
-            Texture2D image=stage>=0 ? flow.stages[stage].Map(status) : null;
+            bool final=flow && gameObject.scene.name==flow.endScene;
+            Texture2D image=final ? flow.Ending(status) : stage>=0 ? flow.stages[stage].Map(status) : null;
             var surface=GetComponent<MeshRenderer>();
             if(!image || !surface.sharedMaterial)
             {

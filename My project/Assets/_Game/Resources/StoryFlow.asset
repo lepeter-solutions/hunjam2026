@@ -15,74 +15,35 @@ MonoBehaviour:
   debugLogging: 0
   stages:
   - scene: "01_V\u00e9rszerz\u0151d\u00e9s"
-    maps:
-    - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
-    - {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
-    - {fileID: 2800000, guid: 48ad847b5ed44c45b453e60565bf9035, type: 3}
-    - {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
-    - {fileID: 2800000, guid: 3befa7d8078941d4854a4d2a670041b3, type: 3}
-    - {fileID: 2800000, guid: 5e07986ecade4b8d9316e8effa681acb, type: 3}
-    - {fileID: 2800000, guid: 7971bc83d05a4a809e8c8c5da0e35b65, type: 3}
-    - {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
-    - {fileID: 2800000, guid: 4caefda4ef8f4cffa4cccf3fd28ecbda, type: 3}
-    - {fileID: 2800000, guid: 63d45e578dc3448a8081f45e5a3eb0ce, type: 3}
-    - {fileID: 2800000, guid: 0a3e58cedc1e4bc299722ebb192e1573, type: 3}
-    - {fileID: 2800000, guid: 4836d89a3b744a4ca46a74561dcb6a40, type: 3}
-    - {fileID: 2800000, guid: 084ab9e8ffee4a2bbcc9df4225597d83, type: 3}
-    - {fileID: 2800000, guid: 7ae8ad317c894f0f9276ec150fc03f3e, type: 3}
-    - {fileID: 2800000, guid: 3b21e5e7e6ad4059b03bdbe92883e539, type: 3}
+    decisionNumber: 1
+    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    trueImage: {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
   - scene: "02_Hitler"
-    maps:
-    - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
-    - {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
-    - {fileID: 2800000, guid: 48ad847b5ed44c45b453e60565bf9035, type: 3}
-    - {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
-    - {fileID: 2800000, guid: 3befa7d8078941d4854a4d2a670041b3, type: 3}
-    - {fileID: 2800000, guid: 5e07986ecade4b8d9316e8effa681acb, type: 3}
-    - {fileID: 2800000, guid: 7971bc83d05a4a809e8c8c5da0e35b65, type: 3}
-    - {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
-    - {fileID: 2800000, guid: 4caefda4ef8f4cffa4cccf3fd28ecbda, type: 3}
-    - {fileID: 2800000, guid: 63d45e578dc3448a8081f45e5a3eb0ce, type: 3}
-    - {fileID: 2800000, guid: 0a3e58cedc1e4bc299722ebb192e1573, type: 3}
-    - {fileID: 2800000, guid: 4836d89a3b744a4ca46a74561dcb6a40, type: 3}
-    - {fileID: 2800000, guid: 084ab9e8ffee4a2bbcc9df4225597d83, type: 3}
-    - {fileID: 2800000, guid: 7ae8ad317c894f0f9276ec150fc03f3e, type: 3}
-    - {fileID: 2800000, guid: 3b21e5e7e6ad4059b03bdbe92883e539, type: 3}
+    decisionNumber: 2
+    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    trueImage: {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
   - scene: "03_Trianon"
-    maps:
-    - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
-    - {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
-    - {fileID: 2800000, guid: 48ad847b5ed44c45b453e60565bf9035, type: 3}
-    - {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
-    - {fileID: 2800000, guid: 3befa7d8078941d4854a4d2a670041b3, type: 3}
-    - {fileID: 2800000, guid: 5e07986ecade4b8d9316e8effa681acb, type: 3}
-    - {fileID: 2800000, guid: 7971bc83d05a4a809e8c8c5da0e35b65, type: 3}
-    - {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
-    - {fileID: 2800000, guid: 4caefda4ef8f4cffa4cccf3fd28ecbda, type: 3}
-    - {fileID: 2800000, guid: 63d45e578dc3448a8081f45e5a3eb0ce, type: 3}
-    - {fileID: 2800000, guid: 0a3e58cedc1e4bc299722ebb192e1573, type: 3}
-    - {fileID: 2800000, guid: 4836d89a3b744a4ca46a74561dcb6a40, type: 3}
-    - {fileID: 2800000, guid: 084ab9e8ffee4a2bbcc9df4225597d83, type: 3}
-    - {fileID: 2800000, guid: 7ae8ad317c894f0f9276ec150fc03f3e, type: 3}
-    - {fileID: 2800000, guid: 3b21e5e7e6ad4059b03bdbe92883e539, type: 3}
+    decisionNumber: 3
+    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    trueImage: {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
   - scene: "Manhattan"
-    maps:
-    - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
-    - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
-    - {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
-    - {fileID: 2800000, guid: 48ad847b5ed44c45b453e60565bf9035, type: 3}
-    - {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
-    - {fileID: 2800000, guid: 3befa7d8078941d4854a4d2a670041b3, type: 3}
-    - {fileID: 2800000, guid: 5e07986ecade4b8d9316e8effa681acb, type: 3}
-    - {fileID: 2800000, guid: 7971bc83d05a4a809e8c8c5da0e35b65, type: 3}
-    - {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
-    - {fileID: 2800000, guid: 4caefda4ef8f4cffa4cccf3fd28ecbda, type: 3}
-    - {fileID: 2800000, guid: 63d45e578dc3448a8081f45e5a3eb0ce, type: 3}
-    - {fileID: 2800000, guid: 0a3e58cedc1e4bc299722ebb192e1573, type: 3}
-    - {fileID: 2800000, guid: 4836d89a3b744a4ca46a74561dcb6a40, type: 3}
-    - {fileID: 2800000, guid: 084ab9e8ffee4a2bbcc9df4225597d83, type: 3}
-    - {fileID: 2800000, guid: 7ae8ad317c894f0f9276ec150fc03f3e, type: 3}
-    - {fileID: 2800000, guid: 3b21e5e7e6ad4059b03bdbe92883e539, type: 3}
+    decisionNumber: 4
+    falseImage: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+    trueImage: {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
+  endings:
+  - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
+  - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
+  - {fileID: 2800000, guid: 24c82ec0c96648f5a7af2f32dd965868, type: 3}
+  - {fileID: 2800000, guid: 48ad847b5ed44c45b453e60565bf9035, type: 3}
+  - {fileID: 2800000, guid: e95ac66deddd4d2e9e83fcdd5b9b7483, type: 3}
+  - {fileID: 2800000, guid: 3befa7d8078941d4854a4d2a670041b3, type: 3}
+  - {fileID: 2800000, guid: 5e07986ecade4b8d9316e8effa681acb, type: 3}
+  - {fileID: 2800000, guid: 7971bc83d05a4a809e8c8c5da0e35b65, type: 3}
+  - {fileID: 2800000, guid: dab8d858012b41c39b5da67f45c1c835, type: 3}
+  - {fileID: 2800000, guid: 4caefda4ef8f4cffa4cccf3fd28ecbda, type: 3}
+  - {fileID: 2800000, guid: 63d45e578dc3448a8081f45e5a3eb0ce, type: 3}
+  - {fileID: 2800000, guid: 0a3e58cedc1e4bc299722ebb192e1573, type: 3}
+  - {fileID: 2800000, guid: 4836d89a3b744a4ca46a74561dcb6a40, type: 3}
+  - {fileID: 2800000, guid: 084ab9e8ffee4a2bbcc9df4225597d83, type: 3}
+  - {fileID: 2800000, guid: 7ae8ad317c894f0f9276ec150fc03f3e, type: 3}
+  - {fileID: 2800000, guid: 3b21e5e7e6ad4059b03bdbe92883e539, type: 3}
