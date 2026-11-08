@@ -46,7 +46,8 @@ namespace HunJam
         [Min(0)] public float fadeIn = .8f, hold = 5f, fadeOut = .8f;
         public bool debugLogging;
         public Stage[] stages;
-        [Tooltip("EndScene only. Indexed by all four decisions (0..15).")]
+        // Legacy serialized data retained; the final room now holds the last Stage.Map.
+        [HideInInspector]
         public Texture2D[] endings = new Texture2D[16];
         public Texture2D Ending(int index) => endings != null && index >= 0 && index < endings.Length ? endings[index] : null;
         public int IndexOf(string scene) => stages == null ? -1 : Array.FindIndex(stages, s => s != null && s.scene == scene);

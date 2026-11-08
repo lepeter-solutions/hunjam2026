@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace HunJam
@@ -142,30 +140,23 @@ namespace HunJam
             }
         }
 
-        public void BeginGameOver(bool win)
-        {
-            if (!gameOver) GameOver(win);
-        }
+        public void BeginGameOver(bool win) => GameOver(win);
 
         public void GameOver(bool win)
         {
+            if (gameOver || GameManager.Instance.InTransition) return;
+            if (sle == null)
+            {
+                Debug.LogError("Story: assign Manhattan's decision-4 StoryLevelExit to TerroristAi.", this);
+                return;
+            }
 
-            playerAudioSource.Stop();
-            playerAudioSource.pitch = 1;
-            playerAudioSource.clip = deathAudioClip;
-            playerAudioSource.loop = false;
-            if (deathAudioClip != null) playerAudioSource.Play();
-
-            sle.SetDecision(win);
-            sle.CompleteLevel();
-
-            /*if (gameOver) yield break;
+            sle.CompleteWithDecision(win);
+            if (!GameManager.Instance.InTransition) return;
             gameOver = true;
             body.linearVelocity = body.angularVelocity = Vector3.zero;
             body.isKinematic = true;
-            if (playerAircraft != null) playerAircraft.EndFlight();
-            if (fade != null) fade.color = Color.black;
-
+            if (playerAircraft != null) playerAircraft.StopForStoryTransition();
             if (musicAudioSource != null) musicAudioSource.Stop();
             if (playerAudioSource != null)
             {
@@ -175,25 +166,6 @@ namespace HunJam
                 playerAudioSource.loop = false;
                 if (deathAudioClip != null) playerAudioSource.Play();
             }
-
-            yield return new WaitForSecondsRealtime(Mathf.Max(0, restartDelay));
-
-            if (win)
-            {
-                if (!string.IsNullOrWhiteSpace(winSceneName) && Application.CanStreamedLevelBeLoaded(winSceneName))
-                {
-                    SceneManager.LoadScene(winSceneName);
-                }
-                else
-                {
-                    Debug.LogWarning("Aircraft intercepted. Assign a valid Win Scene Name to load the epilogue; remaining on the black end screen.", this);
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                } 
-            }
-            else
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }*/
         }
     }
 }

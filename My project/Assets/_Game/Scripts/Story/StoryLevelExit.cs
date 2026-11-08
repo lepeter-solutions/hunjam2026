@@ -6,8 +6,46 @@ namespace HunJam
     public sealed class StoryLevelExit : MonoBehaviour
     {
         [Range(1,4)] public int decisionNumber=1;
-        public void SetDecision(bool value) => GameManager.Instance.SetDecision(decisionNumber,value);
-        public void CompleteLevel() { Debug.Log("triggered");  TransitionManager.StartTransition(); }
-        public void ResetStory() => GameManager.Instance.ResetStory();
+        private bool decisionRecorded;
+
+        public void SetDecision(bool value)
+        {
+            if (GameManager.Instance.InTransition || !MatchesStage()) return;
+            GameManager.Instance.SetDecision(decisionNumber, value);
+            decisionRecorded = true;
+        }
+
+        public void CompleteLevel()
+        {
+            if (GameManager.Instance.InTransition || !MatchesStage()) return;
+            if (!decisionRecorded)
+            {
+                Debug.LogError("Story: call SetDecision before CompleteLevel, or use CompleteWithDecision(bool).", this);
+                return;
+            }
+            TransitionManager.StartTransition();
+        }
+
+        public void CompleteWithDecision(bool value)
+        {
+            SetDecision(value);
+            CompleteLevel();
+        }
+
+        private bool MatchesStage()
+        {
+            var flow = Resources.Load<StoryFlow>("StoryFlow");
+            int index = flow ? flow.IndexOf(gameObject.scene.name) : -1;
+            if (index >= 0 && flow.stages[index].decisionNumber == decisionNumber) return true;
+            Debug.LogError($"Story: exit in '{gameObject.scene.name}' has decision {decisionNumber}; it must match its StoryFlow stage.", this);
+            return false;
+        }
+
+        public void ResetStory()
+        {
+            if (GameManager.Instance.InTransition) return;
+            GameManager.Instance.ResetStory();
+            decisionRecorded = false;
+        }
     }
 }

@@ -214,6 +214,13 @@ namespace HunJam
             body.linearVelocity = body.angularVelocity = Vector3.zero;
             body.isKinematic = true;
         }
+        public void StopForStoryTransition()
+        {
+            EndFlight();
+            // The story manager owns the white fade; the old black overlay must not cover it.
+            fadeAlpha = 0f;
+            BindFadeCamera();
+        }
         private void RestoreAudioPitch()
         {
             if (flightAudio != null) flightAudio.pitch = baseAudioPitch;

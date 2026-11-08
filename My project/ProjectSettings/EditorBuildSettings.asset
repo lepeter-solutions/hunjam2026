@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 187d724e502b9ce41abf092bb5bbc2d8
   - enabled: 1
     path: Assets/_Game/Scenes/Manhattan.unity
-    guid: 885c348a41ef6dd4cb5a6cbf621d5f5f
+    guid: 75421f48b205fd1499c44a7dec1e2925
   - enabled: 0
     path: Assets/_Game/Scenes/DemoWorld.unity
     guid: 167772f8cc018534eb5bd00e6a7986cf
@@ -25,7 +25,7 @@ EditorBuildSettings:
     guid: 9a6f2ebb967bbf248b4453be807db7a7
   - enabled: 1
     path: Assets/_Game/Scenes/02_Hitler.unity
-    guid: 6db2b3e7f00782b4a8a955c7e6b07a96
+    guid: a865ffe794e12864e9a8f9d40407c281
   - enabled: 1
     path: Assets/_Game/Scenes/03_Trianon.unity
     guid: 8cbd485a74a4c4e48aa9e6205d3a833d
