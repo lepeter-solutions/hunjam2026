@@ -6,6 +6,8 @@ namespace HunJam
     public sealed class StoryLevelExit : MonoBehaviour
     {
         [Range(1,4)] public int decisionNumber=1;
+        public int levelSwitchDelaySeconds = 2;
+
         private bool decisionRecorded;
 
         public void SetDecision(bool value)

@@ -5,13 +5,10 @@ using UnityEngine;
 public class ZoneInteractable : MonoBehaviour
 {
     [Header("Zone Setup")]
-    [Tooltip("The moving bone or object this item should follow (e.g., MouthCenter, Holster, Hand).")]
-    public Transform targetBone;
+    public Transform targetPoint;
 
-    [Tooltip("The radius (in meters) where the item gets caught. 0.1 = 10cm.")]
     public float catchRadius = 0.1f;
 
-    [Tooltip("If true, the item snaps exactly to the target's center. If false, it freezes wherever it entered the radius, but still follows the animation.")]
     public bool snapToCenter = true;
 
     [Header("State")]
@@ -19,44 +16,36 @@ public class ZoneInteractable : MonoBehaviour
     public bool isSnappedToCenter = false;
 
     private Rigidbody rb;
-    private bool mouthIsGrabbed;
     private bool wasInZone = false;
 
     // Used to remember where the object was relative to the bone if snapToCenter is false
     private Vector3 relativeOffsetPos;
     private Quaternion relativeOffsetRot;
 
-    public void v_mouthIsGrabbed() => mouthIsGrabbed = true;
+    [HideInInspector]
+    public bool extraCondition = true;
+
+    public void SetExtraCondition(bool newVal) => extraCondition = newVal;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        mouthIsGrabbed = false;
         isSnappedToCenter = false;
     }
 
     void LateUpdate()
     {
-        // LateUpdate ensures we calculate this AFTER the character's animation moves the bone for this frame
-        if (targetBone == null || isGrabbed)
-        {
-            isSnappedToCenter = false;
-            return;
-        }
-
-        float distance = Vector3.Distance(transform.position, targetBone.position);
+        float distance = Vector3.Distance(transform.position, targetPoint.position);
 
         if (distance <= catchRadius)
         {
-            // Inside the zone: Turn off real physics
             rb.isKinematic = true;
             rb.useGravity = false;
 
-            if (snapToCenter && mouthIsGrabbed)
+            if (snapToCenter && extraCondition)
             {
-                // Lock the object perfectly to the target
-                transform.position = targetBone.position;
-                transform.rotation = targetBone.rotation;
+                transform.position = targetPoint.position;
+                transform.rotation = targetPoint.rotation;
                 isSnappedToCenter = true;
             }
             else
@@ -64,13 +53,13 @@ public class ZoneInteractable : MonoBehaviour
                 // Freeze it exactly where it entered, but make it move with the animation
                 if (!wasInZone)
                 {
-                    relativeOffsetPos = targetBone.InverseTransformPoint(transform.position);
-                    relativeOffsetRot = Quaternion.Inverse(targetBone.rotation) * transform.rotation;
+                    relativeOffsetPos = targetPoint.InverseTransformPoint(transform.position);
+                    relativeOffsetRot = Quaternion.Inverse(targetPoint.rotation) * transform.rotation;
                     wasInZone = true;
                 }
 
-                transform.position = targetBone.TransformPoint(relativeOffsetPos);
-                transform.rotation = targetBone.rotation * relativeOffsetRot;
+                transform.position = targetPoint.TransformPoint(relativeOffsetPos);
+                transform.rotation = targetPoint.rotation * relativeOffsetRot;
                 isSnappedToCenter = false;
             }
         }
@@ -99,10 +88,10 @@ public class ZoneInteractable : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (targetBone != null)
+        if (targetPoint != null)
         {
             Gizmos.color = new Color(0, 1, 0, 0.3f);
-            Gizmos.DrawSphere(targetBone.position, catchRadius);
+            Gizmos.DrawSphere(targetPoint.position, catchRadius);
         }
     }
 }

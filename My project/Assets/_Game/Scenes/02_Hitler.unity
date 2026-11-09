@@ -1880,11 +1880,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6452932891000613639, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
   m_PrefabInstance: {fileID: 1066581956}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &1125884475 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 3903482225804038118, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
-  m_PrefabInstance: {fileID: 1936754837}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1153742018
 GameObject:
   m_ObjectHideFlags: 0
@@ -10821,6 +10816,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &2000000101
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173821796}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: -0.04}
 --- !u!1 &2109512074
 GameObject:
   m_ObjectHideFlags: 0
@@ -15300,7 +15316,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8760247502305087772}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
         m_MethodName: v_mouthIsGrabbed
         m_Mode: 1
@@ -16544,8 +16560,8 @@ GameObject:
   - component: {fileID: 8760247502305087770}
   - component: {fileID: 8760247502305087767}
   - component: {fileID: 8760247502305087768}
-  - component: {fileID: 8760247502305087772}
   - component: {fileID: 8760247502305087771}
+  - component: {fileID: 8760247502305087775}
   - component: {fileID: 8760247502305087773}
   - component: {fileID: 8760247502305087774}
   m_Layer: 9
@@ -18716,23 +18732,6 @@ CapsuleCollider:
   m_Height: 11.08
   m_Direction: 1
   m_Center: {x: -0.14, y: 1.88, z: -0.09645053}
---- !u!114 &8760247502305087772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6909313486476864506}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f9053563c1cba1408ae1d41027398e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: HunJam.Runtime::MouthPill
-  targetBone: {fileID: 374702331}
-  catchRadius: 0.07
-  snapToCenter: 1
-  isGrabbed: 0
-  isSnappedToCenter: 0
 --- !u!114 &8760247502305087773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18749,7 +18748,19 @@ MonoBehaviour:
   _whenRelease:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8760247502305087772}
+      - m_Target: {fileID: 8760247502305087775}
+        m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
+        m_MethodName: SetExtraCondition
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8760247502305087775}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
         m_MethodName: OnRelease
         m_Mode: 1
@@ -18782,7 +18793,19 @@ MonoBehaviour:
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8760247502305087772}
+      - m_Target: {fileID: 8760247502305087775}
+        m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
+        m_MethodName: SetExtraCondition
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8760247502305087775}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
         m_MethodName: OnGrab
         m_Mode: 1
@@ -18827,10 +18850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e71b97081b9cf42a3bfcbafe8f9921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.PillDetectInMouth
-  zoneInteractable: {fileID: 8760247502305087772}
-  playerHead: {fileID: 173821800}
-  mouthOffset: {x: 0, y: -0.07, z: 0.04}
-  mouthRadius: 0.09
+  zoneInteractable: {fileID: 8760247502305087775}
   holdTime: 0.35
   events:
     m_PersistentCalls:
@@ -18845,8 +18865,38 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1288777966}
+        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
+        m_MethodName: CompleteLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &8760247502305087775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909313486476864506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9053563c1cba1408ae1d41027398e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::ZoneInteractable
+  targetPoint: {fileID: 374702331}
+  catchRadius: 0.1
+  snapToCenter: 1
+  isGrabbed: 0
+  isSnappedToCenter: 0
+  extraCondition: 1
 --- !u!1 &8817898888676430407
 GameObject:
   m_ObjectHideFlags: 0
@@ -19241,11 +19291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9053563c1cba1408ae1d41027398e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::ZoneInteractable
-  targetBone: {fileID: 0}
+  targetPoint: {fileID: 0}
   catchRadius: 0.17
   snapToCenter: 1
   isGrabbed: 0
   isSnappedToCenter: 0
+  extraCondition: 1
 --- !u!114 &8929312596487128224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19683,27 +19734,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2544483622853030335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2000000101
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173821796}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.12
-  m_Center: {x: 0, y: 0, z: -0.04}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
