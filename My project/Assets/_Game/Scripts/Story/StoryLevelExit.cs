@@ -25,7 +25,7 @@ namespace HunJam
                 Debug.LogError("Story: call SetDecision before CompleteLevel, or use CompleteWithDecision(bool).", this);
                 return;
             }
-            TransitionManager.StartTransition();
+            TransitionManager.StartTransition(null, levelSwitchDelaySeconds);
         }
 
         public void CompleteWithDecision(bool value)

@@ -22,8 +22,7 @@ public class ZoneInteractable : MonoBehaviour
     private Vector3 relativeOffsetPos;
     private Quaternion relativeOffsetRot;
 
-    [HideInInspector]
-    public bool extraCondition = true;
+    public bool extraCondition = false;
 
     public void SetExtraCondition(bool newVal) => extraCondition = newVal;
 
@@ -37,7 +36,7 @@ public class ZoneInteractable : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, targetPoint.position);
 
-        if (distance <= catchRadius)
+        if (distance <= catchRadius && extraCondition)
         {
             rb.isKinematic = true;
             rb.useGravity = false;

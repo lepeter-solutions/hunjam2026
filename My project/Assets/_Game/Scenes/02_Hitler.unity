@@ -497,7 +497,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1771464816}
   m_Father: {fileID: 201075022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201075021
@@ -2322,6 +2323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.StoryLevelExit
   decisionNumber: 3
+  levelSwitchDelaySeconds: 2
 --- !u!1 &1291353266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,6 +3339,37 @@ Transform:
   - {fileID: 8481766362688975509}
   - {fileID: 6482108228179452554}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1771464815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771464816}
+  m_Layer: 0
+  m_Name: MouthOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1771464816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771464815}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 173821800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1838346461
 GameObject:
@@ -12078,7 +12111,7 @@ Transform:
   m_GameObject: {fileID: 6262353932999013500}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23863316, y: 0.66562325, z: -0.6656232, w: -0.23863319}
-  m_LocalPosition: {x: -0.35029072, y: 0.5109, z: 0.0306}
+  m_LocalPosition: {x: -0.35029072, y: 0.6867, z: 0.0306}
   m_LocalScale: {x: 0.16998675, y: 0.16998675, z: 0.16998675}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12799,7 +12832,6 @@ GameObject:
   - component: {fileID: 2145179967212357858}
   - component: {fileID: 7221632229362335356}
   - component: {fileID: 1242546733766615715}
-  - component: {fileID: 7221632229362335357}
   - component: {fileID: 7221632229362335358}
   - component: {fileID: 7221632229362335359}
   - component: {fileID: 7221632229362335360}
@@ -13591,7 +13623,6 @@ GameObject:
   - component: {fileID: 7660938066308534360}
   - component: {fileID: 7894936565235984987}
   - component: {fileID: 4333103287255144118}
-  - component: {fileID: 7894936565235984988}
   - component: {fileID: 7894936565235984989}
   m_Layer: 0
   m_Name: Plane
@@ -15982,7 +16013,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6262353932999013500}
   serializedVersion: 5
-  m_Mass: 0.3
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -15995,9 +16026,9 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
@@ -16039,12 +16070,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.54733056, y: 0.9329448, z: 0.034453336}
-  m_Center: {x: -0.13462928, y: 0.02927798, z: -0.0000001527369}
+  m_Size: {x: 0.54733056, y: 0.93294483, z: 0.034453645}
+  m_Center: {x: -0.13462926, y: 0.029277831, z: -0.0000004859432}
 --- !u!114 &6262353932999013504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16562,8 +16593,10 @@ GameObject:
   - component: {fileID: 8760247502305087768}
   - component: {fileID: 8760247502305087771}
   - component: {fileID: 8760247502305087775}
+  - component: {fileID: 8760247502305087776}
   - component: {fileID: 8760247502305087773}
   - component: {fileID: 8760247502305087774}
+  - component: {fileID: 8760247502305087777}
   m_Layer: 9
   m_Name: pill
   m_TagString: Untagged
@@ -16782,28 +16815,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2716314562436023816}
   m_Mesh: {fileID: -5495902117074765545, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
---- !u!64 &7221632229362335357
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2716314562436023816}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!65 &7221632229362335358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16939,7 +16950,6 @@ GameObject:
   - component: {fileID: 6095285164208556117}
   - component: {fileID: 2353053525654246026}
   - component: {fileID: 2377994829764425059}
-  - component: {fileID: 7283586126887512028}
   - component: {fileID: 7283586126887512029}
   m_Layer: 0
   m_Name: model_3
@@ -16948,28 +16958,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &7283586126887512028
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7283586126887512027}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2984111865609423646, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!65 &7283586126887512029
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17422,7 +17410,6 @@ GameObject:
   - component: {fileID: 3908926713211738418}
   - component: {fileID: 8272146859864908862}
   - component: {fileID: 2451047183541578537}
-  - component: {fileID: 8272146859864908863}
   - component: {fileID: 8272146859864908864}
   m_Layer: 0
   m_Name: Plane.001
@@ -17682,28 +17669,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3480914030295722262}
-  m_Mesh: {fileID: -462981019419857548, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
---- !u!64 &7894936565235984988
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3480914030295722262}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: -462981019419857548, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!65 &7894936565235984989
 BoxCollider:
@@ -18064,28 +18029,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586999395946420091}
-  m_Mesh: {fileID: 4579454407841743219, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
---- !u!64 &8272146859864908863
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7586999395946420091}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
   m_Mesh: {fileID: 4579454407841743219, guid: aab3f4b2f3447d74297aab6ea5251c91, type: 3}
 --- !u!65 &8272146859864908864
 BoxCollider:
@@ -18750,8 +18693,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8760247502305087775}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
-        m_MethodName: SetExtraCondition
-        m_Mode: 6
+        m_MethodName: OnRelease
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18760,10 +18703,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8760247502305087775}
+      - m_Target: {fileID: 8760247502305087776}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
         m_MethodName: OnRelease
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8760247502305087776}
+        m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
+        m_MethodName: SetExtraCondition
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18805,6 +18760,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8760247502305087776}
+        m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
+        m_MethodName: SetExtraCondition
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 8760247502305087775}
         m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
         m_MethodName: OnGrab
@@ -18829,6 +18796,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8760247502305087776}
+        m_TargetAssemblyTypeName: ZoneInteractable, HunJam.Runtime
+        m_MethodName: OnGrab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
       m_Calls: []
@@ -18851,7 +18830,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.PillDetectInMouth
   zoneInteractable: {fileID: 8760247502305087775}
-  holdTime: 0.35
   events:
     m_PersistentCalls:
       m_Calls:
@@ -18866,18 +18844,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1288777966}
-        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
-        m_MethodName: CompleteLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &8760247502305087775
 MonoBehaviour:
@@ -18896,7 +18862,53 @@ MonoBehaviour:
   snapToCenter: 1
   isGrabbed: 0
   isSnappedToCenter: 0
-  extraCondition: 1
+  extraCondition: 0
+--- !u!114 &8760247502305087776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909313486476864506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9053563c1cba1408ae1d41027398e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::ZoneInteractable
+  targetPoint: {fileID: 1771464816}
+  catchRadius: 0.15
+  snapToCenter: 1
+  isGrabbed: 0
+  isSnappedToCenter: 0
+  extraCondition: 0
+--- !u!114 &8760247502305087777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909313486476864506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e71b97081b9cf42a3bfcbafe8f9921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.PillDetectInMouth
+  zoneInteractable: {fileID: 8760247502305087776}
+  events:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1288777966}
+        m_TargetAssemblyTypeName: HunJam.StoryLevelExit, HunJam.Runtime
+        m_MethodName: CompleteWithDecision
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &8817898888676430407
 GameObject:
   m_ObjectHideFlags: 0
