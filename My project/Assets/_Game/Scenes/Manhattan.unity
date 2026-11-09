@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.006
+  m_FogDensity: 0.002
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -5495,6 +5495,155 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &721857590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721857591}
+  - component: {fileID: 721857594}
+  - component: {fileID: 721857593}
+  - component: {fileID: 721857592}
+  - component: {fileID: 721857595}
+  - component: {fileID: 721857596}
+  m_Layer: 0
+  m_Name: explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &721857591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.64601797, y: 0.3296858, z: -0.26370308, w: -0.6359471}
+  m_LocalPosition: {x: 5.015, y: 0.5697937, z: -7.865}
+  m_LocalScale: {x: 0.615591, y: 0.61559117, z: 0.61559093}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9090259150084749191}
+  m_LocalEulerAnglesHint: {x: -264.59, y: 56.484, z: 106.16}
+--- !u!64 &721857592
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &721857593
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bfcd3e6fe55390b409a980fc26819bc7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &721857594
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &721857595
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000001, y: 0.00000073313345, z: 10}
+  m_Center: {x: 0, y: 0.00012207031, z: 0}
+--- !u!114 &721857596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721857590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec244ede942e1f4ca2739ac48ff814f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.ClearRender
+  renderTexture1: {fileID: 8400000, guid: 0d0855e57a36a02409dc4700ceaf993b, type: 2}
 --- !u!1 &736194655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8613,13 +8762,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.TerroristAi
   sle: {fileID: 1540895560}
+  crashEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1241025501}
+        m_TargetAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   speed: 2
   restartDelay: 3
   fade: {fileID: 560071830}
   playerAudioSource: {fileID: 9090259150084749194}
   musicAudioSource: {fileID: 693978956}
   deathAudioClip: {fileID: 8300000, guid: 8ab271b5604a4f748b223393195914ca, type: 3}
-  playerAircraft: {fileID: 0}
+  playerAircraft: {fileID: 9090259150084749190}
   winSceneName: 
 --- !u!1 &1163954350
 GameObject:
@@ -9154,6 +9318,74 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1241025499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241025500}
+  - component: {fileID: 1241025501}
+  m_Layer: 0
+  m_Name: "Explosion Meme Non-short Template-6R1\xB2"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1241025500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241025499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1305262, y: -0, z: -0, w: 0.9914449}
+  m_LocalPosition: {x: 0.0000151358545, y: 1.6344703, z: 0.05795431}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9090259150084749191}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!328 &1241025501
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241025499}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: ee1ef35bbdb8a2744a2b274c0edff685, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 2961916}
+  m_TargetTexture: {fileID: 8400000, guid: 0d0855e57a36a02409dc4700ceaf993b, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 0
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &1263746798
 GameObject:
   m_ObjectHideFlags: 0
@@ -13694,7 +13926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.StoryLevelExit
   decisionNumber: 4
-  waitTimeOnTrue: 2
+  waitTimeOnTrue: 0
   waitTimeOnFalse: 0
 --- !u!4 &1540895561
 Transform:
@@ -170665,6 +170897,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 529386699169740050, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 606444767259873756, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -170757,6 +170993,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5968524936305328834, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6245778300405413185, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 500
@@ -170845,6 +171085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerAircraft
       objectReference: {fileID: 0}
+    - target: {fileID: 8168124446314858740, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8314930076640059265, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -170891,6 +171135,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2491980212648355173, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       insertIndex: 1
       addedObject: {fileID: 239919362}
+    - targetCorrespondingSourceObject: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 721857591}
+    - targetCorrespondingSourceObject: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1241025500}
     - targetCorrespondingSourceObject: {fileID: 7172427656860231333, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1504495763}
@@ -170905,6 +171155,22 @@ PrefabInstance:
 --- !u!4 &9090259150084749189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6245778300405413185, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+  m_PrefabInstance: {fileID: 9090259150084749188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9090259150084749190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2236703995142813454, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
+  m_PrefabInstance: {fileID: 9090259150084749188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422655913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47adcfeb337446e5b4444ebeabfc6cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: HunJam.Runtime::HunJam.FlightVehicle
+--- !u!4 &9090259150084749191 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
   m_PrefabInstance: {fileID: 9090259150084749188}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &9090259150084749194

@@ -391,9 +391,18 @@ public class PaperWritingDetector : MonoBehaviour
         return best;
     }
 
-    private void CompleteIfReady()
+    private void __CompleteIfReady()
     {
         if (CanWrite && currentCoverage >= requiredCoverage && timeNotTouching >= requiredIdleSeconds)
+        {
+            isCompleted = true;
+            onWritingCompleted?.Invoke();
+        }
+    }
+
+    private void CompleteIfReady()
+    {
+        if (CanWrite && currentCoverage >= requiredCoverage)
         {
             isCompleted = true;
             onWritingCompleted?.Invoke();
@@ -523,6 +532,7 @@ public class PaperWritingDetector : MonoBehaviour
             _visitedCells[x, y] = true;
             _filledCellCount++;
             currentCoverage = (float)_filledCellCount / _totalCells;
+            CompleteIfReady(); // added this so now the quill is writing doesn't matter
         }
     }
 
