@@ -10,7 +10,7 @@ namespace HunJam
             GameManager.Instance.InTransition && GameManager.Instance.NextScene==scene;
 
         // With no argument the fixed order in StoryFlow is used. An explicit target must match it.
-        public static void StartTransition(string nextScene=null, int waitTime=0)
+        public static void StartTransition(string nextScene=null, int waitTime = 0)
         {
             var game=GameManager.Instance;
             if(game.InTransition) return;
