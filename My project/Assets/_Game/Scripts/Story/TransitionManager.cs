@@ -10,31 +10,59 @@ namespace HunJam
             GameManager.Instance.InTransition && GameManager.Instance.NextScene==scene;
 
         // With no argument the fixed order in StoryFlow is used. An explicit target must match it.
-        public static void StartTransition(string nextScene=null)
+        public static void StartTransition(string nextScene=null, int waitTime = 0)
         {
             var game=GameManager.Instance;
             if(game.InTransition) return;
+
             var flow=Resources.Load<StoryFlow>("StoryFlow");
             string source=SceneManager.GetActiveScene().name;
             int i=flow ? flow.IndexOf(source) : -1;
-            if(i<0) { Debug.LogError($"Story: {source} has no entry in Resources/StoryFlow."); return; }
+
+            if(i<0) 
+            { 
+                Debug.LogError($"Story: {source} has no entry in Resources/StoryFlow."); 
+                return; 
+            }
+
             if(!game.HasDecision(flow.stages[i].decisionNumber))
-            { Debug.LogError($"Story: {source} has no recorded decision. Set true or false before completing the level."); return; }
+            { 
+                Debug.LogError($"Story: {source} has no recorded decision. Set true or false before completing the level."); 
+                return; 
+            }
+
             string next=flow.Next(i);
-            if(string.IsNullOrWhiteSpace(next) || (nextScene!=null && nextScene!=next) || next==flow.transitionScene ||
-               !Application.CanStreamedLevelBeLoaded(next) ||
-               (next!=flow.endScene && !Application.CanStreamedLevelBeLoaded(flow.transitionScene)))
-            { Debug.LogError($"Story: invalid route from {source}. Expected '{next}', requested '{nextScene}'. Check StoryFlow and Build Profiles."); return; }
+            if(string.IsNullOrWhiteSpace(next) || (nextScene!=null && nextScene!=next) || next==flow.transitionScene || !Application.CanStreamedLevelBeLoaded(next) 
+                || (next!=flow.endScene && !Application.CanStreamedLevelBeLoaded(flow.transitionScene)))
+            { 
+                Debug.LogError($"Story: invalid route from {source}. Expected '{next}', requested '{nextScene}'. Check StoryFlow and Build Profiles."); 
+                return; 
+            
+            }
+
             game.CompletedScene=source;
             game.NextScene=next;
             game.SavedStatus=game.GetStatusIndex();
-            for(int previous=1;previous<flow.stages[i].decisionNumber;previous++)
-                if(!game.HasDecision(previous))
-                    Debug.LogWarning($"Story: decision {previous} was not played; using false (direct scene preview).");
+
+            for(int previous = 1; previous < flow.stages[i].decisionNumber; previous++)
+            {
+                if (!game.HasDecision(previous)) Debug.LogWarning($"Story: decision {previous} was not played; using false (direct scene preview).");
+            }
+                
             game.InTransition=true;
             var fade=VRFadeManager.Instance;
             if(!fade) fade=game.gameObject.AddComponent<VRFadeManager>();
-            game.StartCoroutine(Run(game,flow,fade));
+            
+            game.StartCoroutine(RunWithDelay(waitTime, game, flow, fade));
+            
+        }
+
+        private static IEnumerator RunWithDelay(int delay, GameManager game, StoryFlow flow, VRFadeManager fade)
+        {
+            Debug.Log("starting wait for seconds with time: " + delay);
+            yield return new WaitForSeconds(delay);
+            Debug.Log("starting wait for seconds with time: " + delay);
+            yield return game.StartCoroutine(Run(game, flow, fade));
         }
 
         private static IEnumerator Run(GameManager game,StoryFlow flow,VRFadeManager fade)

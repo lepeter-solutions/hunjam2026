@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace HunJam
@@ -7,6 +8,7 @@ namespace HunJam
     public class TerroristAi : MonoBehaviour
     {
         public StoryLevelExit sle;
+        public UnityEvent crashEvents;
 
         [SerializeField]
         private float speed = 2;
@@ -130,6 +132,7 @@ namespace HunJam
         {
             if (collision.collider.GetComponentInParent<FlightVehicle>() != null)
             {
+                
                 BeginGameOver(true);
             }
             else
@@ -144,6 +147,9 @@ namespace HunJam
 
         public void GameOver(bool win)
         {
+
+            crashEvents?.Invoke();
+
             if (gameOver || GameManager.Instance.InTransition) return;
             if (sle == null)
             {

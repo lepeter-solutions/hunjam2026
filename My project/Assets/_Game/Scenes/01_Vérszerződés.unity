@@ -16462,6 +16462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.StoryLevelExit
   decisionNumber: 1
+  waitTimeOnTrue: 0
+  waitTimeOnFalse: 0
 --- !u!1 &1417785184
 GameObject:
   m_ObjectHideFlags: 0

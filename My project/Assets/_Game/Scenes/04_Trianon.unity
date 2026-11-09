@@ -2095,6 +2095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.StoryLevelExit
   decisionNumber: 2
+  waitTimeOnTrue: 2
+  waitTimeOnFalse: 0
 --- !u!1 &577037267
 GameObject:
   m_ObjectHideFlags: 0
@@ -10614,6 +10616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1625162355}
     m_Modifications:
+    - target: {fileID: 2466835170591183968, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
+      propertyPath: m_Volume
+      value: 0.74
+      objectReference: {fileID: 0}
     - target: {fileID: 2466835170591183968, guid: 832a99b00e6e8d74ba857c7cd9930de4, type: 3}
       propertyPath: m_Resource
       value: 

@@ -6,12 +6,18 @@ namespace HunJam
     public sealed class StoryLevelExit : MonoBehaviour
     {
         [Range(1,4)] public int decisionNumber=1;
+        public int waitTimeOnTrue = 2;
+        public int waitTimeOnFalse = 0;
+
+        private bool descisonValue;
+
         private bool decisionRecorded;
 
         public void SetDecision(bool value)
         {
             if (GameManager.Instance.InTransition || !MatchesStage()) return;
             GameManager.Instance.SetDecision(decisionNumber, value);
+            descisonValue = value;
             decisionRecorded = true;
         }
 
@@ -23,7 +29,7 @@ namespace HunJam
                 Debug.LogError("Story: call SetDecision before CompleteLevel, or use CompleteWithDecision(bool).", this);
                 return;
             }
-            TransitionManager.StartTransition();
+            TransitionManager.StartTransition(null, descisonValue ? waitTimeOnTrue : waitTimeOnFalse);
         }
 
         public void CompleteWithDecision(bool value)

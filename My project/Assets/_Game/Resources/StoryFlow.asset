@@ -26,8 +26,8 @@ MonoBehaviour:
     branches:
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
-      truePanorama: {fileID: 2800000, guid: 24f76780d5c8e8a418d90c44ec58a729, type: 3}
+      falsePanorama: {fileID: 2800000, guid: 24f76780d5c8e8a418d90c44ec58a729, type: 3}
+      truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
   - scene: 04_Trianon
     decisionNumber: 2
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
@@ -35,12 +35,12 @@ MonoBehaviour:
     branches:
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
-      truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
-    - ifFalse: 1
-      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
       truePanorama: {fileID: 2800000, guid: 2abd5944d727b034cb021a25225fbe8e, type: 3}
+    - ifFalse: 1
+      ifTrue: 0
+      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
+      truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
   - scene: 02_Hitler
     decisionNumber: 3
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
@@ -48,20 +48,20 @@ MonoBehaviour:
     branches:
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
-      truePanorama: {fileID: 2800000, guid: 8fdefc3dfc4d89740937b76af5c5b7fc, type: 3}
-    - ifFalse: 1
-      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: 4a154fa8d33ddab4a973bc5b4f0cb394, type: 3}
       truePanorama: {fileID: 2800000, guid: 4ac5abd730c5f114eb2e78e0e803817d, type: 3}
     - ifFalse: 1
       ifTrue: 0
-      falsePanorama: {fileID: 2800000, guid: 78ff40d5b4e47e845b0c20a6e29c9b01, type: 3}
-      truePanorama: {fileID: 2800000, guid: 4ac5abd730c5f114eb2e78e0e803817d, type: 3}
-    - ifFalse: 0
-      ifTrue: 1
+      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
+      truePanorama: {fileID: 2800000, guid: 8fdefc3dfc4d89740937b76af5c5b7fc, type: 3}
+    - ifFalse: 1
+      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: 2abd5944d727b034cb021a25225fbe8e, type: 3}
       truePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
+    - ifFalse: 0
+      ifTrue: 1
+      falsePanorama: {fileID: 2800000, guid: 78ff40d5b4e47e845b0c20a6e29c9b01, type: 3}
+      truePanorama: {fileID: 2800000, guid: 4ac5abd730c5f114eb2e78e0e803817d, type: 3}
   - scene: Manhattan
     decisionNumber: 4
     imageA: {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
@@ -69,36 +69,36 @@ MonoBehaviour:
     branches:
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
-      truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
-    - ifFalse: 1
-      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: d9cd43c2953633b4c96d2e2a91f6e062, type: 3}
       truePanorama: {fileID: 2800000, guid: 4ac5abd730c5f114eb2e78e0e803817d, type: 3}
     - ifFalse: 1
       ifTrue: 0
-      falsePanorama: {fileID: 2800000, guid: 88dffc875be22bc48816b89ee5d2a903, type: 3}
-      truePanorama: {fileID: 2800000, guid: 53a139b1017e5864ab36853db694ae30, type: 3}
-    - ifFalse: 0
-      ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
-      truePanorama: {fileID: 2800000, guid: 19a0f40b50d997d44943377a91b59d74, type: 3}
-    - ifFalse: 1
-      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
       truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
+    - ifFalse: 1
+      ifTrue: 0
+      falsePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
+      truePanorama: {fileID: 2800000, guid: 19a0f40b50d997d44943377a91b59d74, type: 3}
     - ifFalse: 0
       ifTrue: 1
+      falsePanorama: {fileID: 2800000, guid: 88dffc875be22bc48816b89ee5d2a903, type: 3}
+      truePanorama: {fileID: 2800000, guid: 53a139b1017e5864ab36853db694ae30, type: 3}
+    - ifFalse: 1
+      ifTrue: 0
       falsePanorama: {fileID: 2800000, guid: 68d18bfccb73816418f54b7bdc0bbc3b, type: 3}
       truePanorama: {fileID: 2800000, guid: c13e86aebacc0054297dd8c3c915bf9c, type: 3}
     - ifFalse: 0
       ifTrue: 1
-      falsePanorama: {fileID: 2800000, guid: 23df1c0491b0f6b4882ff4a22718bf11, type: 3}
-      truePanorama: {fileID: 2800000, guid: 6f743a055868891459bd6ede62bf36dd, type: 3}
-    - ifFalse: 1
-      ifTrue: 0
+      falsePanorama: {fileID: 2800000, guid: 0363fb6c5a455a1428587b3ba4b012e9, type: 3}
+      truePanorama: {fileID: 2800000, guid: e379b96c337f7464280757054c7398ad, type: 3}
+    - ifFalse: 0
+      ifTrue: 1
       falsePanorama: {fileID: 2800000, guid: 24f76780d5c8e8a418d90c44ec58a729, type: 3}
       truePanorama: {fileID: 2800000, guid: 2abd5944d727b034cb021a25225fbe8e, type: 3}
+    - ifFalse: 1
+      ifTrue: 0
+      falsePanorama: {fileID: 2800000, guid: 23df1c0491b0f6b4882ff4a22718bf11, type: 3}
+      truePanorama: {fileID: 2800000, guid: 6f743a055868891459bd6ede62bf36dd, type: 3}
   endings:
   - {fileID: 2800000, guid: 7c08299f0e924d47a9b398539c704d3e, type: 3}
   - {fileID: 2800000, guid: 93447f3fa5544087852633aadaf777be, type: 3}
