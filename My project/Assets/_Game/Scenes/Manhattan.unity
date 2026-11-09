@@ -4941,7 +4941,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7de6c1fbf282d9745987e52d51e972f2, type: 3}
+  m_Resource: {fileID: 8300000, guid: a73fec3f6836d224aaa85040e9fda0fb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13694,6 +13694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: HunJam.Runtime::HunJam.StoryLevelExit
   decisionNumber: 4
+  waitTimeOnTrue: 2
+  waitTimeOnFalse: 0
 --- !u!4 &1540895561
 Transform:
   m_ObjectHideFlags: 0
@@ -170797,7 +170799,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.022
+      value: 0.028
       objectReference: {fileID: 0}
     - target: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_LocalPosition.y
@@ -170805,7 +170807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483604037806951311, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.9200134
+      value: 4.22
       objectReference: {fileID: 0}
     - target: {fileID: 6833825331753730696, guid: 11c79248c31333d46bd2fc86a2392d95, type: 3}
       propertyPath: m_Size.x
@@ -170918,7 +170920,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 77ee84a7f80eaf343afd44bb36b63b24, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.718
   m_Pitch: 1
   Loop: 1
   Mute: 0
